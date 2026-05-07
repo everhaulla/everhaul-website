@@ -257,7 +257,106 @@ export default function Home() {
           </a>
         </div>
       </section>
+<section
+  style={{
+    padding: "90px 25px",
+    backgroundColor: "#f4f4f4",
+    textAlign: "center",
+  }}
+>
+  <p
+    style={{
+      color: "#7CFC00",
+      letterSpacing: "3px",
+      fontWeight: "bold",
+      marginBottom: "15px",
+    }}
+  >
+    WHAT WE DO
+  </p>
 
+  <h2
+    style={{
+      fontSize: "48px",
+      marginBottom: "20px",
+      color: "#111",
+    }}
+  >
+    Complete Junk Removal Solutions
+  </h2>
+
+  <p
+    style={{
+      color: "#666",
+      fontSize: "20px",
+      maxWidth: "800px",
+      margin: "0 auto 60px",
+      lineHeight: "1.6",
+    }}
+  >
+    Serving contractors, property managers, and homeowners across Los Angeles and the San Fernando Valley.
+  </p>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+      gap: "30px",
+      maxWidth: "1200px",
+      margin: "0 auto",
+    }}
+  >
+
+    <div style={{
+      background: "#fff",
+      padding: "35px",
+      borderRadius: "18px",
+      textAlign: "left",
+      boxShadow: "0 8px 25px rgba(0,0,0,0.06)"
+    }}>
+      <div style={{ fontSize: "42px", marginBottom: "20px" }}>🏗️</div>
+      <h3 style={{ fontSize: "28px", marginBottom: "15px", color: "#111" }}>
+        Construction Debris
+      </h3>
+      <p style={{ color: "#666", lineHeight: "1.7" }}>
+        Concrete, drywall, wood, tile, roofing, and demolition debris hauled away quickly and professionally.
+      </p>
+    </div>
+
+    <div style={{
+      background: "#fff",
+      padding: "35px",
+      borderRadius: "18px",
+      textAlign: "left",
+      boxShadow: "0 8px 25px rgba(0,0,0,0.06)"
+    }}>
+      <div style={{ fontSize: "42px", marginBottom: "20px" }}>🚛</div>
+      <h3 style={{ fontSize: "28px", marginBottom: "15px", color: "#111" }}>
+        Dump Truck Services
+      </h3>
+      <p style={{ color: "#666", lineHeight: "1.7" }}>
+        Heavy-duty hauling and dump truck solutions for contractors, builders, and large cleanup projects.
+      </p>
+    </div>
+
+    <div style={{
+      background: "#fff",
+      padding: "35px",
+      borderRadius: "18px",
+      textAlign: "left",
+      boxShadow: "0 8px 25px rgba(0,0,0,0.06)"
+    }}>
+      <div style={{ fontSize: "42px", marginBottom: "20px" }}>🏠</div>
+      <h3 style={{ fontSize: "28px", marginBottom: "15px", color: "#111" }}>
+        Residential Junk
+      </h3>
+      <p style={{ color: "#666", lineHeight: "1.7" }}>
+        Furniture, appliances, garage cleanouts, household junk, and same-day residential removal services.
+      </p>
+    </div>
+
+  </div>
+</section>
       {/* FOOTER */}
       <footer
         style={{
