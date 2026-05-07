@@ -1,377 +1,137 @@
 export default function Home() {
   return (
-    <main
-      style={{
-        fontFamily: "Arial, sans-serif",
-        margin: 0,
-        backgroundColor: "#f4f4f4",
-        color: "#222",
-      }}
-    >
-<header
-  style={{
-    position: "sticky",
-    top: 0,
-    zIndex: 999,
-    backgroundColor: "#1f1f1f",
-    borderBottom: "1px solid #333",
-    padding: "14px 22px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  }}
->
-  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-    <img
-      src="/everhaul-logo.png"
-      alt="Everhaul Logo"
-      style={{ width: "70px", height: "auto" }}
-    />
-    <strong style={{ color: "white", fontSize: "20px" }}>
-      Everhaul
-    </strong>
-  </div>
+    <section className="relative min-h-screen overflow-hidden bg-[#111315] text-white">
 
-  <a
-    href="tel:8185381072"
-    style={{
-      backgroundColor: "#7CFC00",
-      color: "#111",
-      padding: "12px 18px",
-      borderRadius: "8px",
-      textDecoration: "none",
-      fontWeight: "bold",
-      fontSize: "16px",
-    }}
-  >
-    Call Now
-  </a>
-</header>      
-{/* HERO */}
-      <section
-        style={{
-          background: "linear-gradient(to bottom, #1f1f1f, #2d2d2d)",
-          color: "white",
-          padding: "80px 20px",
-          textAlign: "center",
-        }}
-      >
+      {/* Background Image */}
+      <div className="absolute inset-0">
         <img
-          src="/everhaul-logo.png"
-          alt="Everhaul Logo"
-          style={{
-            width: "220px",
-            marginBottom: "30px",
-          }}
+          src="/everhaul-hero.jpg"
+          alt="Everhaul construction debris hauling"
+          className="h-full w-full object-cover scale-105"
         />
 
-        <h1
-          style={{
-            fontSize: "54px",
-            marginBottom: "20px",
-            lineHeight: "1.1",
-          }}
-        >
-          Los Angeles Junk Removal
-          <br />
-          & Hauling Services
-        </h1>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/70"></div>
 
-        <p
-          style={{
-            fontSize: "22px",
-            maxWidth: "850px",
-            margin: "0 auto",
-            color: "#d1d1d1",
-            lineHeight: "1.6",
-          }}
-        >
-          Fast, reliable junk removal, construction debris hauling,
-          dirt hauling, concrete disposal, and dump truck services
-          throughout Los Angeles and the San Fernando Valley.
-        </p>
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+      </div>
 
-        <div style={{ marginTop: "40px" }}>
-          <a
-            href="tel:8185381072"
-            style={{
-              backgroundColor: "#7CFC00",
-              color: "#111",
-              padding: "18px 34px",
-              borderRadius: "10px",
-              textDecoration: "none",
-              fontSize: "22px",
-              fontWeight: "bold",
-              boxShadow: "0 4px 15px rgba(124,252,0,0.35)",
-            }}
-          >
-            Call Now: (818) 538-1072
-          </a>
-        </div>
-      </section>
+      {/* Hero Content */}
+      <div className="relative z-10 flex min-h-screen items-center">
+        <div className="mx-auto w-full max-w-7xl px-6 py-24 lg:px-12">
 
-      {/* SERVICES */}
-      <section
-        style={{
-          padding: "70px 25px",
-          backgroundColor: "#f4f4f4",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "42px",
-            marginBottom: "50px",
-            color: "#222",
-          }}
-        >
-          Our Services
-        </h2>
+          <div className="max-w-3xl">
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "25px",
-            maxWidth: "1200px",
-            margin: "0 auto",
-          }}
-        >
-          {[
-            "Construction Debris Removal",
-            "Dirt & Concrete Hauling",
-            "Junk Removal",
-            "Garage Cleanouts",
-            "Yard Waste Removal",
-            "Dump Truck Services",
-          ].map((service) => (
-            <div
-              key={service}
-              style={{
-                backgroundColor: "white",
-                padding: "35px 25px",
-                borderRadius: "14px",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                borderTop: "5px solid #7CFC00",
-                fontWeight: "bold",
-                fontSize: "20px",
-              }}
-            >
-              {service}
+            {/* Small Badge */}
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#2bb673]/30 bg-[#2bb673]/10 px-4 py-2 backdrop-blur-sm">
+              <div className="h-2 w-2 rounded-full bg-[#2bb673] animate-pulse"></div>
+
+              <span className="text-sm font-medium tracking-wide text-gray-200">
+                Serving Los Angeles & The San Fernando Valley
+              </span>
             </div>
-          ))}
+
+            {/* Headline */}
+            <h1 className="text-5xl font-black leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
+              Professional{" "}
+              <span className="text-[#2bb673]">
+                Junk & Debris
+              </span>{" "}
+              Removal
+            </h1>
+
+            {/* Subheadline */}
+            <h2 className="mt-6 text-xl font-semibold tracking-wide text-gray-200 sm:text-2xl">
+              Family-Owned & Contractor-Trusted Across Los Angeles
+            </h2>
+
+            {/* Supporting Text */}
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-300">
+              Fast response times, dependable crews, and professional cleanup
+              services for homeowners, contractors, and property managers.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+
+              {/* Primary Button */}
+              <a
+                href="#quote"
+                className="group inline-flex items-center justify-center rounded-xl bg-[#2bb673] px-8 py-4 text-base font-semibold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(43,182,115,0.35)]"
+              >
+                Get a Free Quote
+
+                <svg
+                  className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+
+              {/* Secondary Button */}
+              <a
+                href="tel:+18185551234"
+                className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-[#2bb673]/40 hover:bg-white/10"
+              >
+                Call Now
+              </a>
+
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4">
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                <div className="mb-2 text-[#2bb673]">✓</div>
+
+                <p className="text-sm font-medium text-gray-200">
+                  Family-Owned
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                <div className="mb-2 text-[#2bb673]">✓</div>
+
+                <p className="text-sm font-medium text-gray-200">
+                  Licensed & Insured
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                <div className="mb-2 text-[#2bb673]">✓</div>
+
+                <p className="text-sm font-medium text-gray-200">
+                  Same-Day Service
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                <div className="mb-2 text-[#2bb673]">✓</div>
+
+                <p className="text-sm font-medium text-gray-200">
+                  Contractor Trusted
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
-      </section>
+      </div>
 
-      {/* WHY CHOOSE US */}
-      <section
-        style={{
-          backgroundColor: "#2b2b2b",
-          color: "white",
-          padding: "80px 25px",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "42px",
-            marginBottom: "30px",
-          }}
-        >
-          Why Choose Everhaul?
-        </h2>
+      {/* Bottom Fade */}
+      <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-[#111315] to-transparent"></div>
 
-        <p
-          style={{
-            maxWidth: "850px",
-            margin: "0 auto",
-            fontSize: "21px",
-            lineHeight: "1.8",
-            color: "#d1d1d1",
-          }}
-        >
-          Everhaul Solutions LLC provides professional junk removal
-          and hauling services for homeowners, contractors, businesses,
-          and property managers across Los Angeles.
-          We focus on fast response times, reliable service,
-          clean job sites, and affordable pricing.
-        </p>
-
-        <div
-          style={{
-            marginTop: "40px",
-            fontSize: "28px",
-            color: "#7CFC00",
-            fontWeight: "bold",
-          }}
-        >
-          ⭐ 5-Star Customer Service
-        </div>
-      </section>
-
-      {/* SERVICE AREAS */}
-      <section
-        style={{
-          padding: "70px 25px",
-          textAlign: "center",
-          backgroundColor: "white",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "40px",
-            marginBottom: "25px",
-          }}
-        >
-          Service Areas
-        </h2>
-
-        <p
-          style={{
-            fontSize: "21px",
-            color: "#555",
-            maxWidth: "850px",
-            margin: "0 auto",
-            lineHeight: "1.8",
-          }}
-        >
-          Proudly serving Los Angeles, San Fernando Valley,
-          North Hollywood, Van Nuys, Burbank, Arleta,
-          Glendale, Pasadena, and surrounding areas.
-        </p>
-
-        <div style={{ marginTop: "45px" }}>
-          <a
-            href="tel:8185381072"
-            style={{
-              backgroundColor: "#222",
-              color: "white",
-              padding: "18px 34px",
-              borderRadius: "10px",
-              textDecoration: "none",
-              fontSize: "22px",
-              fontWeight: "bold",
-            }}
-          >
-            Get a Free Quote
-          </a>
-        </div>
-      </section>
-<section
-  style={{
-    padding: "90px 25px",
-    backgroundColor: "#f4f4f4",
-    textAlign: "center",
-  }}
->
-  <p
-    style={{
-      color: "#7CFC00",
-      letterSpacing: "3px",
-      fontWeight: "bold",
-      marginBottom: "15px",
-    }}
-  >
-    WHAT WE DO
-  </p>
-
-  <h2
-    style={{
-      fontSize: "48px",
-      marginBottom: "20px",
-      color: "#111",
-    }}
-  >
-    Complete Junk Removal Solutions
-  </h2>
-
-  <p
-    style={{
-      color: "#666",
-      fontSize: "20px",
-      maxWidth: "800px",
-      margin: "0 auto 60px",
-      lineHeight: "1.6",
-    }}
-  >
-    Serving contractors, property managers, and homeowners across Los Angeles and the San Fernando Valley.
-  </p>
-
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-      gap: "30px",
-      maxWidth: "1200px",
-      margin: "0 auto",
-    }}
-  >
-
-    <div style={{
-      background: "#fff",
-      padding: "35px",
-      borderRadius: "18px",
-      textAlign: "left",
-      boxShadow: "0 8px 25px rgba(0,0,0,0.06)"
-    }}>
-      <div style={{ fontSize: "42px", marginBottom: "20px" }}>🏗️</div>
-      <h3 style={{ fontSize: "28px", marginBottom: "15px", color: "#111" }}>
-        Construction Debris
-      </h3>
-      <p style={{ color: "#666", lineHeight: "1.7" }}>
-        Concrete, drywall, wood, tile, roofing, and demolition debris hauled away quickly and professionally.
-      </p>
-    </div>
-
-    <div style={{
-      background: "#fff",
-      padding: "35px",
-      borderRadius: "18px",
-      textAlign: "left",
-      boxShadow: "0 8px 25px rgba(0,0,0,0.06)"
-    }}>
-      <div style={{ fontSize: "42px", marginBottom: "20px" }}>🚛</div>
-      <h3 style={{ fontSize: "28px", marginBottom: "15px", color: "#111" }}>
-        Dump Truck Services
-      </h3>
-      <p style={{ color: "#666", lineHeight: "1.7" }}>
-        Heavy-duty hauling and dump truck solutions for contractors, builders, and large cleanup projects.
-      </p>
-    </div>
-
-    <div style={{
-      background: "#fff",
-      padding: "35px",
-      borderRadius: "18px",
-      textAlign: "left",
-      boxShadow: "0 8px 25px rgba(0,0,0,0.06)"
-    }}>
-      <div style={{ fontSize: "42px", marginBottom: "20px" }}>🏠</div>
-      <h3 style={{ fontSize: "28px", marginBottom: "15px", color: "#111" }}>
-        Residential Junk
-      </h3>
-      <p style={{ color: "#666", lineHeight: "1.7" }}>
-        Furniture, appliances, garage cleanouts, household junk, and same-day residential removal services.
-      </p>
-    </div>
-
-  </div>
-</section>
-      {/* FOOTER */}
-      <footer
-        style={{
-          backgroundColor: "#111",
-          color: "#bbb",
-          textAlign: "center",
-          padding: "30px 20px",
-          fontSize: "16px",
-        }}
-      >
-        <p>© 2026 Everhaul Solutions LLC</p>
-        <p>
-          Junk Removal • Construction Debris • Dirt Hauling • Los Angeles
-        </p>
-      </footer>
-    </main>
+    </section>
   );
 }
