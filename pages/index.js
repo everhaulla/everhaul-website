@@ -18,11 +18,6 @@ export default function Home() {
       </div>
 
       {/* Hero Content */}
-     <!-- =========================
-EVERHAUL SERVICES SECTION
-Ready-to-paste HTML/CSS/JS
-========================= -->
-
 <section class="everhaul-services">
 
   <!-- Background Glow -->
