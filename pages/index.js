@@ -8,7 +8,46 @@ export default function Home() {
         color: "#222",
       }}
     >
-      {/* HERO */}
+<header
+  style={{
+    position: "sticky",
+    top: 0,
+    zIndex: 999,
+    backgroundColor: "#1f1f1f",
+    borderBottom: "1px solid #333",
+    padding: "14px 22px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  }}
+>
+  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+    <img
+      src="/everhaul-logo.png"
+      alt="Everhaul Logo"
+      style={{ width: "70px", height: "auto" }}
+    />
+    <strong style={{ color: "white", fontSize: "20px" }}>
+      Everhaul
+    </strong>
+  </div>
+
+  <a
+    href="tel:8185381072"
+    style={{
+      backgroundColor: "#7CFC00",
+      color: "#111",
+      padding: "12px 18px",
+      borderRadius: "8px",
+      textDecoration: "none",
+      fontWeight: "bold",
+      fontSize: "16px",
+    }}
+  >
+    Call Now
+  </a>
+</header>      
+{/* HERO */}
       <section
         style={{
           background: "linear-gradient(to bottom, #1f1f1f, #2d2d2d)",
