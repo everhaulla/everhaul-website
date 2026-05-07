@@ -1,121 +1,239 @@
 export default function Home() {
   return (
-    <main style={{ fontFamily: "Arial, sans-serif", margin: 0 }}>
-      <section style={{
-        background: "#111",
-        color: "white",
-        padding: "70px 25px",
-        textAlign: "center"
-      }}>
+    <main
+      style={{
+        fontFamily: "Arial, sans-serif",
+        margin: 0,
+        backgroundColor: "#f4f4f4",
+        color: "#222",
+      }}
+    >
+      {/* HERO */}
+      <section
+        style={{
+          background: "linear-gradient(to bottom, #1f1f1f, #2d2d2d)",
+          color: "white",
+          padding: "80px 20px",
+          textAlign: "center",
+        }}
+      >
         <img
           src="/everhaul-logo.png"
           alt="Everhaul Logo"
-          style={{ maxWidth: "260px", marginBottom: "25px" }}
+          style={{
+            width: "220px",
+            marginBottom: "30px",
+          }}
         />
 
-        <h1 style={{ fontSize: "48px", marginBottom: "15px" }}>
-          Everhaul Junk Removal
-        </h1>
-
-        <p style={{ fontSize: "22px", maxWidth: "750px", margin: "0 auto 30px" }}>
-          Professional junk removal, construction debris hauling, dirt hauling,
-          and dump truck services in Los Angeles.
-        </p>
-
-        <a
-          href="tel:8185381072"
+        <h1
           style={{
-            background: "#5bbd22",
-            color: "white",
-            padding: "16px 28px",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontSize: "20px",
-            fontWeight: "bold"
+            fontSize: "54px",
+            marginBottom: "20px",
+            lineHeight: "1.1",
           }}
         >
-          Call Now: (818) 538-1072
-        </a>
+          Los Angeles Junk Removal
+          <br />
+          & Hauling Services
+        </h1>
+
+        <p
+          style={{
+            fontSize: "22px",
+            maxWidth: "850px",
+            margin: "0 auto",
+            color: "#d1d1d1",
+            lineHeight: "1.6",
+          }}
+        >
+          Fast, reliable junk removal, construction debris hauling,
+          dirt hauling, concrete disposal, and dump truck services
+          throughout Los Angeles and the San Fernando Valley.
+        </p>
+
+        <div style={{ marginTop: "40px" }}>
+          <a
+            href="tel:8185381072"
+            style={{
+              backgroundColor: "#7CFC00",
+              color: "#111",
+              padding: "18px 34px",
+              borderRadius: "10px",
+              textDecoration: "none",
+              fontSize: "22px",
+              fontWeight: "bold",
+              boxShadow: "0 4px 15px rgba(124,252,0,0.35)",
+            }}
+          >
+            Call Now: (818) 538-1072
+          </a>
+        </div>
       </section>
 
-      <section style={{ padding: "50px 25px", textAlign: "center" }}>
-        <h2>Our Services</h2>
+      {/* SERVICES */}
+      <section
+        style={{
+          padding: "70px 25px",
+          backgroundColor: "#f4f4f4",
+          textAlign: "center",
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "42px",
+            marginBottom: "50px",
+            color: "#222",
+          }}
+        >
+          Our Services
+        </h2>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "20px",
-          maxWidth: "1000px",
-          margin: "30px auto"
-        }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "25px",
+            maxWidth: "1200px",
+            margin: "0 auto",
+          }}
+        >
           {[
             "Construction Debris Removal",
             "Dirt & Concrete Hauling",
             "Junk Removal",
             "Garage Cleanouts",
             "Yard Waste Removal",
-            "Dump Truck Services"
+            "Dump Truck Services",
           ].map((service) => (
-            <div key={service} style={{
-              border: "1px solid #ddd",
-              padding: "25px",
-              borderRadius: "10px",
-              fontWeight: "bold"
-            }}>
+            <div
+              key={service}
+              style={{
+                backgroundColor: "white",
+                padding: "35px 25px",
+                borderRadius: "14px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                borderTop: "5px solid #7CFC00",
+                fontWeight: "bold",
+                fontSize: "20px",
+              }}
+            >
               {service}
             </div>
           ))}
         </div>
       </section>
 
-      <section style={{
-        background: "#f5f5f5",
-        padding: "50px 25px",
-        textAlign: "center"
-      }}>
-        <h2>Why Choose Everhaul?</h2>
-        <p style={{ maxWidth: "800px", margin: "20px auto", fontSize: "18px" }}>
-          Everhaul Solutions LLC is a professional junk removal and hauling company
-          serving Los Angeles and surrounding areas. We are fast, reliable,
-          affordable, licensed, insured, and focused on customer satisfaction.
-        </p>
-
-        <p style={{ fontSize: "22px", fontWeight: "bold" }}>
-          ⭐ 5.0 Google Reviews
-        </p>
-      </section>
-
-      <section style={{ padding: "50px 25px", textAlign: "center" }}>
-        <h2>Serving Los Angeles & Surrounding Areas</h2>
-        <p>Los Angeles • San Fernando Valley • Arleta • North Hollywood • Van Nuys • Burbank</p>
-
-        <a
-          href="tel:8185381072"
+      {/* WHY CHOOSE US */}
+      <section
+        style={{
+          backgroundColor: "#2b2b2b",
+          color: "white",
+          padding: "80px 25px",
+          textAlign: "center",
+        }}
+      >
+        <h2
           style={{
-            display: "inline-block",
-            marginTop: "25px",
-            background: "#111",
-            color: "white",
-            padding: "16px 28px",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontSize: "20px",
-            fontWeight: "bold"
+            fontSize: "42px",
+            marginBottom: "30px",
           }}
         >
-          Get a Free Quote
-        </a>
+          Why Choose Everhaul?
+        </h2>
+
+        <p
+          style={{
+            maxWidth: "850px",
+            margin: "0 auto",
+            fontSize: "21px",
+            lineHeight: "1.8",
+            color: "#d1d1d1",
+          }}
+        >
+          Everhaul Solutions LLC provides professional junk removal
+          and hauling services for homeowners, contractors, businesses,
+          and property managers across Los Angeles.
+          We focus on fast response times, reliable service,
+          clean job sites, and affordable pricing.
+        </p>
+
+        <div
+          style={{
+            marginTop: "40px",
+            fontSize: "28px",
+            color: "#7CFC00",
+            fontWeight: "bold",
+          }}
+        >
+          ⭐ 5-Star Customer Service
+        </div>
       </section>
 
-      <footer style={{
-        background: "#111",
-        color: "white",
-        padding: "25px",
-        textAlign: "center"
-      }}>
+      {/* SERVICE AREAS */}
+      <section
+        style={{
+          padding: "70px 25px",
+          textAlign: "center",
+          backgroundColor: "white",
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "40px",
+            marginBottom: "25px",
+          }}
+        >
+          Service Areas
+        </h2>
+
+        <p
+          style={{
+            fontSize: "21px",
+            color: "#555",
+            maxWidth: "850px",
+            margin: "0 auto",
+            lineHeight: "1.8",
+          }}
+        >
+          Proudly serving Los Angeles, San Fernando Valley,
+          North Hollywood, Van Nuys, Burbank, Arleta,
+          Glendale, Pasadena, and surrounding areas.
+        </p>
+
+        <div style={{ marginTop: "45px" }}>
+          <a
+            href="tel:8185381072"
+            style={{
+              backgroundColor: "#222",
+              color: "white",
+              padding: "18px 34px",
+              borderRadius: "10px",
+              textDecoration: "none",
+              fontSize: "22px",
+              fontWeight: "bold",
+            }}
+          >
+            Get a Free Quote
+          </a>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer
+        style={{
+          backgroundColor: "#111",
+          color: "#bbb",
+          textAlign: "center",
+          padding: "30px 20px",
+          fontSize: "16px",
+        }}
+      >
         <p>© 2026 Everhaul Solutions LLC</p>
-        <p>Junk Removal • Construction Debris • Dirt Hauling • Los Angeles</p>
+        <p>
+          Junk Removal • Construction Debris • Dirt Hauling • Los Angeles
+        </p>
       </footer>
     </main>
-  )
+  );
 }
