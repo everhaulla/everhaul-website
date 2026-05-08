@@ -4,19 +4,17 @@ import ServicesSection from "../components/ServicesSection";
 import HomeSections from "../components/HomeSections";
 import Footer from "../components/Footer";
 export default function Home() {
-  return (
-    <>
-      <Head>
-        <title>Everhaul Solutions</title>
-      </Head>
+return (
+  <>
+    <Navbar />
 
-      <Navbar />
+    {/* Keep your existing hero exactly as-is */}
+    <HeroSection />
 
-      <HeroSection />
+    <ServicesSection />
 
-      <HomeSections />
+    <HomeSections />
 
-      <Footer />
-    </>
-  );
-}
+    <Footer />
+  </>
+);
