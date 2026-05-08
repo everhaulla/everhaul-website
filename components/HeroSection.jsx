@@ -1,43 +1,77 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Phone, ShieldCheck, Clock, Truck } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle,
+  Clock,
+  Phone,
+  ShieldCheck,
+  Truck,
+} from "lucide-react";
 
 const trustItems = [
-  { label: "Family-Owned", icon: ShieldCheck },
-  { label: "Licensed & Insured", icon: CheckCircle },
-  { label: "Same-Day Service", icon: Clock },
-  { label: "Contractor Trusted", icon: Truck },
+  {
+    label: "Family-Owned",
+    icon: ShieldCheck,
+  },
+  {
+    label: "Licensed & Insured",
+    icon: CheckCircle,
+  },
+  {
+    label: "Same-Day Service",
+    icon: Clock,
+  },
+  {
+    label: "Contractor Trusted",
+    icon: Truck,
+  },
 ];
 
 const stats = [
-  { value: "500+", label: "Projects Completed" },
-  { value: "Fast", label: "Response Times" },
-  { value: "Trusted", label: "By Contractors" },
-  { value: "Family", label: "Owned & Operated" },
+  {
+    value: "500+",
+    label: "Projects Completed",
+  },
+  {
+    value: "Fast",
+    label: "Response Times",
+  },
+  {
+    value: "Trusted",
+    label: "By Contractors",
+  },
+  {
+    value: "Family",
+    label: "Owned & Operated",
+  },
 ];
 
 export default function HeroSection() {
   return (
     <>
-      <section id="home" className="relative min-h-screen overflow-hidden bg-[#050705] text-white">
-        <div className="absolute inset-0 scale-105 bg-[url('/everhaul-hero.jpg')] bg-cover bg-center motion-safe:animate-slow-zoom" />
+      <section
+        id="home"
+        className="relative min-h-screen overflow-hidden bg-[#242329] text-white"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 scale-105 bg-[url('/everhaul-hero.jpg')] bg-cover bg-center opacity-40 animate-slow-zoom" />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/70 to-[#050705]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#242329]/85 via-[#242329]/75 to-[#1a1a1d]" />
 
-        <div className="absolute left-1/2 top-1/3 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-emerald-800/20 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 h-52 w-full bg-gradient-to-t from-[#050705] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#242329]/90 via-[#242329]/50 to-[#242329]/85" />
+        </div>
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-5 pb-24 pt-36 lg:px-8">
-          <div className="grid w-full items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="max-w-4xl"
-            >
-              <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-emerald-500/25 bg-white/[0.06] px-5 py-2.5 text-xs font-black uppercase tracking-[0.28em] text-emerald-300 backdrop-blur-xl">
+        {/* Ambient Lighting */}
+        <div className="absolute left-[-120px] top-[10%] h-[350px] w-[350px] rounded-full bg-[#57891d]/10 blur-3xl" />
+
+        <div className="absolute bottom-[-120px] right-[-120px] h-[350px] w-[350px] rounded-full bg-[#57891d]/10 blur-3xl" />
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 pb-24 pt-36 lg:px-8">
+          <div className="grid w-full items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+            {/* Left Side */}
+            <div className="max-w-4xl">
+              <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-[#57891d]/20 bg-white/[0.05] px-5 py-2.5 text-xs font-black uppercase tracking-[0.28em] text-[#8fbd55] backdrop-blur-xl">
                 Los Angeles Debris Removal
               </div>
 
@@ -45,98 +79,136 @@ export default function HeroSection() {
                 Professional Junk & Debris Removal
               </h1>
 
-              <p className="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-gray-200 sm:text-2xl">
+              <p className="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-white/70 sm:text-2xl">
                 Family-Owned & Contractor-Trusted Across Los Angeles
               </p>
 
+              {/* Buttons */}
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#quote"
-                  className="group rounded-2xl bg-emerald-700 px-8 py-4 text-center text-base font-black text-white shadow-2xl shadow-emerald-950/60 transition duration-300 hover:-translate-y-1 hover:bg-emerald-600"
+                  className="group inline-flex items-center justify-center rounded-2xl bg-[#57891d] px-8 py-4 text-base font-black text-white shadow-[0_20px_50px_rgba(87,137,29,0.25)] transition duration-300 hover:-translate-y-1 hover:bg-[#6aa823]"
                 >
                   Get a Free Quote
-                  <ArrowRight className="ml-2 inline-block transition group-hover:translate-x-1" size={18} />
+
+                  <ArrowRight
+                    className="ml-2 transition group-hover:translate-x-1"
+                    size={18}
+                  />
                 </a>
 
                 <a
-                  href="tel:+18185381072"
-                  className="rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-center text-base font-black text-white backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-500/70 hover:bg-white/15"
+                  href="tel:+18180000000"
+                  className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] px-8 py-4 text-base font-black text-white backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/40 hover:bg-white/[0.09]"
                 >
-                  <Phone className="mr-2 inline-block" size={18} />
+                  <Phone className="mr-2" size={18} />
                   Call Now
                 </a>
               </div>
 
+              {/* Trust Indicators */}
               <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {trustItems.map(({ label, icon: Icon }) => (
                   <div
                     key={label}
-                    className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#57891d] hover:bg-white/[0.09]"
+                    className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-xl shadow-black/10 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/30 hover:bg-white/[0.06]"
                   >
-                    <Icon className="mb-3 text-[#57891d]" size={22} />
-                    <p className="text-sm font-black text-white">{label}</p>
+                    <Icon className="mb-3 text-[#8fbd55]" size={22} />
+
+                    <p className="text-sm font-black text-white">
+                      {label}
+                    </p>
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 35 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
-              className="hidden lg:block"
-            >
+            {/* Right Side Premium Card */}
+            <div className="hidden lg:block">
               <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#2b2a31]/90 p-7 shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-md">
+                {/* Layered Background */}
+                <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]" />
 
-  <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]" />
+                {/* Top Accent Line */}
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#57891d]/45 to-transparent" />
 
-  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#57891d]/45 to-transparent" />
+                {/* Ambient Glow */}
+                <div className="absolute right-[-80px] top-[-80px] h-48 w-48 rounded-full bg-[#57891d]/10 blur-3xl" />
 
-  <div className="absolute right-[-80px] top-[-80px] h-48 w-48 rounded-full bg-[#57891d]/10 blur-3xl" />
+                {/* Card Content */}
+                <div className="relative z-10">
+                  <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#8fbd55]">
+                    Built For Jobsites
+                  </p>
 
-  <div className="relative z-10">
-    </div>
-</div>
-                <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
-                  Built For Jobsites
-                </p>
+                  <h2 className="mt-4 text-3xl font-black tracking-tight text-white">
+                    Fast debris hauling for contractors, cleanouts, and heavy-load jobs.
+                  </h2>
 
-                <h2 className="mt-4 text-3xl font-black tracking-tight">
-                  Fast debris hauling for contractors, cleanouts, and heavy-load jobs.
-                </h2>
+                  <div className="mt-8 space-y-5">
+                    {[
+                      "Construction debris removal",
+                      "Concrete, dirt & heavy material hauling",
+                      "Garage and property cleanouts",
+                    ].map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-center gap-3 text-white/75"
+                      >
+                        <CheckCircle
+                          className="text-[#8fbd55]"
+                          size={20}
+                        />
 
-                <div className="mt-8 space-y-4">
-                  {["Construction debris", "Concrete, dirt & heavy material", "Garage & property cleanouts"].map((item) => (
-                    <div key={item} className="flex items-center gap-3 text-gray-200">
-                      <CheckCircle className="text-[#57891d]" size={20} />
-                      <span className="font-semibold">{item}</span>
-                    </div>
-                  ))}
+                        <span className="font-semibold">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-16 skew-y-[-2deg] bg-[#08100b] origin-left" />
+        {/* Bottom Divider */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-[#1b1a1a]" />
       </section>
 
-      <section className="relative bg-[#08100b] px-5 py-10 text-white lg:px-8">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl md:grid-cols-4">
+      {/* Stats Section */}
+      <section className="relative bg-[#1b1a1a] px-6 py-10 text-white lg:px-8">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20 backdrop-blur-xl md:grid-cols-4">
           {stats.map((stat) => (
-            <div key={stat.label} className="rounded-2xl border border-white/10 bg-[#242329] p-5 text-center">
-              <p className="text-2xl font-black text-white">{stat.value}</p>
-              <p className="mt-1 text-sm font-semibold text-gray-400">{stat.label}</p>
+            <div
+              key={stat.label}
+              className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center transition duration-300 hover:border-[#57891d]/30 hover:bg-white/[0.05]"
+            >
+              <p className="text-2xl font-black text-white">
+                {stat.value}
+              </p>
+
+              <p className="mt-1 text-sm font-semibold text-white/55">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      <div className="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-2 gap-2 border-t border-white/10 bg-black/90 p-3 backdrop-blur-xl sm:hidden">
-        <a href="tel:+18180000000" className="rounded-xl border border-white/15 py-3 text-center text-sm font-black text-white">
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-2 gap-2 border-t border-white/10 bg-[#242329]/95 p-3 backdrop-blur-xl sm:hidden">
+        <a
+          href="tel:+18180000000"
+          className="rounded-xl border border-white/10 bg-white/[0.05] py-3 text-center text-sm font-black text-white"
+        >
           Call Now
         </a>
-        <a href="#quote" className="rounded-xl bg-[#57891d] py-3 text-center text-sm font-black text-white">
+
+        <a
+          href="#quote"
+          className="rounded-xl bg-[#57891d] py-3 text-center text-sm font-black text-white"
+        >
           Get Quote
         </a>
       </div>
