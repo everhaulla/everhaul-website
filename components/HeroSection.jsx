@@ -134,7 +134,7 @@ export default function HeroSection() {
       </section>
 
       <div className="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-2 gap-2 border-t border-white/10 bg-[#242329]/95 p-3 backdrop-blur-xl sm:hidden">
-        <a href="tel:+18180000000" className="rounded-xl border border-white/10 bg-white/[0.05] py-3 text-center text-sm font-black text-white">
+        <a href="tel:+18185381072" className="rounded-xl border border-white/10 bg-white/[0.05] py-3 text-center text-sm font-black text-white">
           Call Now
         </a>
         <a href="#quote" className="rounded-xl bg-[#57891d] py-3 text-center text-sm font-black text-white">
