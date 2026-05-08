@@ -1,22 +1,24 @@
+import Head from "next/head";
+
 import Navbar from "../components/Navbar";
+import HeroSection from "../components/HeroSection";
 import HomeSections from "../components/HomeSections";
 import Footer from "../components/Footer";
-import Head from "next/head";
-import HeroSection from "../components/HeroSection";
 
 export default function Home() {
- return (
-  <>
-    <Navbar />
+  return (
+    <>
+      <Head>
+        <title>Everhaul Solutions</title>
+      </Head>
 
-    {/* KEEP your existing hero section */}
-    <HeroSection />
+      <Navbar />
 
-    {/* New homepage sections */}
-    <HomeSections />
+      <HeroSection />
 
-    {/* Footer */}
-    <Footer />
-  </>
-);
-   
+      <HomeSections />
+
+      <Footer />
+    </>
+  );
+}
