@@ -71,9 +71,9 @@ export default function HeroSection() {
                 {trustItems.map(({ label, icon: Icon }) => (
                   <div
                     key={label}
-                    className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-500/50 hover:bg-white/[0.09]"
+                    className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#57891d] hover:bg-white/[0.09]"
                   >
-                    <Icon className="mb-3 text-emerald-400" size={22} />
+                    <Icon className="mb-3 text-[#57891d]" size={22} />
                     <p className="text-sm font-black text-white">{label}</p>
                   </div>
                 ))}
@@ -87,7 +87,7 @@ export default function HeroSection() {
               className="hidden lg:block"
             >
               <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl backdrop-blur-xl">
-                <div className="absolute -inset-1 -z-10 rounded-[2rem] bg-gradient-to-br from-emerald-700/30 to-transparent blur-xl" />
+                <div className="absolute -inset-1 -z-10 rounded-[2rem] bg-gradient-to-br from-[#57891d] to-transparent blur-xl" />
 
                 <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
                   Built For Jobsites
@@ -100,7 +100,7 @@ export default function HeroSection() {
                 <div className="mt-8 space-y-4">
                   {["Construction debris", "Concrete, dirt & heavy material", "Garage & property cleanouts"].map((item) => (
                     <div key={item} className="flex items-center gap-3 text-gray-200">
-                      <CheckCircle className="text-emerald-400" size={20} />
+                      <CheckCircle className="text-[#57891d]" size={20} />
                       <span className="font-semibold">{item}</span>
                     </div>
                   ))}
@@ -116,7 +116,7 @@ export default function HeroSection() {
       <section className="relative bg-[#08100b] px-5 py-10 text-white lg:px-8">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl md:grid-cols-4">
           {stats.map((stat) => (
-            <div key={stat.label} className="rounded-2xl border border-white/10 bg-black/20 p-5 text-center">
+            <div key={stat.label} className="rounded-2xl border border-white/10 bg-[#242329] p-5 text-center">
               <p className="text-2xl font-black text-white">{stat.value}</p>
               <p className="mt-1 text-sm font-semibold text-gray-400">{stat.label}</p>
             </div>
@@ -128,7 +128,7 @@ export default function HeroSection() {
         <a href="tel:+18180000000" className="rounded-xl border border-white/15 py-3 text-center text-sm font-black text-white">
           Call Now
         </a>
-        <a href="#quote" className="rounded-xl bg-emerald-700 py-3 text-center text-sm font-black text-white">
+        <a href="#quote" className="rounded-xl bg-[#57891d] py-3 text-center text-sm font-black text-white">
           Get Quote
         </a>
       </div>
