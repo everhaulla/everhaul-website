@@ -29,11 +29,11 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-        <a href="#home" className="flex items-center gap-3.5 shrink-0">
+        <a href="#home" className="flex items-center gap-6 shrink-0"
   <img
     src="/logo.png"
     alt="Everhaul Solutions"
-   className="h-14 w-auto object-contain drop-shadow-lg sm:h-16"
+   className="h-24 w-auto scale-[1.55] object-contain drop-shadow-lg origin-left sm:h-24"
   />
 
   <span className="hidden whitespace-nowrap text-sm font-extrabold tracking-wide text-white/90 sm:inline lg:text-base">
