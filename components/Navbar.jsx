@@ -29,12 +29,17 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-        <a href="#home" className="flex items-center gap-3">
-          <img
-            src="/logo.png"
-            alt="Everhaul Solutions"
-            className="h-12 w-auto object-contain drop-shadow-lg"
-          />
+        <a href="#home" className="flex items-center gap-3.5 shrink-0">
+  <img
+    src="/logo.png"
+    alt="Everhaul Solutions"
+    className="h-14 w-auto object-contain drop-shadow-lg sm:h-16"
+  />
+
+  <span className="hidden whitespace-nowrap text-sm font-extrabold tracking-wide text-white/90 sm:inline lg:text-base">
+    <span className="text-[#8fbd55]">Everhaul</span>{" "}
+    Solutions LLC
+  </span>
         </a>
 
         <div className="hidden items-center gap-8 lg:flex">
