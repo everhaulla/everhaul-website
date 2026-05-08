@@ -31,7 +31,7 @@ export default function Footer() {
 
           <p className="mt-4 text-sm leading-7 text-white/60">
             Los Angeles, CA<br />
-            <a href="tel:+18180000000" className="hover:text-white">
+            <a href="tel:+18185381072" className="hover:text-white">
               Call Now
             </a>
           </p>
