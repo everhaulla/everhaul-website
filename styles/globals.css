@@ -240,3 +240,39 @@ html {
   border-color: rgba(87, 137, 29, 0.55);
   background: rgba(255, 255, 255, 0.12);
 }
+.section-dark {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(87, 137, 29, 0.14), transparent 34%),
+    linear-gradient(180deg, #1b1a1a 0%, #242329 52%, #1b1a1a 100%);
+}
+
+.section-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.035), transparent 18%),
+    radial-gradient(circle at 82% 12%, rgba(87,137,29,0.1), transparent 28%);
+}
+
+.premium-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.018));
+  opacity: 0.85;
+}
+
+.premium-card > * {
+  position: relative;
+  z-index: 1;
+}
