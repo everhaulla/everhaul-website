@@ -33,7 +33,7 @@ export default function Navbar() {
   <img
     src="/logo.png"
     alt="Everhaul Solutions"
-    className="h-16 w-auto object-contain drop-shadow-lg sm:h-20 lg:h-24"
+   className="h-14 w-auto object-contain drop-shadow-lg sm:h-16"
   />
 
   <span className="hidden whitespace-nowrap text-sm font-extrabold tracking-wide text-white/90 sm:inline lg:text-base">
