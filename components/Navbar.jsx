@@ -16,7 +16,6 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     handleScroll();
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -26,7 +25,7 @@ export default function Navbar() {
       className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
         scrolled
           ? "border-b border-white/10 bg-[#242329]/90 shadow-2xl backdrop-blur-xl"
-          : "bg-transparent"
+          : "bg-[#242329]/35 backdrop-blur-sm"
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
@@ -34,7 +33,7 @@ export default function Navbar() {
           <img
             src="/logo.png"
             alt="Everhaul Solutions"
-            className="h-11 w-auto object-contain"
+            className="h-12 w-auto object-contain drop-shadow-lg"
           />
         </a>
 
@@ -52,14 +51,14 @@ export default function Navbar() {
 
         <a
           href="#quote"
-          className="hidden rounded-full bg-[#57891d] px-6 py-3 text-sm font-black text-white shadow-lg shadow-black/30 transition hover:-translate-y-0.5 hover:bg-[#6aa823] lg:block"
+          className="hidden rounded-full bg-[#57891d] px-6 py-3 text-sm font-black text-white shadow-lg shadow-[#57891d]/20 transition hover:-translate-y-0.5 hover:bg-[#6aa823] lg:block"
         >
           Get Quote
         </a>
 
         <button
           onClick={() => setOpen(!open)}
-          className="rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-white lg:hidden"
+          className="rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white lg:hidden"
         >
           {open ? "Close" : "Menu"}
         </button>
