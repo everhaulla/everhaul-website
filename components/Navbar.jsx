@@ -29,18 +29,18 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-        <a href="#home" className="flex items-center gap-6 shrink-0"
+        <a href="#home" className="flex items-center gap-6 shrink-0">
   <img
     src="/logo.png"
     alt="Everhaul Solutions"
-   className="h-24 w-auto scale-[1.55] object-contain drop-shadow-lg origin-left sm:h-24"
+    className="h-12 w-auto scale-[1.55] origin-left object-contain drop-shadow-lg"
   />
 
   <span className="hidden whitespace-nowrap text-sm font-extrabold tracking-wide text-white/90 sm:inline lg:text-base">
     <span className="text-[#8fbd55]">Everhaul</span>{" "}
     Solutions LLC
   </span>
-        </a>
+</a>
 
         <div className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
