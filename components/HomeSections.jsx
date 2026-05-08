@@ -103,7 +103,7 @@ export default function HomeSections() {
                 Get a Free Quote
               </a>
 
-              <a href="tel:+18180000000" className="btn-secondary">
+              <a href="tel:+18185381072" className="btn-secondary">
                 Call Now
               </a>
             </div>
