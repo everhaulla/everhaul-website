@@ -26,8 +26,8 @@ export default function HeroSection() {
     <>
       <section id="home" className="relative min-h-screen overflow-hidden bg-[#242329] text-white">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('/everhaul-hero.jpg')] bg-cover bg-[center_right] opacity-[0.68]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#242329] via-[#242329]/70 to-[#242329]/20" />
+          <div className="absolute inset-0 bg-[url('/everhaul-hero.jpg')] bg-cover bg-[center_right] opacity-[0.78]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#242329]/92 via-[#242329]/52 to-[#242329]/10" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#242329]/80 via-[#242329]/55 to-[#1b1a1a]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_45%,rgba(87,137,29,0.16),transparent_34%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(0,0,0,0.45),transparent_38%)]" />
