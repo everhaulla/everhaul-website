@@ -131,3 +131,112 @@ html {
   border-color: rgba(87, 137, 29, 0.55);
   background: rgba(255, 255, 255, 0.12);
 }
+html {
+  scroll-behavior: smooth;
+}
+
+.section-dark {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(87, 137, 29, 0.16), transparent 34%),
+    linear-gradient(180deg, #242329 0%, #1b1a1a 100%);
+  padding: 7rem 1.25rem;
+  color: white;
+}
+
+.section-black {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at bottom right, rgba(87, 137, 29, 0.1), transparent 32%),
+    linear-gradient(180deg, #1b1a1a 0%, #242329 100%);
+  padding: 7rem 1.25rem;
+  color: white;
+}
+
+.container-premium {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.eyebrow {
+  color: #8fbd55;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin-top: 1rem;
+  max-width: 52rem;
+  color: white;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  font-weight: 950;
+}
+
+.premium-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+  transition:
+    transform 250ms ease,
+    border-color 250ms ease,
+    background 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(87, 137, 29, 0.5);
+  background:
+    linear-gradient(145deg, rgba(87, 137, 29, 0.12), rgba(255, 255, 255, 0.045));
+  box-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.32),
+    0 0 35px rgba(87, 137, 29, 0.08);
+}
+
+.btn-primary {
+  display: inline-flex;
+  justify-content: center;
+  border-radius: 999px;
+  background: #57891d;
+  padding: 1rem 1.75rem;
+  color: white;
+  font-weight: 900;
+  box-shadow: 0 20px 50px rgba(87, 137, 29, 0.22);
+  transition: transform 250ms ease, background 250ms ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  background: #6aa823;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem 1.75rem;
+  color: white;
+  font-weight: 900;
+  transition:
+    transform 250ms ease,
+    background 250ms ease,
+    border-color 250ms ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  border-color: rgba(87, 137, 29, 0.55);
+  background: rgba(255, 255, 255, 0.12);
+}
