@@ -59,7 +59,7 @@ export default function HeroSection() {
                 </a>
 
                 <a
-                  href="tel:+18180000000"
+                  href="tel:+18185381072"
                   className="rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-center text-base font-black text-white backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-500/70 hover:bg-white/15"
                 >
                   <Phone className="mr-2 inline-block" size={18} />
@@ -86,9 +86,17 @@ export default function HeroSection() {
               transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
               className="hidden lg:block"
             >
-              <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl backdrop-blur-xl">
-                <div className="absolute -inset-1 -z-10 rounded-[2rem] bg-gradient-to-br from-[#57891d] to-transparent blur-xl" />
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#2b2a31]/90 p-7 shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-md">
 
+  <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]" />
+
+  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#57891d]/45 to-transparent" />
+
+  <div className="absolute right-[-80px] top-[-80px] h-48 w-48 rounded-full bg-[#57891d]/10 blur-3xl" />
+
+  <div className="relative z-10">
+    </div>
+</div>
                 <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
                   Built For Jobsites
                 </p>
