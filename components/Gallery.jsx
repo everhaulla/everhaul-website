@@ -1,30 +1,37 @@
-const reviews = [
-  "We reached out late Friday afternoon and they were at our house Saturday morning. Quick response, professional service, and the whole process was smooth from start to finish.",
-  "Called in the morning and they came out the same day. Cleared a full garage in under an hour. The price was exactly what they quoted. Highly recommend.",
-  "Super easy to work with. They showed up on time, gave a fair quote, and cleared everything out fast. Definitely calling again.",
+const galleryImages = [
+  "/gallery/job-1.jpg",
+  "/gallery/job-2.jpg",
+  "/gallery/job-3.jpg",
 ];
 
-export default function Testimonials() {
+export default function Gallery() {
   return (
-    <section id="testimonials" className="section-dark">
+    <section id="gallery" className="section-black">
       <div className="container-premium">
-        <p className="eyebrow">Customer Reviews</p>
+        <p className="eyebrow">Project Gallery</p>
 
         <h2 className="section-title">
-          Fast, reliable service customers can trust.
+          Real jobs. Real cleanup. Real results.
         </h2>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {reviews.map((review, index) => (
-            <article key={index} className="premium-card">
-              <p className="text-base tracking-[0.22em] text-[#8fbd55]">
-                ★★★★★
-              </p>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryImages.map((image, index) => (
+            <div
+              key={image}
+              className="group relative aspect-[4/3] overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/25"
+            >
+              <img
+                src={image}
+                alt={`Everhaul jobsite cleanup ${index + 1}`}
+                className="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105 group-hover:opacity-95"
+              />
 
-              <p className="mt-5 text-base font-semibold leading-7 text-white/78">
-                “{review}”
-              </p>
-            </article>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#242329]/75 via-transparent to-transparent" />
+
+              <div className="absolute bottom-4 left-4 rounded-full border border-white/10 bg-[#242329]/70 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white/80 backdrop-blur-md">
+                Job Photo
+              </div>
+            </div>
           ))}
         </div>
       </div>
