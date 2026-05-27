@@ -1,10 +1,10 @@
-import Testimonials from "../components/Testimonials";
-import Gallery from "../components/Gallery";
-import Footer from "../components/Footer";
 import Head from "next/head";
+
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import ServicesSection from "../components/ServicesSection";
+import Gallery from "../components/Gallery";
+import Testimonials from "../components/Testimonials";
 import HomeSections from "../components/HomeSections";
 import Footer from "../components/Footer";
 
@@ -12,7 +12,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Everhaul Solutions | Junk & Debris Removal Los Angeles</title>
+        <title>
+          Everhaul Solutions | Junk & Debris Removal Los Angeles
+        </title>
+
         <meta
           name="description"
           content="Everhaul Solutions provides professional junk removal, construction debris removal, dirt and concrete hauling, appliance removal, garage cleanouts, and jobsite cleanup across Los Angeles."
@@ -20,9 +23,17 @@ export default function Home() {
       </Head>
 
       <Navbar />
+
       <HeroSection />
+
       <ServicesSection />
+
+      <Gallery />
+
+      <Testimonials />
+
       <HomeSections />
+
       <Footer />
     </>
   );
