@@ -9,7 +9,7 @@ export default function QuoteSection() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    await fetch("PASTE_YOUR_FORMSPREE_ENDPOINT_HERE", {
+    await fetch("https://formspree.io/f/xwvzzbeo", {
       method: "POST",
       body: data,
       headers: {
