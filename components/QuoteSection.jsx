@@ -43,9 +43,10 @@ export default function QuoteSection() {
         </div>
 
         <form
-          onSubmit={handleSubmit}
-          className="premium-card grid gap-4"
-          encType="multipart/form-data"
+          action="PASTE_YOUR_FORMSPREE_ENDPOINT_HERE"
+  method="POST"
+  encType="multipart/form-data"
+  className="premium-card grid gap-4"
         >
           {submitted && (
             <div className="rounded-2xl border border-[#57891d]/30 bg-[#57891d]/15 p-4 text-sm font-bold text-white">
