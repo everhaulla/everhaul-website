@@ -23,7 +23,7 @@ export default function QuoteSection() {
 
         {/* Quote Form */}
         <form
-          action="PASTE_YOUR_FORMSPREE_ENDPOINT_HERE"
+          action="https://formspree.io/f/xwvzzbeo"
           method="POST"
           encType="multipart/form-data"
           className="premium-card grid gap-4"
