@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import ServicesSection from "../components/ServicesSection";
+import WhyUs from "../components/WhyUs";
 import Gallery from "../components/Gallery";
 import BeforeAfterSection from "../components/BeforeAfterSection";
 import Testimonials from "../components/Testimonials";
@@ -13,16 +14,17 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Everhaul Solutions | Junk & Debris Removal Los Angeles</title>
+        <title>Everhaul Solutions | Junk Removal & Debris Hauling Los Angeles</title>
         <meta
           name="description"
-          content="Family-owned junk removal, construction debris hauling, cleanouts, and jobsite cleanup services across the San Fernando Valley, Burbank, Glendale, Pasadena, and most of Los Angeles."
+          content="Licensed and insured, family-owned junk removal and debris hauling company serving the San Fernando Valley, Burbank, Glendale, Pasadena, and most of Los Angeles."
         />
       </Head>
 
       <Navbar />
       <HeroSection />
       <ServicesSection />
+      <WhyUs />
       <Gallery />
       <BeforeAfterSection />
       <Testimonials />
