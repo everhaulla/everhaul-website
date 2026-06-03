@@ -8,9 +8,9 @@ const reasons = [
 ];
 
 const photos = [
-  "/gallery/job-1.jpg",
-  "/gallery/job-2.jpg",
-  "/gallery/job-3.jpg",
+  "/company/truck-jobsite.jpg",
+  "/company/truck-dumping.jpg",
+  "/company/dad-working.jpg",
 ];
 
 export default function WhyUs() {
