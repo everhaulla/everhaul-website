@@ -1,5 +1,9 @@
-import "../styles/globals.css";
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18352022232"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
-}
+  gtag('config', 'AW-18352022232');
+</script>
