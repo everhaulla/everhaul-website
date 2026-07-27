@@ -2,7 +2,7 @@ const reasons = [
   ["Licensed & Insured", "Protection and peace of mind on every project."],
   ["Family-Owned", "Local ownership with accountability and personal service."],
   ["Fast Response Times", "Most calls and quote requests receive a response within an hour."],
-  ["100+ Projects Completed", "Trusted experience across Los Angeles."],
+  ["500+ Projects Completed", "Trusted experience across Los Angeles."],
   ["Trusted Throughout Los Angeles", "Serving homeowners, contractors, and property managers."],
   ["Professional & Reliable", "Clear communication, dependable scheduling, and quality service."],
 ];
