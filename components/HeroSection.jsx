@@ -15,7 +15,7 @@ const trustItems = [
   { label: "Licensed & Insured", icon: ShieldCheck },
   { label: "Family-Owned", icon: CheckCircle },
   { label: "Fast Response Times", icon: Clock },
-  { label: "100+ Projects Completed", icon: Truck },
+  { label: "500+ Projects Completed", icon: Truck },
 ];
 
 const stats = [
