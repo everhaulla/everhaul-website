@@ -19,7 +19,7 @@ const trustItems = [
 ];
 
 const stats = [
-  { value: "100+", label: "Projects Completed" },
+  { value: "500+", label: "Projects Completed" },
   { value: "Fast", label: "Response Times" },
   { value: "Trusted", label: "By Contractors" },
   { value: "Family", label: "Owned & Operated" },
