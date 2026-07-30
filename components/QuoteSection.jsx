@@ -1,30 +1,71 @@
 import { useState } from "react";
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xwvzzbeo";
+
 const phoneDisplay = "(818) 538-1072";
 const phoneHref = "tel:+18185381072";
-const textHref =
-  "sms:+18185381072?&body=Hi%20Everhaul%2C%20I%E2%80%99d%20like%20a%20quote.%20I%E2%80%99ve%20attached%20photos%20of%20my%20project.";
+
+const textMessage =
+  "Hi Everhaul, I'd like a quote. I've attached photos of my project.";
+
+const textHref = `sms:+18185381072?&body=${encodeURIComponent(textMessage)}`;
 
 export default function QuoteSection() {
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
 
+    if (isSubmitting) return;
+
     const form = event.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
 
-    const response = await fetch("https://formspree.io/f/xwvzzbeo", {
-      method: "POST",
-      body: data,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    setIsSubmitting(true);
+    setFormError("");
 
-    if (response.ok) {
-      setSubmitted(true);
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        let message =
+          "We could not submit your request. Please try again or contact us directly.";
+
+        try {
+          const result = await response.json();
+
+          if (Array.isArray(result.errors) && result.errors.length > 0) {
+            message = result.errors
+              .map((error) => error.message)
+              .filter(Boolean)
+              .join(" ");
+          }
+        } catch {
+          // Keep the default error message when Formspree returns no JSON.
+        }
+
+        throw new Error(message);
+      }
+
       form.reset();
+
+      // Redirect only after Formspree confirms a successful submission.
+      window.location.assign("/thank-you");
+    } catch (error) {
+      setFormError(
+        error instanceof Error
+          ? error.message
+          : "We could not submit your request. Please try again."
+      );
+
+      setIsSubmitting(false);
     }
   }
 
@@ -32,6 +73,7 @@ export default function QuoteSection() {
     <section id="quote" className="section-dark">
       <div className="container-premium">
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          {/* Existing quote information */}
           <div className="premium-card">
             <p className="eyebrow">Free Estimate</p>
 
@@ -67,10 +109,14 @@ export default function QuoteSection() {
               <div className="mt-4 space-y-2 text-white/70">
                 <p>
                   Phone:{" "}
-                  <a href={phoneHref} className="font-bold text-white hover:text-[#8fbd55]">
+                  <a
+                    href={phoneHref}
+                    className="font-bold text-white hover:text-[#8fbd55]"
+                  >
                     {phoneDisplay}
                   </a>
                 </p>
+
                 <p>
                   Email:{" "}
                   <a
@@ -83,48 +129,59 @@ export default function QuoteSection() {
               </div>
             </div>
 
-            <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-[#8fbd55]">
-                Service Areas
-              </p>
-
-              <p className="mt-3 text-sm leading-7 text-white/65">
-                San Fernando Valley • Burbank • Glendale • Pasadena • Most of
-                Los Angeles
-              </p>
-            </div>
-
             <a href={textHref} className="btn-primary mt-6 w-full">
               Text Photos For A Faster Estimate
             </a>
           </div>
 
+          {/* Existing Formspree form */}
           <form onSubmit={handleSubmit} className="premium-card grid gap-4">
-            {submitted && (
-              <div className="rounded-2xl border border-[#57891d]/35 bg-[#57891d]/15 p-4 text-sm font-bold text-white">
-                Thank you for contacting Everhaul Solutions. We received your
-                request and will contact you shortly.
+            {formError && (
+              <div
+                role="alert"
+                className="rounded-2xl border border-red-400/30 bg-red-400/10 p-4 text-sm font-bold text-white"
+              >
+                {formError}
               </div>
             )}
 
-            <input className="form-input" name="name" required placeholder="Name" />
+            <input
+              className="form-input"
+              type="text"
+              name="name"
+              autoComplete="name"
+              placeholder="Name"
+              required
+            />
 
             <input
               className="form-input"
+              type="tel"
               name="phone"
-              required
+              autoComplete="tel"
               placeholder="Phone Number"
+              required
             />
 
             <input
               className="form-input"
+              type="text"
               name="zip"
-              required
+              inputMode="numeric"
+              autoComplete="postal-code"
               placeholder="Project ZIP Code"
+              required
             />
 
-            <select className="form-input" name="preferred_contact_method">
-              <option value="">Preferred Contact Method</option>
+            <select
+              className="form-input"
+              name="preferred_contact_method"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Preferred Contact Method
+              </option>
+
               <option value="Call">Call</option>
               <option value="Text">Text</option>
             </select>
@@ -135,8 +192,12 @@ export default function QuoteSection() {
               placeholder="Additional Details"
             />
 
-            <button type="submit" className="btn-primary w-full">
-              Request Quote
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isSubmitting ? "Submitting..." : "Request Quote"}
             </button>
           </form>
         </div>
