@@ -1,6 +1,9 @@
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
 const PHONE_DISPLAY = "(818) 538-1072";
 const PHONE_LINK = "tel:+18185381072";
 
@@ -9,93 +12,144 @@ const TEXT_MESSAGE =
 
 const TEXT_LINK = `sms:+18185381072?&body=${encodeURIComponent(TEXT_MESSAGE)}`;
 
+/*
+  Your truck should be stored here:
+
+  public/pricing/truck.png
+
+  If your actual filename is different, change only this path.
+*/
+const TRUCK_IMAGE = "/pricing/truck.png";
+
+const loadLevels = ["¼ Load", "½ Load", "¾ Load", "Full Load"];
+
 const pricingFactors = [
-  "Volume of material",
-  "Material type",
-  "Weight",
-  "Accessibility",
-  "Labor required",
-  "Disposal costs",
+  {
+    title: "Volume",
+    description: "The amount of space your project occupies.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 7h16v10H4zM8 4v3M16 4v3M8 17v3M16 17v3" />
+      </svg>
+    ),
+  },
+  {
+    title: "Material Type",
+    description:
+      "Different materials require different handling and disposal methods.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m12 3 8 4-8 4-8-4 8-4Zm-8 8 8 4 8-4M4 15l8 4 8-4" />
+      </svg>
+    ),
+  },
+  {
+    title: "Accessibility",
+    description:
+      "Stairs, elevators, long carry distances, and other site conditions may affect the labor required.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 20h4v-4h4v-4h4V8h4M5 6h5M5 6v5" />
+      </svg>
+    ),
+  },
+  {
+    title: "Labor Required",
+    description:
+      "Projects requiring additional time, manpower, or special handling may require additional labor.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 6a4 4 0 0 0-5 5L3 17l4 4 6-6a4 4 0 0 0 5-5l-3 3-4-4 3-3Z" />
+      </svg>
+    ),
+  },
 ];
 
-const includedServices = [
+const includedItems = [
   "Loading",
-  "Labor",
   "Hauling",
   "Disposal",
   "Jobsite Cleanup",
   "Fuel",
-  "Disposal Fees",
-];
-
-const pricingPromise = [
-  "Free estimates",
-  "No obligation",
-  "No hidden fees",
-  "Upfront pricing",
-  "Licensed & Insured",
-  "Family-Owned",
-  "Professional service from start to finish",
+  "Licensed & Insured Professionals",
 ];
 
 const processSteps = [
   {
-    number: "01",
     title: "Request a Quote",
     description:
       "Call us, text us photos, or submit our online quote form.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 4h14v12H8l-3 3V4Zm4 4h6M9 12h4" />
+      </svg>
+    ),
   },
   {
-    number: "02",
-    title: "Free On-Site Estimate",
+    title: "Free Estimate",
     description:
-      "We'll inspect the project and provide a clear, upfront price.",
+      "We'll inspect the project and provide an upfront price.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 5h16v14H4zM8 9h8M8 13h5" />
+      </svg>
+    ),
   },
   {
-    number: "03",
     title: "Approve the Quote",
     description:
-      "Once you're comfortable with the price, we'll schedule or begin the work.",
+      "If you're happy with the price, we'll get started.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m5 12 4 4L19 6" />
+      </svg>
+    ),
   },
   {
-    number: "04",
     title: "We Handle Everything",
     description:
-      "Our team handles the lifting, loading, hauling, disposal, and final cleanup.",
+      "Loading, hauling, disposal, and cleanup.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+      </svg>
+    ),
   },
 ];
 
-const frequentlyAskedQuestions = [
+const promiseItems = [
+  "Free Estimates",
+  "No Obligation",
+  "Upfront Pricing",
+  "No Hidden Fees",
+  "Family-Owned",
+  "Licensed & Insured",
+];
+
+const faqs = [
   {
-    question: "Why can't you give an exact price over the phone?",
+    question: "Why can't you provide an exact price over the phone?",
     answer:
-      "Every project is different. Volume, weight, material type, accessibility, labor, and disposal costs can all affect the final price. We can often provide a rough estimate from photos, but an on-site estimate allows us to give you the most accurate upfront price.",
+      "Every project is unique. We can often provide a rough estimate from photos, but an on-site estimate allows us to give you the most accurate price.",
   },
   {
-    question: "Can I text photos instead of scheduling an estimate?",
+    question: "Can I text photos?",
     answer:
-      "Yes. In many cases, we can provide an estimate from clear photos of the material and surrounding access. If we need to inspect the project in person, we'll schedule a free on-site estimate.",
-  },
-  {
-    question: "Do you charge for estimates?",
-    answer:
-      "Never. Every Everhaul estimate is completely free and comes with no obligation.",
+      "Yes. In many cases we can provide an estimate from clear photos of the material and access area.",
   },
   {
     question: "When do I pay?",
     answer:
-      "You only pay after you approve the quote and the agreed-upon work is completed.",
+      "Only after you approve the quote and the work is completed.",
   },
 ];
 
-const loadSections = ["¼ Load", "½ Load", "¾ Load", "Full Load"];
-
-function FadeInSection({ children, className = "" }) {
-  const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+function Reveal({ children, className = "" }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const element = sectionRef.current;
+    const element = ref.current;
 
     if (!element) return undefined;
 
@@ -103,19 +157,19 @@ function FadeInSection({ children, className = "" }) {
       typeof window === "undefined" ||
       !("IntersectionObserver" in window)
     ) {
-      setIsVisible(true);
+      setVisible(true);
       return undefined;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setVisible(true);
           observer.unobserve(entry.target);
         }
       },
       {
-        threshold: 0.12,
+        threshold: 0.1,
         rootMargin: "0px 0px -40px 0px",
       }
     );
@@ -127,9 +181,9 @@ function FadeInSection({ children, className = "" }) {
 
   return (
     <div
-      ref={sectionRef}
+      ref={ref}
       className={`pricing-reveal ${
-        isVisible ? "pricing-reveal-visible" : ""
+        visible ? "pricing-reveal-visible" : ""
       } ${className}`}
     >
       {children}
@@ -137,96 +191,100 @@ function FadeInSection({ children, className = "" }) {
   );
 }
 
-function CheckItem({ children }) {
+function CheckItem({ children, dark = false }) {
   return (
     <div className="flex items-start gap-3">
-      <span
-        aria-hidden="true"
-        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#57891d]/35 bg-[#57891d]/15 text-sm font-black text-[#8fbd55]"
-      >
+      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#57891d] text-sm font-black text-white">
         ✓
       </span>
 
-      <span className="font-semibold leading-6 text-white/75">
+      <span
+        className={`font-semibold leading-6 ${
+          dark ? "text-[#242329]/75" : "text-white/75"
+        }`}
+      >
         {children}
       </span>
     </div>
   );
 }
 
-function TruckLoadGuide() {
-  const [activeSection, setActiveSection] = useState(null);
+function TruckGuide() {
+  const [activeLoad, setActiveLoad] = useState(null);
 
   return (
     <div className="mt-10">
-      <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[#1d1c21] p-4 shadow-[0_30px_90px_rgba(0,0,0,0.35)] sm:p-7">
-        <div className="relative mx-auto max-w-5xl">
+      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-[#242329]/10 bg-white p-4 shadow-[0_28px_80px_rgba(36,35,41,0.12)] sm:p-7">
+        <div className="relative">
           <img
-            src="/pricing/everhaul-topkick-cutout.png"
-            alt="Everhaul Solutions white GMC TopKick dump truck load-size guide"
-            className="block h-auto w-full object-contain"
+            src={TRUCK_IMAGE}
+            alt="Everhaul Solutions truck load-size guide"
+            className="mx-auto block h-auto max-h-[570px] w-full object-contain"
           />
 
-          {/*
-            IMPORTANT:
-            This overlay must sit over the dump bed only.
-
-            The current values are a safe starting point:
-            left: 8%
-            top: 17%
-            width: 58%
-            height: 43%
-
-            Adjust these four values in the styled-jsx section if your
-            transparent truck photo has different framing.
-          */}
-          <div
-            className="truck-bed-overlay"
-            aria-label="Interactive truck load size guide"
-          >
-            {loadSections.map((label, index) => {
-              const isActive = activeSection === index;
-
-              return (
-                <button
-                  key={label}
-                  type="button"
-                  aria-pressed={isActive}
-                  aria-label={`Highlight ${label}`}
-                  onMouseEnter={() => setActiveSection(index)}
-                  onMouseLeave={() => setActiveSection(null)}
-                  onFocus={() => setActiveSection(index)}
-                  onBlur={() => setActiveSection(null)}
-                  onClick={() =>
-                    setActiveSection((current) =>
-                      current === index ? null : index
-                    )
-                  }
-                  className={`truck-load-section ${
-                    isActive ? "truck-load-section-active" : ""
-                  }`}
-                >
-                  <span>{label}</span>
-                </button>
-              );
-            })}
+          <div className="truck-bed-guide" aria-label="Truck load-size guide">
+            {loadLevels.map((load, index) => (
+              <button
+                key={load}
+                type="button"
+                aria-label={`Highlight ${load}`}
+                aria-pressed={activeLoad === index}
+                onMouseEnter={() => setActiveLoad(index)}
+                onMouseLeave={() => setActiveLoad(null)}
+                onFocus={() => setActiveLoad(index)}
+                onBlur={() => setActiveLoad(null)}
+                onClick={() =>
+                  setActiveLoad((current) =>
+                    current === index ? null : index
+                  )
+                }
+                className={`truck-highlight ${
+                  activeLoad === index ? "truck-highlight-active" : ""
+                }`}
+              />
+            ))}
           </div>
         </div>
 
-        <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-center text-xs font-bold uppercase tracking-[0.14em] text-white/45">
-          <span>Visual size guide only</span>
-          <span className="hidden sm:inline" aria-hidden="true">
-            •
-          </span>
-          <span>Final pricing is customized</span>
+        <div className="mt-5 grid grid-cols-4 gap-2 sm:gap-4">
+          {loadLevels.map((load, index) => (
+            <button
+              key={load}
+              type="button"
+              onMouseEnter={() => setActiveLoad(index)}
+              onMouseLeave={() => setActiveLoad(null)}
+              onFocus={() => setActiveLoad(index)}
+              onBlur={() => setActiveLoad(null)}
+              onClick={() =>
+                setActiveLoad((current) =>
+                  current === index ? null : index
+                )
+              }
+              className={`rounded-xl border px-2 py-3 text-xs font-black transition sm:rounded-2xl sm:px-4 sm:py-4 sm:text-base ${
+                activeLoad === index
+                  ? "border-[#57891d] bg-[#57891d] text-white shadow-[0_12px_30px_rgba(87,137,29,0.2)]"
+                  : "border-[#242329]/10 bg-[#f4f4f2] text-[#242329] hover:border-[#57891d]/45"
+              }`}
+            >
+              {load}
+            </button>
+          ))}
         </div>
       </div>
 
-      <p className="mx-auto mt-6 max-w-4xl text-center text-sm font-semibold leading-7 text-white/60">
-        Heavy materials such as concrete, dirt, brick, tile, asphalt, and
-        roofing debris are priced separately due to increased disposal costs
-        and weight.
-      </p>
+      <div className="mx-auto mt-6 max-w-4xl space-y-3 text-center">
+        <p className="text-sm leading-7 text-[#242329]/65">
+          This guide is intended to help estimate the size of your project.
+          Every quote is customized and provided upfront before any work
+          begins.
+        </p>
+
+        <p className="text-sm font-semibold leading-7 text-[#242329]/75">
+          Heavy materials such as concrete, dirt, brick, tile, asphalt, and
+          roofing debris are priced separately due to increased disposal costs
+          and weight.
+        </p>
+      </div>
     </div>
   );
 }
@@ -241,304 +299,255 @@ export default function PricingPage() {
 
         <meta
           name="description"
-          content="Learn how Everhaul Solutions prices junk removal, debris hauling, cleanouts, and jobsite cleanup. Free, no-obligation estimates with upfront pricing and no hidden fees."
+          content="Learn how Everhaul Solutions prices junk removal, debris hauling, cleanouts, and jobsite cleanup. Get a free, customized estimate with upfront pricing and no hidden fees."
         />
 
-        <link rel="canonical" href="https://everhaulsolutions.com/pricing" />
+        <link
+          rel="canonical"
+          href="https://everhaulsolutions.com/pricing"
+        />
       </Head>
 
-      <main className="min-h-screen overflow-hidden bg-[#242329] text-white">
-        <section className="relative px-5 pb-20 pt-24 sm:px-6 sm:pb-24 sm:pt-28 lg:px-8">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-          >
-            <div className="absolute left-1/2 top-[-240px] h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-[#57891d]/15 blur-[150px]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-white/[0.025] via-transparent to-black/20" />
+      <Navbar />
+
+      <main className="overflow-hidden bg-white">
+        {/* Page hero */}
+        <section className="relative bg-[#242329] px-5 pb-20 pt-36 text-white sm:px-6 sm:pb-24 lg:px-8">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute left-1/2 top-[-260px] h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-[#57891d]/16 blur-[140px]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-white/[0.025] to-black/15" />
           </div>
 
-          <FadeInSection className="relative z-10 mx-auto max-w-7xl">
-            <div className="mx-auto max-w-4xl text-center">
-              <p className="text-xs font-black uppercase tracking-[0.3em] text-[#8fbd55]">
-                Everhaul Pricing
+          <Reveal className="relative z-10 mx-auto max-w-5xl text-center">
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#8fbd55]">
+              Everhaul Pricing
+            </p>
+
+            <h1 className="mt-5 text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl lg:text-6xl">
+              Transparent & Upfront Pricing
+            </h1>
+
+            <p className="mt-5 text-xl font-bold text-white/82 sm:text-2xl">
+              Fair pricing. No hidden fees. No surprises.
+            </p>
+
+            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/65 sm:text-lg">
+              At Everhaul Solutions, we believe getting a quote should be
+              simple and stress-free. Every project is unique, which is why
+              we provide customized pricing based on your specific project.
+            </p>
+
+            <div className="mx-auto mt-8 inline-flex rounded-2xl border border-[#57891d]/40 bg-[#57891d]/15 px-6 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
+              <p className="font-black text-white">
+                Minimum Service Charge:{" "}
+                <span className="text-[#a4ca76]">Starting at $149</span>
               </p>
-
-              <h1 className="mt-5 text-4xl font-black leading-tight tracking-[-0.045em] text-white sm:text-5xl lg:text-6xl">
-                Transparent & Upfront Pricing
-              </h1>
-
-              <p className="mt-5 text-xl font-bold text-white/80 sm:text-2xl">
-                Fair pricing. No hidden fees. No surprises.
-              </p>
-
-              <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/65 sm:text-lg">
-                At Everhaul Solutions, we believe getting a quote should be
-                simple and stress-free.
-              </p>
-
-              <div className="mx-auto mt-9 max-w-xl rounded-[1.75rem] border border-[#57891d]/35 bg-[#57891d]/12 p-6 shadow-[0_22px_60px_rgba(0,0,0,0.2)]">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#8fbd55]">
-                  Minimum Service Charge
-                </p>
-
-                <p className="mt-3 text-3xl font-black tracking-tight text-white">
-                  Starting at $149
-                </p>
-              </div>
             </div>
-          </FadeInSection>
+          </Reveal>
         </section>
 
-        <section className="px-5 py-20 sm:px-6 lg:px-8">
-          <FadeInSection className="mx-auto max-w-7xl">
-            <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
-                  Customized Pricing
-                </p>
+        {/* Truck centerpiece */}
+        <section className="bg-[#f4f4f2] px-5 py-20 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto max-w-7xl">
+            <div className="text-center">
+              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
+                Visual Load Guide
+              </p>
 
-                <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                  Every project is different.
-                </h2>
+              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329] sm:text-5xl">
+                Volume-Based Pricing
+              </h2>
 
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/65">
-                  Every project is unique, which is why we provide customized
-                  pricing based on your specific job—not a one-size-fits-all
-                  rate.
-                </p>
-              </div>
+              <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[#242329]/65">
+                Use the guide below to estimate the amount of space your
+                project may require.
+              </p>
 
-              <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-6 shadow-[0_25px_70px_rgba(0,0,0,0.24)] sm:p-8">
-                <p className="font-black text-white">
-                  Our pricing is based on:
-                </p>
+              <p className="mx-auto mt-3 max-w-4xl text-sm leading-7 text-[#242329]/60">
+                Final pricing is customized based on volume, material type,
+                accessibility, labor required, and disposal requirements.
+              </p>
+            </div>
 
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  {pricingFactors.map((factor) => (
-                    <CheckItem key={factor}>{factor}</CheckItem>
+            <TruckGuide />
+          </Reveal>
+        </section>
+
+        {/* Pricing factors */}
+        <section className="bg-white px-5 py-20 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto max-w-7xl">
+            <div className="text-center">
+              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
+                How We Price
+              </p>
+
+              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
+                Clear factors. Customized estimates.
+              </h2>
+            </div>
+
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {pricingFactors.map((factor) => (
+                <article
+                  key={factor.title}
+                  className="rounded-[1.5rem] border border-[#242329]/10 bg-white p-6 shadow-[0_20px_55px_rgba(36,35,41,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/35 hover:shadow-[0_24px_65px_rgba(36,35,41,0.12)]"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d]">
+                    <div className="pricing-icon">
+                      {factor.icon}
+                    </div>
+                  </div>
+
+                  <h3 className="mt-5 text-xl font-black text-[#242329]">
+                    {factor.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-7 text-[#242329]/62">
+                    {factor.description}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
+        {/* Included */}
+        <section className="bg-[#f4f4f2] px-5 py-20 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto max-w-5xl">
+            <div className="rounded-[2rem] border border-[#242329]/10 bg-white p-7 shadow-[0_28px_80px_rgba(36,35,41,0.1)] sm:p-10">
+              <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
+                    What&apos;s Included
+                  </p>
+
+                  <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329]">
+                    Every Project Includes
+                  </h2>
+
+                  <p className="mt-5 text-sm leading-7 text-[#242329]/65">
+                    You&apos;ll always receive an upfront price before work
+                    begins, so there are never any hidden surprises.
+                  </p>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {includedItems.map((item) => (
+                    <CheckItem key={item} dark>
+                      {item}
+                    </CheckItem>
                   ))}
                 </div>
               </div>
             </div>
-          </FadeInSection>
+          </Reveal>
         </section>
 
-        <section className="border-y border-white/10 bg-black/15 px-5 py-20 sm:px-6 lg:px-8">
-          <FadeInSection className="mx-auto max-w-7xl">
+        {/* Process */}
+        <section className="bg-white px-5 py-20 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto max-w-7xl">
             <div className="text-center">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
-                How We Price Your Project
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl">
-                Know what to expect before we arrive.
-              </h2>
-
-              <div className="mx-auto mt-6 max-w-4xl space-y-4 text-base leading-8 text-white/65">
-                <p>
-                  Every project is different, which is why we don&apos;t
-                  believe in one-size-fits-all pricing.
-                </p>
-
-                <p>
-                  To help you better understand the size of your project,
-                  we&apos;ve included a visual guide below.
-                </p>
-
-                <p>
-                  Final pricing depends on the amount and type of material,
-                  weight, accessibility, labor required, and disposal costs.
-                </p>
-              </div>
-            </div>
-
-            <TruckLoadGuide />
-          </FadeInSection>
-        </section>
-
-        <section className="px-5 py-20 sm:px-6 lg:px-8">
-          <FadeInSection className="mx-auto max-w-7xl">
-            <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
-                  What&apos;s Included
-                </p>
-
-                <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                  Everything needed to complete the job.
-                </h2>
-
-                <p className="mt-5 max-w-xl text-base leading-8 text-white/65">
-                  Your approved quote includes the services required to remove
-                  the material and leave the work area clean.
-                </p>
-
-                <div className="mt-7 space-y-2 text-lg font-black text-white">
-                  <p>No hidden charges.</p>
-                  <p>No surprise fees.</p>
-                  <p>No extra labor costs.</p>
-                </div>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {includedServices.map((service) => (
-                  <div
-                    key={service}
-                    className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.18)]"
-                  >
-                    <CheckItem>{service}</CheckItem>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeInSection>
-        </section>
-
-        <section className="border-y border-white/10 bg-black/15 px-5 py-20 sm:px-6 lg:px-8">
-          <FadeInSection className="mx-auto max-w-7xl">
-            <div className="rounded-[2rem] border border-[#57891d]/30 bg-[#57891d]/10 p-7 shadow-[0_28px_80px_rgba(0,0,0,0.25)] sm:p-10 lg:p-12">
-              <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
-                    Free, No-Obligation Estimates
-                  </p>
-
-                  <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                    Not sure what your project will cost?
-                  </h2>
-
-                  <p className="mt-5 max-w-2xl text-base leading-8 text-white/68">
-                    We provide free, no-obligation on-site estimates throughout
-                    Los Angeles and the San Fernando Valley.
-                  </p>
-
-                  <p className="mt-5 font-black text-white">
-                    You&apos;ll always know the exact cost before we start.
-                  </p>
-                </div>
-
-                <div className="rounded-[1.5rem] border border-white/10 bg-[#242329]/70 p-6">
-                  <p className="font-black text-white">
-                    One of our team members will:
-                  </p>
-
-                  <div className="mt-5 grid gap-4">
-                    <CheckItem>Assess your project</CheckItem>
-                    <CheckItem>Answer your questions</CheckItem>
-                    <CheckItem>
-                      Provide an upfront price before any work begins
-                    </CheckItem>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeInSection>
-        </section>
-
-        <section className="px-5 py-20 sm:px-6 lg:px-8">
-          <FadeInSection className="mx-auto max-w-7xl">
-            <div className="text-center">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
+              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
                 How It Works
               </p>
 
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl">
-                Simple from the first call to the final cleanup.
+              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
+                Simple from quote to cleanup.
               </h2>
             </div>
 
-            <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div className="relative mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              <div className="absolute left-[12%] right-[12%] top-10 hidden h-px bg-[#57891d]/20 lg:block" />
+
               {processSteps.map((step) => (
                 <article
-                  key={step.number}
-                  className="rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-6 shadow-[0_22px_65px_rgba(0,0,0,0.2)]"
+                  key={step.title}
+                  className="relative rounded-[1.5rem] border border-[#242329]/10 bg-white p-6 shadow-[0_20px_55px_rgba(36,35,41,0.08)]"
                 >
-                  <p className="text-sm font-black tracking-[0.2em] text-[#8fbd55]">
-                    {step.number}
-                  </p>
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-[#57891d] text-white shadow-[0_12px_28px_rgba(87,137,29,0.2)]">
+                    <div className="pricing-icon">{step.icon}</div>
+                  </div>
 
-                  <h3 className="mt-5 text-xl font-black text-white">
+                  <h3 className="mt-5 text-lg font-black text-[#242329]">
                     {step.title}
                   </h3>
 
-                  <p className="mt-4 text-sm leading-7 text-white/62">
+                  <p className="mt-3 text-sm leading-7 text-[#242329]/62">
                     {step.description}
                   </p>
                 </article>
               ))}
             </div>
-          </FadeInSection>
+          </Reveal>
         </section>
 
-        <section className="border-y border-white/10 bg-black/15 px-5 py-20 sm:px-6 lg:px-8">
-          <FadeInSection className="mx-auto max-w-5xl">
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-7 text-center shadow-[0_28px_80px_rgba(0,0,0,0.25)] sm:p-10">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
-                Our Pricing Promise
-              </p>
+        {/* Promise */}
+        <section className="bg-[#f4f4f2] px-5 py-20 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto max-w-5xl">
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#57891d]/30 bg-[#242329] p-7 text-white shadow-[0_32px_90px_rgba(36,35,41,0.24)] sm:p-10">
+              <div className="pointer-events-none absolute right-[-130px] top-[-150px] h-[340px] w-[340px] rounded-full bg-[#57891d]/18 blur-[100px]" />
 
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                Hiring Everhaul should feel completely risk-free.
-              </h2>
-
-              <div className="mx-auto mt-8 grid max-w-3xl gap-4 text-left sm:grid-cols-2">
-                {pricingPromise.map((item) => (
-                  <CheckItem key={item}>{item}</CheckItem>
-                ))}
-              </div>
-
-              <div className="mx-auto mt-9 max-w-3xl rounded-2xl border border-[#57891d]/30 bg-[#57891d]/10 p-6">
-                <p className="text-base leading-8 text-white/70">
-                  If you decide not to move forward after receiving your
-                  estimate...
+              <div className="relative z-10">
+                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
+                  Our Pricing Promise
                 </p>
 
-                <p className="mt-2 text-2xl font-black text-white">
-                  You owe us absolutely nothing.
+                <h2 className="mt-4 text-3xl font-black tracking-tight text-white">
+                  Honest pricing without pressure.
+                </h2>
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {promiseItems.map((item) => (
+                    <CheckItem key={item}>{item}</CheckItem>
+                  ))}
+                </div>
+
+                <p className="mt-8 rounded-2xl border border-[#57891d]/30 bg-[#57891d]/12 p-5 text-center text-lg font-black leading-8 text-white">
+                  If you decide not to move forward after receiving your
+                  estimate, you owe us absolutely nothing.
                 </p>
               </div>
             </div>
-          </FadeInSection>
+          </Reveal>
         </section>
 
-        <section className="px-5 py-20 sm:px-6 lg:px-8">
-          <FadeInSection className="mx-auto max-w-5xl">
+        {/* FAQs */}
+        <section className="bg-white px-5 py-20 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto max-w-5xl">
             <div className="text-center">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
+              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
                 Frequently Asked Questions
               </p>
 
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl">
+              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
                 Clear answers before you schedule.
               </h2>
             </div>
 
-            <div className="mt-12 grid gap-5">
-              {frequentlyAskedQuestions.map((item) => (
+            <div className="mt-10 grid gap-5">
+              {faqs.map((faq) => (
                 <article
-                  key={item.question}
-                  className="rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-6 shadow-[0_20px_55px_rgba(0,0,0,0.18)] sm:p-7"
+                  key={faq.question}
+                  className="rounded-[1.5rem] border border-[#242329]/10 bg-[#f4f4f2] p-6"
                 >
-                  <h3 className="text-lg font-black text-white">
-                    {item.question}
+                  <h3 className="text-lg font-black text-[#242329]">
+                    {faq.question}
                   </h3>
 
-                  <p className="mt-4 text-sm leading-7 text-white/65 sm:text-base">
-                    {item.answer}
+                  <p className="mt-3 text-sm leading-7 text-[#242329]/65">
+                    {faq.answer}
                   </p>
                 </article>
               ))}
             </div>
-          </FadeInSection>
+          </Reveal>
         </section>
 
-        <section className="px-5 pb-24 pt-8 sm:px-6 sm:pb-28 lg:px-8">
-          <FadeInSection className="mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-[2.25rem] border border-[#57891d]/35 bg-[#1d1c21] p-7 text-center shadow-[0_35px_100px_rgba(0,0,0,0.35)] sm:p-10 lg:p-14">
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-[-200px] h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-[#57891d]/18 blur-[110px]"
-              />
+        {/* Final CTA */}
+        <section className="bg-[#f4f4f2] px-5 pb-24 pt-10 sm:px-6 sm:pb-28 lg:px-8">
+          <Reveal className="mx-auto max-w-5xl">
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#57891d]/30 bg-[#242329] p-7 text-center text-white shadow-[0_32px_90px_rgba(36,35,41,0.25)] sm:p-10 lg:p-12">
+              <div className="pointer-events-none absolute left-1/2 top-[-210px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[#57891d]/18 blur-[110px]" />
 
               <div className="relative z-10">
                 <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
@@ -549,44 +558,35 @@ export default function PricingPage() {
                   Ready to Clear the Clutter?
                 </h2>
 
-                <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/65 sm:text-lg">
+                <p className="mt-5 text-base text-white/65 sm:text-lg">
                   Get your free, no-obligation estimate today.
                 </p>
 
-                <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
-                  <a
-                    href={TEXT_LINK}
-                    className="inline-flex min-h-14 items-center justify-center rounded-2xl bg-[#57891d] px-8 py-4 text-base font-black text-white shadow-[0_18px_45px_rgba(87,137,29,0.25)] transition duration-300 hover:-translate-y-1 hover:bg-[#669f24]"
-                  >
+                <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
+                  <a href={TEXT_LINK} className="btn-primary">
                     Text Photos
                   </a>
 
-                  <a
-                    href="/#quote"
-                    className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-[#57891d]/35 bg-[#57891d]/12 px-8 py-4 text-base font-black text-white transition duration-300 hover:-translate-y-1 hover:bg-[#57891d]/22"
-                  >
+                  <a href="/#quote" className="btn-secondary">
                     Request a Free Quote
                   </a>
 
-                  <a
-                    href={PHONE_LINK}
-                    className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-white/12 bg-white/[0.055] px-8 py-4 text-base font-black text-white transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/45 hover:bg-white/[0.085]"
-                  >
+                  <a href={PHONE_LINK} className="btn-secondary">
                     Call Now {PHONE_DISPLAY}
                   </a>
                 </div>
               </div>
             </div>
-          </FadeInSection>
+          </Reveal>
         </section>
 
         <style jsx>{`
           .pricing-reveal {
             opacity: 0;
-            transform: translateY(24px);
+            transform: translateY(22px);
             transition:
-              opacity 650ms ease,
-              transform 650ms ease;
+              opacity 600ms ease,
+              transform 600ms ease;
           }
 
           .pricing-reveal-visible {
@@ -594,72 +594,60 @@ export default function PricingPage() {
             transform: translateY(0);
           }
 
-          .truck-bed-overlay {
-            position: absolute;
+          .pricing-icon {
+            height: 1.55rem;
+            width: 1.55rem;
+          }
 
-            /*
-              Adjust these values after adding your transparent truck image.
-              The overlay must cover only the dump bed.
-            */
+          .pricing-icon :global(svg) {
+            height: 100%;
+            width: 100%;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+          }
+
+          /*
+            These values position the interactive area over the dump bed.
+
+            Adjust these four values only if the overlay does not align with
+            your exact truck PNG.
+          */
+          .truck-bed-guide {
+            position: absolute;
             left: 8%;
-            top: 17%;
+            top: 16%;
             width: 58%;
             height: 43%;
-
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
             overflow: hidden;
-            border: 1px solid rgba(87, 137, 29, 0.38);
-            border-radius: 0.5rem;
+            pointer-events: none;
           }
 
-          .truck-load-section {
-            position: relative;
-            display: flex;
-            min-width: 0;
-            align-items: center;
-            justify-content: center;
+          .truck-highlight {
             border: 0;
-            border-right: 1px solid rgba(255, 255, 255, 0.32);
-            background: rgba(87, 137, 29, 0.12);
-            color: rgba(255, 255, 255, 0.92);
+            border-right: 1px solid transparent;
+            background: transparent;
+            pointer-events: auto;
             cursor: pointer;
             transition:
-              background-color 250ms ease,
-              box-shadow 250ms ease;
+              background-color 240ms ease,
+              box-shadow 240ms ease;
           }
 
-          .truck-load-section:last-child {
+          .truck-highlight:last-child {
             border-right: 0;
           }
 
-          .truck-load-section span {
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(36, 35, 41, 0.78);
-            padding: 0.45rem 0.65rem;
-            font-size: clamp(0.58rem, 1.25vw, 0.85rem);
-            font-weight: 900;
-            line-height: 1;
-            white-space: nowrap;
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
-            backdrop-filter: blur(8px);
-          }
-
-          .truck-load-section-active,
-          .truck-load-section:hover,
-          .truck-load-section:focus-visible {
-            background: rgba(87, 137, 29, 0.48);
-            box-shadow: inset 0 0 28px rgba(87, 137, 29, 0.32);
+          .truck-highlight:hover,
+          .truck-highlight:focus-visible,
+          .truck-highlight-active {
+            background: rgba(87, 137, 29, 0.42);
+            box-shadow: inset 0 0 30px rgba(87, 137, 29, 0.26);
             outline: none;
-          }
-
-          @media (max-width: 640px) {
-            .truck-load-section span {
-              padding: 0.32rem 0.38rem;
-              font-size: 0.52rem;
-              letter-spacing: -0.02em;
-            }
           }
 
           @media (prefers-reduced-motion: reduce) {
@@ -670,12 +658,14 @@ export default function PricingPage() {
               transition: none;
             }
 
-            .truck-load-section {
+            .truck-highlight {
               transition: none;
             }
           }
         `}</style>
       </main>
+
+      <Footer />
     </>
   );
 }
