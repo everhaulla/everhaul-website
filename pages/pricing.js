@@ -13,55 +13,36 @@ const TEXT_MESSAGE =
 const TEXT_LINK = `sms:+18185381072?&body=${encodeURIComponent(TEXT_MESSAGE)}`;
 
 /*
-  Your truck should be stored here:
+  Change only this path if your existing truck PNG uses a different filename.
 
-  public/pricing/truck.png
-
-  If your actual filename is different, change only this path.
+  Expected location:
+  public/pricing/everhaul-topkick-cutout.png
 */
 const TRUCK_IMAGE = "/pricing/truck.png";
 
-const loadLevels = ["¼ Load", "½ Load", "¾ Load", "Full Load"];
-
 const pricingFactors = [
   {
-    title: "Volume",
-    description: "The amount of space your project occupies.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 7h16v10H4zM8 4v3M16 4v3M8 17v3M16 17v3" />
-      </svg>
-    ),
+    icon: "📦",
+    title: "Space Used",
+    description: "The amount of truck space your project requires.",
   },
   {
+    icon: "🗑️",
     title: "Material Type",
     description:
       "Different materials require different handling and disposal methods.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m12 3 8 4-8 4-8-4 8-4Zm-8 8 8 4 8-4M4 15l8 4 8-4" />
-      </svg>
-    ),
   },
   {
+    icon: "🚪",
     title: "Accessibility",
     description:
-      "Stairs, elevators, long carry distances, and other site conditions may affect the labor required.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 20h4v-4h4v-4h4V8h4M5 6h5M5 6v5" />
-      </svg>
-    ),
+      "Stairs, elevators, long carry distances, and site conditions may affect labor.",
   },
   {
+    icon: "👷",
     title: "Labor Required",
     description:
-      "Projects requiring additional time, manpower, or special handling may require additional labor.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M14 6a4 4 0 0 0-5 5L3 17l4 4 6-6a4 4 0 0 0 5-5l-3 3-4-4 3-3Z" />
-      </svg>
-    ),
+      "Projects requiring additional time, manpower, or special handling.",
   },
 ];
 
@@ -70,51 +51,13 @@ const includedItems = [
   "Hauling",
   "Disposal",
   "Jobsite Cleanup",
-  "Fuel",
-  "Licensed & Insured Professionals",
 ];
 
 const processSteps = [
-  {
-    title: "Request a Quote",
-    description:
-      "Call us, text us photos, or submit our online quote form.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M5 4h14v12H8l-3 3V4Zm4 4h6M9 12h4" />
-      </svg>
-    ),
-  },
-  {
-    title: "Free Estimate",
-    description:
-      "We'll inspect the project and provide an upfront price.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 5h16v14H4zM8 9h8M8 13h5" />
-      </svg>
-    ),
-  },
-  {
-    title: "Approve the Quote",
-    description:
-      "If you're happy with the price, we'll get started.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m5 12 4 4L19 6" />
-      </svg>
-    ),
-  },
-  {
-    title: "We Handle Everything",
-    description:
-      "Loading, hauling, disposal, and cleanup.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-      </svg>
-    ),
-  },
+  "Request a Quote",
+  "Free Estimate",
+  "Approve the Quote",
+  "We Handle Everything",
 ];
 
 const promiseItems = [
@@ -122,7 +65,6 @@ const promiseItems = [
   "No Obligation",
   "Upfront Pricing",
   "No Hidden Fees",
-  "Family-Owned",
   "Licensed & Insured",
 ];
 
@@ -130,7 +72,7 @@ const faqs = [
   {
     question: "Why can't you provide an exact price over the phone?",
     answer:
-      "Every project is unique. We can often provide a rough estimate from photos, but an on-site estimate allows us to give you the most accurate price.",
+      "Every project is unique. We can often provide a rough estimate from photos, but an on-site estimate allows us to provide the most accurate quote.",
   },
   {
     question: "Can I text photos?",
@@ -170,7 +112,7 @@ function Reveal({ children, className = "" }) {
       },
       {
         threshold: 0.1,
-        rootMargin: "0px 0px -40px 0px",
+        rootMargin: "0px 0px -30px 0px",
       }
     );
 
@@ -199,7 +141,7 @@ function CheckItem({ children, dark = false }) {
       </span>
 
       <span
-        className={`font-semibold leading-6 ${
+        className={`text-sm font-semibold leading-6 ${
           dark ? "text-[#242329]/75" : "text-white/75"
         }`}
       >
@@ -209,87 +151,45 @@ function CheckItem({ children, dark = false }) {
   );
 }
 
-function TruckGuide() {
-  const [activeLoad, setActiveLoad] = useState(null);
-
+function FAQItem({ item, open, onToggle }) {
   return (
-    <div className="mt-10">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-[#242329]/10 bg-white p-4 shadow-[0_28px_80px_rgba(36,35,41,0.12)] sm:p-7">
-        <div className="relative">
-          <img
-            src={TRUCK_IMAGE}
-            alt="Everhaul Solutions truck load-size guide"
-            className="mx-auto block h-auto max-h-[570px] w-full object-contain"
-          />
+    <article className="overflow-hidden rounded-2xl border border-[#242329]/10 bg-white shadow-[0_14px_40px_rgba(36,35,41,0.06)]">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left sm:px-6"
+      >
+        <span className="font-black text-[#242329]">{item.question}</span>
 
-          <div className="truck-bed-guide" aria-label="Truck load-size guide">
-            {loadLevels.map((load, index) => (
-              <button
-                key={load}
-                type="button"
-                aria-label={`Highlight ${load}`}
-                aria-pressed={activeLoad === index}
-                onMouseEnter={() => setActiveLoad(index)}
-                onMouseLeave={() => setActiveLoad(null)}
-                onFocus={() => setActiveLoad(index)}
-                onBlur={() => setActiveLoad(null)}
-                onClick={() =>
-                  setActiveLoad((current) =>
-                    current === index ? null : index
-                  )
-                }
-                className={`truck-highlight ${
-                  activeLoad === index ? "truck-highlight-active" : ""
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+        <span
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#57891d]/25 bg-[#57891d]/10 text-xl font-bold text-[#57891d] transition duration-300 ${
+            open ? "rotate-45" : ""
+          }`}
+          aria-hidden="true"
+        >
+          +
+        </span>
+      </button>
 
-        <div className="mt-5 grid grid-cols-4 gap-2 sm:gap-4">
-          {loadLevels.map((load, index) => (
-            <button
-              key={load}
-              type="button"
-              onMouseEnter={() => setActiveLoad(index)}
-              onMouseLeave={() => setActiveLoad(null)}
-              onFocus={() => setActiveLoad(index)}
-              onBlur={() => setActiveLoad(null)}
-              onClick={() =>
-                setActiveLoad((current) =>
-                  current === index ? null : index
-                )
-              }
-              className={`rounded-xl border px-2 py-3 text-xs font-black transition sm:rounded-2xl sm:px-4 sm:py-4 sm:text-base ${
-                activeLoad === index
-                  ? "border-[#57891d] bg-[#57891d] text-white shadow-[0_12px_30px_rgba(87,137,29,0.2)]"
-                  : "border-[#242329]/10 bg-[#f4f4f2] text-[#242329] hover:border-[#57891d]/45"
-              }`}
-            >
-              {load}
-            </button>
-          ))}
+      <div
+        className={`grid transition-all duration-300 ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="px-5 pb-5 text-sm leading-7 text-[#242329]/65 sm:px-6 sm:pb-6">
+            {item.answer}
+          </p>
         </div>
       </div>
-
-      <div className="mx-auto mt-6 max-w-4xl space-y-3 text-center">
-        <p className="text-sm leading-7 text-[#242329]/65">
-          This guide is intended to help estimate the size of your project.
-          Every quote is customized and provided upfront before any work
-          begins.
-        </p>
-
-        <p className="text-sm font-semibold leading-7 text-[#242329]/75">
-          Heavy materials such as concrete, dirt, brick, tile, asphalt, and
-          roofing debris are priced separately due to increased disposal costs
-          and weight.
-        </p>
-      </div>
-    </div>
+    </article>
   );
 }
 
 export default function PricingPage() {
+  const [openFaq, setOpenFaq] = useState(0);
+
   return (
     <>
       <Head>
@@ -299,7 +199,7 @@ export default function PricingPage() {
 
         <meta
           name="description"
-          content="Learn how Everhaul Solutions prices junk removal, debris hauling, cleanouts, and jobsite cleanup. Get a free, customized estimate with upfront pricing and no hidden fees."
+          content="Learn how Everhaul Solutions determines junk removal and debris hauling pricing. Get a free estimate with upfront pricing and no hidden fees."
         />
 
         <link
@@ -311,10 +211,10 @@ export default function PricingPage() {
       <Navbar />
 
       <main className="overflow-hidden bg-white">
-        {/* Page hero */}
-        <section className="relative bg-[#242329] px-5 pb-20 pt-36 text-white sm:px-6 sm:pb-24 lg:px-8">
+        {/* Compact hero */}
+        <section className="relative bg-[#242329] px-5 pb-14 pt-32 text-white sm:px-6 sm:pb-16 sm:pt-36 lg:px-8">
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-1/2 top-[-260px] h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-[#57891d]/16 blur-[140px]" />
+            <div className="absolute left-1/2 top-[-250px] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#57891d]/16 blur-[135px]" />
             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.025] to-black/15" />
           </div>
 
@@ -323,246 +223,221 @@ export default function PricingPage() {
               Everhaul Pricing
             </p>
 
-            <h1 className="mt-5 text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl lg:text-6xl">
               Transparent & Upfront Pricing
             </h1>
 
-            <p className="mt-5 text-xl font-bold text-white/82 sm:text-2xl">
+            <p className="mt-4 text-xl font-bold text-white/82 sm:text-2xl">
               Fair pricing. No hidden fees. No surprises.
             </p>
 
-            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/65 sm:text-lg">
+            <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-white/65 sm:text-lg">
               At Everhaul Solutions, we believe getting a quote should be
-              simple and stress-free. Every project is unique, which is why
-              we provide customized pricing based on your specific project.
+              simple and stress-free.
             </p>
 
-            <div className="mx-auto mt-8 inline-flex rounded-2xl border border-[#57891d]/40 bg-[#57891d]/15 px-6 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
+            <div className="mx-auto mt-6 inline-flex rounded-2xl border border-[#57891d]/40 bg-[#57891d]/15 px-6 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
               <p className="font-black text-white">
                 Minimum Service Charge:{" "}
                 <span className="text-[#a4ca76]">Starting at $149</span>
               </p>
             </div>
-          </Reveal>
-        </section>
 
-        {/* Truck centerpiece */}
-        <section className="bg-[#f4f4f2] px-5 py-20 sm:px-6 lg:px-8">
-          <Reveal className="mx-auto max-w-7xl">
-            <div className="text-center">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
-                Visual Load Guide
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329] sm:text-5xl">
-                Volume-Based Pricing
-              </h2>
-
-              <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[#242329]/65">
-                Use the guide below to estimate the amount of space your
-                project may require.
-              </p>
-
-              <p className="mx-auto mt-3 max-w-4xl text-sm leading-7 text-[#242329]/60">
-                Final pricing is customized based on volume, material type,
-                accessibility, labor required, and disposal requirements.
-              </p>
-            </div>
-
-            <TruckGuide />
-          </Reveal>
-        </section>
-
-        {/* Pricing factors */}
-        <section className="bg-white px-5 py-20 sm:px-6 lg:px-8">
-          <Reveal className="mx-auto max-w-7xl">
-            <div className="text-center">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
-                How We Price
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
-                Clear factors. Customized estimates.
-              </h2>
-            </div>
-
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {pricingFactors.map((factor) => (
-                <article
-                  key={factor.title}
-                  className="rounded-[1.5rem] border border-[#242329]/10 bg-white p-6 shadow-[0_20px_55px_rgba(36,35,41,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/35 hover:shadow-[0_24px_65px_rgba(36,35,41,0.12)]"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d]">
-                    <div className="pricing-icon">
-                      {factor.icon}
-                    </div>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              {["Free Estimates", "Upfront Pricing", "No Hidden Fees"].map(
+                (item) => (
+                  <div
+                    key={item}
+                    className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs font-bold text-white/75"
+                  >
+                    ✓ {item}
                   </div>
+                )
+              )}
+            </div>
 
-                  <h3 className="mt-5 text-xl font-black text-[#242329]">
-                    {factor.title}
-                  </h3>
+            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+              <a href={TEXT_LINK} className="btn-primary">
+                Text Photos
+              </a>
 
-                  <p className="mt-3 text-sm leading-7 text-[#242329]/62">
-                    {factor.description}
-                  </p>
-                </article>
-              ))}
+              <a href="/#quote" className="btn-secondary">
+                Request a Free Quote
+              </a>
             </div>
           </Reveal>
         </section>
 
-        {/* Included */}
-        <section className="bg-[#f4f4f2] px-5 py-20 sm:px-6 lg:px-8">
-          <Reveal className="mx-auto max-w-5xl">
-            <div className="rounded-[2rem] border border-[#242329]/10 bg-white p-7 shadow-[0_28px_80px_rgba(36,35,41,0.1)] sm:p-10">
-              <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
-                    What&apos;s Included
+        {/* Volume pricing centerpiece */}
+        <section className="bg-[#f4f4f2] px-5 py-14 sm:px-6 sm:py-16 lg:px-8">
+          <Reveal className="mx-auto max-w-7xl">
+            <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
+                  Volume-Based Pricing
+                </p>
+
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#242329] sm:text-5xl">
+                  Only Pay for the Space You Use
+                </h2>
+
+                <div className="mt-5 space-y-4 text-sm leading-7 text-[#242329]/65 sm:text-base">
+                  <p>
+                    At Everhaul Solutions, pricing is based on the size of your
+                    project—not a one-size-fits-all rate.
                   </p>
 
-                  <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329]">
-                    Every Project Includes
-                  </h2>
+                  <p>
+                    Rather than charging every customer for a full truck,
+                    you&apos;ll only pay for the amount of truck space your
+                    project occupies, along with material type, accessibility,
+                    and labor required.
+                  </p>
 
-                  <p className="mt-5 text-sm leading-7 text-[#242329]/65">
-                    You&apos;ll always receive an upfront price before work
-                    begins, so there are never any hidden surprises.
+                  <p>
+                    Every estimate is customized, provided upfront, and approved
+                    before any work begins.
                   </p>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                  {pricingFactors.map((factor) => (
+                    <article
+                      key={factor.title}
+                      className="rounded-2xl border border-[#242329]/10 bg-white p-4 shadow-[0_14px_38px_rgba(36,35,41,0.07)]"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#57891d]/10 text-xl">
+                          {factor.icon}
+                        </span>
+
+                        <div>
+                          <h3 className="font-black text-[#242329]">
+                            {factor.title}
+                          </h3>
+
+                          <p className="mt-1 text-xs leading-5 text-[#242329]/60">
+                            {factor.description}
+                          </p>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                <p className="mt-6 rounded-2xl border border-[#57891d]/20 bg-[#57891d]/8 p-4 text-sm font-semibold leading-6 text-[#242329]/70">
+                  Heavy materials such as concrete, dirt, brick, tile, asphalt,
+                  and roofing debris are quoted separately due to increased
+                  weight and disposal requirements.
+                </p>
+              </div>
+
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full bg-[#57891d]/10 blur-[80px]" />
+
+                <img
+                  src={TRUCK_IMAGE}
+                  alt="Everhaul Solutions dump truck representing volume-based pricing"
+                  className="relative z-10 mx-auto block h-auto max-h-[560px] w-full object-contain"
+                />
+
+                <p className="relative z-10 mt-4 text-center text-xs font-bold uppercase tracking-[0.16em] text-[#242329]/45">
+                  Visual representation of truck capacity
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* Compact trust cards */}
+        <section className="bg-white px-5 py-14 sm:px-6 sm:py-16 lg:px-8">
+          <Reveal className="mx-auto max-w-7xl">
+            <div className="grid gap-5 lg:grid-cols-3">
+              <article className="flex h-full flex-col rounded-[1.75rem] border border-[#242329]/10 bg-white p-6 shadow-[0_20px_55px_rgba(36,35,41,0.08)]">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
+                  What&apos;s Included
+                </p>
+
+                <h2 className="mt-3 text-2xl font-black text-[#242329]">
+                  Every Project Includes
+                </h2>
+
+                <div className="mt-6 grid gap-4">
                   {includedItems.map((item) => (
                     <CheckItem key={item} dark>
                       {item}
                     </CheckItem>
                   ))}
                 </div>
-              </div>
-            </div>
-          </Reveal>
-        </section>
+              </article>
 
-        {/* Process */}
-        <section className="bg-white px-5 py-20 sm:px-6 lg:px-8">
-          <Reveal className="mx-auto max-w-7xl">
-            <div className="text-center">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
-                How It Works
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
-                Simple from quote to cleanup.
-              </h2>
-            </div>
-
-            <div className="relative mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-              <div className="absolute left-[12%] right-[12%] top-10 hidden h-px bg-[#57891d]/20 lg:block" />
-
-              {processSteps.map((step) => (
-                <article
-                  key={step.title}
-                  className="relative rounded-[1.5rem] border border-[#242329]/10 bg-white p-6 shadow-[0_20px_55px_rgba(36,35,41,0.08)]"
-                >
-                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-[#57891d] text-white shadow-[0_12px_28px_rgba(87,137,29,0.2)]">
-                    <div className="pricing-icon">{step.icon}</div>
-                  </div>
-
-                  <h3 className="mt-5 text-lg font-black text-[#242329]">
-                    {step.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-[#242329]/62">
-                    {step.description}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </Reveal>
-        </section>
-
-        {/* Promise */}
-        <section className="bg-[#f4f4f2] px-5 py-20 sm:px-6 lg:px-8">
-          <Reveal className="mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-[2rem] border border-[#57891d]/30 bg-[#242329] p-7 text-white shadow-[0_32px_90px_rgba(36,35,41,0.24)] sm:p-10">
-              <div className="pointer-events-none absolute right-[-130px] top-[-150px] h-[340px] w-[340px] rounded-full bg-[#57891d]/18 blur-[100px]" />
-
-              <div className="relative z-10">
-                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
-                  Our Pricing Promise
+              <article className="flex h-full flex-col rounded-[1.75rem] border border-[#242329]/10 bg-[#f4f4f2] p-6 shadow-[0_20px_55px_rgba(36,35,41,0.08)]">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
+                  How It Works
                 </p>
 
-                <h2 className="mt-4 text-3xl font-black tracking-tight text-white">
-                  Honest pricing without pressure.
+                <h2 className="mt-3 text-2xl font-black text-[#242329]">
+                  Simple From Start to Finish
                 </h2>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {promiseItems.map((item) => (
-                    <CheckItem key={item}>{item}</CheckItem>
+                <div className="mt-6 grid gap-4">
+                  {processSteps.map((step, index) => (
+                    <div key={step} className="flex items-center gap-3">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#57891d] text-xs font-black text-white">
+                        {index + 1}
+                      </span>
+
+                      <p className="text-sm font-bold text-[#242329]/75">
+                        {step}
+                      </p>
+                    </div>
                   ))}
                 </div>
+              </article>
 
-                <p className="mt-8 rounded-2xl border border-[#57891d]/30 bg-[#57891d]/12 p-5 text-center text-lg font-black leading-8 text-white">
-                  If you decide not to move forward after receiving your
-                  estimate, you owe us absolutely nothing.
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </section>
+              <article className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-[#57891d]/30 bg-[#242329] p-6 text-white shadow-[0_24px_65px_rgba(36,35,41,0.18)]">
+                <div className="pointer-events-none absolute right-[-80px] top-[-100px] h-56 w-56 rounded-full bg-[#57891d]/18 blur-[70px]" />
 
-        {/* FAQs */}
-        <section className="bg-white px-5 py-20 sm:px-6 lg:px-8">
-          <Reveal className="mx-auto max-w-5xl">
-            <div className="text-center">
-              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
-                Frequently Asked Questions
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
-                Clear answers before you schedule.
-              </h2>
-            </div>
-
-            <div className="mt-10 grid gap-5">
-              {faqs.map((faq) => (
-                <article
-                  key={faq.question}
-                  className="rounded-[1.5rem] border border-[#242329]/10 bg-[#f4f4f2] p-6"
-                >
-                  <h3 className="text-lg font-black text-[#242329]">
-                    {faq.question}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-[#242329]/65">
-                    {faq.answer}
+                <div className="relative z-10">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#8fbd55]">
+                    Our Promise
                   </p>
-                </article>
-              ))}
+
+                  <h2 className="mt-3 text-2xl font-black text-white">
+                    Honest Pricing Without Pressure
+                  </h2>
+
+                  <div className="mt-6 grid gap-4">
+                    {promiseItems.map((item) => (
+                      <CheckItem key={item}>{item}</CheckItem>
+                    ))}
+                  </div>
+                </div>
+              </article>
             </div>
           </Reveal>
         </section>
 
-        {/* Final CTA */}
-        <section className="bg-[#f4f4f2] px-5 pb-24 pt-10 sm:px-6 sm:pb-28 lg:px-8">
+        {/* CTA */}
+        <section className="bg-[#f4f4f2] px-5 py-12 sm:px-6 sm:py-14 lg:px-8">
           <Reveal className="mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-[2rem] border border-[#57891d]/30 bg-[#242329] p-7 text-center text-white shadow-[0_32px_90px_rgba(36,35,41,0.25)] sm:p-10 lg:p-12">
-              <div className="pointer-events-none absolute left-1/2 top-[-210px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[#57891d]/18 blur-[110px]" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#57891d]/30 bg-[#242329] p-7 text-center text-white shadow-[0_30px_85px_rgba(36,35,41,0.24)] sm:p-10">
+              <div className="pointer-events-none absolute left-1/2 top-[-210px] h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-[#57891d]/18 blur-[110px]" />
 
               <div className="relative z-10">
-                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#8fbd55]">
+                <p className="text-xs font-black uppercase tracking-[0.24em] text-[#8fbd55]">
                   Free Estimate
                 </p>
 
-                <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl">
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-5xl">
                   Ready to Clear the Clutter?
                 </h2>
 
-                <p className="mt-5 text-base text-white/65 sm:text-lg">
+                <p className="mt-4 text-base text-white/65 sm:text-lg">
                   Get your free, no-obligation estimate today.
                 </p>
 
-                <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
+                <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
                   <a href={TEXT_LINK} className="btn-primary">
                     Text Photos
                   </a>
@@ -572,7 +447,7 @@ export default function PricingPage() {
                   </a>
 
                   <a href={PHONE_LINK} className="btn-secondary">
-                    Call Now {PHONE_DISPLAY}
+                    Call Now
                   </a>
                 </div>
               </div>
@@ -580,13 +455,43 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
+        {/* FAQ */}
+        <section className="bg-white px-5 py-14 sm:px-6 sm:py-16 lg:px-8">
+          <Reveal className="mx-auto max-w-4xl">
+            <div className="text-center">
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#57891d]">
+                Frequently Asked Questions
+              </p>
+
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
+                Clear answers before you schedule.
+              </h2>
+            </div>
+
+            <div className="mt-8 grid gap-4">
+              {faqs.map((faq, index) => (
+                <FAQItem
+                  key={faq.question}
+                  item={faq}
+                  open={openFaq === index}
+                  onToggle={() =>
+                    setOpenFaq((current) =>
+                      current === index ? null : index
+                    )
+                  }
+                />
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
         <style jsx>{`
           .pricing-reveal {
             opacity: 0;
-            transform: translateY(22px);
+            transform: translateY(18px);
             transition:
-              opacity 600ms ease,
-              transform 600ms ease;
+              opacity 550ms ease,
+              transform 550ms ease;
           }
 
           .pricing-reveal-visible {
@@ -594,71 +499,11 @@ export default function PricingPage() {
             transform: translateY(0);
           }
 
-          .pricing-icon {
-            height: 1.55rem;
-            width: 1.55rem;
-          }
-
-          .pricing-icon :global(svg) {
-            height: 100%;
-            width: 100%;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-          }
-
-          /*
-            These values position the interactive area over the dump bed.
-
-            Adjust these four values only if the overlay does not align with
-            your exact truck PNG.
-          */
-          .truck-bed-guide {
-            position: absolute;
-            left: 8%;
-            top: 16%;
-            width: 58%;
-            height: 43%;
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            overflow: hidden;
-            pointer-events: none;
-          }
-
-          .truck-highlight {
-            border: 0;
-            border-right: 1px solid transparent;
-            background: transparent;
-            pointer-events: auto;
-            cursor: pointer;
-            transition:
-              background-color 240ms ease,
-              box-shadow 240ms ease;
-          }
-
-          .truck-highlight:last-child {
-            border-right: 0;
-          }
-
-          .truck-highlight:hover,
-          .truck-highlight:focus-visible,
-          .truck-highlight-active {
-            background: rgba(87, 137, 29, 0.42);
-            box-shadow: inset 0 0 30px rgba(87, 137, 29, 0.26);
-            outline: none;
-          }
-
           @media (prefers-reduced-motion: reduce) {
             .pricing-reveal,
             .pricing-reveal-visible {
               opacity: 1;
               transform: none;
-              transition: none;
-            }
-
-            .truck-highlight {
               transition: none;
             }
           }
