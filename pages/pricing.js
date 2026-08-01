@@ -37,7 +37,7 @@ const pricingFactors = [
   {
     title: "Accessibility",
     description:
-      "Stairs, elevators, long carry distances, and other site conditions may affect labor.",
+      "Stairs, elevators, long carry distances, and other site conditions.",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 20h4v-4h4v-4h4V8h4M5 6h5M5 6v5" />
@@ -47,7 +47,7 @@ const pricingFactors = [
   {
     title: "Labor Required",
     description:
-      "Some projects require additional time, manpower, or special handling.",
+      "Projects requiring additional time, manpower, or special handling.",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M14 6a4 4 0 0 0-5 5L3 17l4 4 6-6a4 4 0 0 0 5-5l-3 3-4-4 3-3Z" />
@@ -60,14 +60,9 @@ const includedItems = [
   "Loading",
   "Hauling",
   "Disposal",
+  "Fuel",
   "Jobsite Cleanup",
-];
-
-const processSteps = [
-  "Request a Quote",
-  "Receive a Free Estimate",
-  "Approve the Price",
-  "We Handle Everything",
+  "Licensed & Insured Professionals",
 ];
 
 const promiseItems = [
@@ -75,19 +70,55 @@ const promiseItems = [
   "No Obligation",
   "Upfront Pricing",
   "No Hidden Fees",
+  "Family-Owned",
   "Licensed & Insured",
+];
+
+const processSteps = [
+  {
+    title: "Text Photos or Call",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 4h14v12H8l-3 3V4Zm4 4h6M9 12h4" />
+      </svg>
+    ),
+  },
+  {
+    title: "Free Estimate",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 5h16v14H4V5Zm4 4h8M8 13h5" />
+      </svg>
+    ),
+  },
+  {
+    title: "Approve the Price",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m5 12 4 4L19 6" />
+      </svg>
+    ),
+  },
+  {
+    title: "We Handle Everything",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 7h11v9H3V7Zm11 3h4l3 3v3h-7M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+      </svg>
+    ),
+  },
 ];
 
 const faqs = [
   {
-    question: "Why can’t you provide an exact price over the phone?",
+    question: "Why can't you provide an exact price over the phone?",
     answer:
       "Every project is unique. We can often provide a rough estimate from photos, but an on-site estimate allows us to provide the most accurate quote.",
   },
   {
     question: "Can I text photos?",
     answer:
-      "Yes. In many cases, we can provide an estimate from photos.",
+      "Yes. In many cases, we can provide an estimate from clear photos of the materials and access area.",
   },
   {
     question: "When do I pay?",
@@ -104,7 +135,7 @@ function PricingIcon({ children }) {
   );
 }
 
-function CheckItem({ children, dark = true }) {
+function CheckItem({ children, light = false }) {
   return (
     <div className="flex items-start gap-3">
       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#57891d] text-[11px] font-black text-white">
@@ -113,7 +144,7 @@ function CheckItem({ children, dark = true }) {
 
       <span
         className={`text-sm font-semibold leading-6 ${
-          dark ? "text-[#242329]/75" : "text-white/75"
+          light ? "text-white/75" : "text-[#242329]/75"
         }`}
       >
         {children}
@@ -122,13 +153,13 @@ function CheckItem({ children, dark = true }) {
   );
 }
 
-function FAQItem({ item, isOpen, onToggle }) {
+function FAQItem({ item, open, onToggle }) {
   return (
-    <article className="overflow-hidden rounded-2xl border border-[#242329]/10 bg-white shadow-[0_14px_40px_rgba(36,35,41,0.06)]">
+    <article className="overflow-hidden rounded-2xl border border-[#242329]/10 bg-white shadow-[0_14px_38px_rgba(36,35,41,0.06)]">
       <button
         type="button"
-        aria-expanded={isOpen}
         onClick={onToggle}
+        aria-expanded={open}
         className="flex w-full items-center justify-between gap-5 px-5 py-4 text-left sm:px-6"
       >
         <span className="font-black text-[#242329]">{item.question}</span>
@@ -136,7 +167,7 @@ function FAQItem({ item, isOpen, onToggle }) {
         <span
           aria-hidden="true"
           className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#57891d]/25 bg-[#57891d]/10 text-lg font-black text-[#57891d] transition duration-300 ${
-            isOpen ? "rotate-45" : ""
+            open ? "rotate-45" : ""
           }`}
         >
           +
@@ -145,7 +176,7 @@ function FAQItem({ item, isOpen, onToggle }) {
 
       <div
         className={`grid transition-all duration-300 ${
-          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
         <div className="overflow-hidden">
@@ -170,7 +201,7 @@ export default function PricingPage() {
 
         <meta
           name="description"
-          content="Learn how Everhaul Solutions determines junk removal and debris hauling pricing. Minimum service charge starts at $149. Free estimates, upfront pricing, and no hidden fees."
+          content="Everhaul Solutions offers customized volume-based junk removal and debris hauling pricing. Minimum service charge starts at $149 with free estimates and no hidden fees."
         />
 
         <link
@@ -198,22 +229,26 @@ export default function PricingPage() {
               Transparent & Upfront Pricing
             </h1>
 
-            <p className="mt-4 text-xl font-bold text-white/82 sm:text-2xl">
+            <p className="mt-4 text-xl font-bold text-white/80 sm:text-2xl">
               Fair pricing. No hidden fees. No surprises.
             </p>
 
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-white/65 sm:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-white/65 sm:text-lg">
               At Everhaul Solutions, getting a quote should be simple and
               stress-free.
             </p>
 
-            <div className="mx-auto mt-6 max-w-md rounded-[1.5rem] border border-[#57891d]/40 bg-[#57891d]/14 px-6 py-5 shadow-[0_18px_50px_rgba(0,0,0,0.22)]">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a4ca76]">
+            <div className="mx-auto mt-6 max-w-md rounded-[1.6rem] border border-[#57891d]/40 bg-[#57891d]/15 px-6 py-5 shadow-[0_20px_55px_rgba(0,0,0,0.24)]">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a4ca76]">
                 Minimum Service Charge
               </p>
 
-              <p className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                Starting at $149
+              <p className="mt-2 text-xs font-black uppercase tracking-[0.18em] text-white/50">
+                Starting At
+              </p>
+
+              <p className="mt-1 text-5xl font-black tracking-[-0.04em] text-white sm:text-6xl">
+                $149
               </p>
             </div>
 
@@ -243,9 +278,9 @@ export default function PricingPage() {
         </section>
 
         {/* Volume-Based Pricing */}
-        <section className="px-5 py-12 sm:px-6 sm:py-14 lg:px-8">
+        <section className="px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
           <div className="mx-auto max-w-7xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.09)] sm:p-8 lg:p-10">
-            <div className="grid gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+            <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.24em] text-[#57891d]">
                   Volume-Based Pricing
@@ -257,16 +292,13 @@ export default function PricingPage() {
 
                 <div className="mt-4 max-w-2xl space-y-3 text-sm leading-7 text-[#242329]/65 sm:text-base">
                   <p>
-                    We believe junk removal pricing should be simple and
-                    transparent. Your quote is based on the amount of truck
-                    space your project occupies, along with material type,
-                    accessibility, and labor required.
+                    At Everhaul Solutions, pricing is based on the size of your
+                    project—not a one-size-fits-all rate.
                   </p>
 
                   <p>
-                    Every estimate is customized, provided upfront, and
-                    approved before any work begins, so you will always know
-                    the exact price before making a decision.
+                    Every quote is customized, so you only pay for the truck
+                    space your project actually uses—never more than you need.
                   </p>
                 </div>
 
@@ -274,7 +306,7 @@ export default function PricingPage() {
                   {pricingFactors.map((factor) => (
                     <article
                       key={factor.title}
-                      className="rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-4"
+                      className="rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-4 shadow-[0_12px_32px_rgba(36,35,41,0.04)]"
                     >
                       <div className="flex items-start gap-3">
                         <PricingIcon>{factor.icon}</PricingIcon>
@@ -295,8 +327,8 @@ export default function PricingPage() {
 
                 <p className="mt-5 rounded-2xl border border-[#57891d]/20 bg-[#57891d]/[0.07] p-4 text-sm font-semibold leading-6 text-[#242329]/70">
                   Heavy materials such as concrete, dirt, brick, tile, asphalt,
-                  and roofing debris are quoted separately because weight and
-                  disposal requirements differ.
+                  and roofing debris are quoted separately due to increased
+                  weight and disposal requirements.
                 </p>
               </div>
 
@@ -311,10 +343,11 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* Combined Conversion Section */}
-        <section className="px-5 pb-12 sm:px-6 sm:pb-14 lg:px-8">
+        {/* Compact Connected Conversion Dashboard */}
+        <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
           <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#242329]/10 bg-white shadow-[0_24px_70px_rgba(36,35,41,0.09)]">
-            <div className="grid lg:grid-cols-3">
+            {/* Top Row */}
+            <div className="grid lg:grid-cols-2">
               <article className="border-b border-[#242329]/10 p-6 sm:p-7 lg:border-b-0 lg:border-r">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
                   What&apos;s Included
@@ -324,33 +357,9 @@ export default function PricingPage() {
                   Every Project Includes
                 </h2>
 
-                <div className="mt-5 grid gap-3">
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
                   {includedItems.map((item) => (
                     <CheckItem key={item}>{item}</CheckItem>
-                  ))}
-                </div>
-              </article>
-
-              <article className="border-b border-[#242329]/10 bg-[#fafaf8] p-6 sm:p-7 lg:border-b-0 lg:border-r">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
-                  How It Works
-                </p>
-
-                <h2 className="mt-3 text-2xl font-black text-[#242329]">
-                  Simple From Start to Finish
-                </h2>
-
-                <div className="mt-5 grid gap-3">
-                  {processSteps.map((step, index) => (
-                    <div key={step} className="flex items-center gap-3">
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#57891d] text-xs font-black text-white">
-                        {index + 1}
-                      </span>
-
-                      <p className="text-sm font-bold text-[#242329]/72">
-                        {step}
-                      </p>
-                    </div>
                   ))}
                 </div>
               </article>
@@ -367,17 +376,55 @@ export default function PricingPage() {
                     Honest Pricing Without Pressure
                   </h2>
 
-                  <div className="mt-5 grid gap-3">
+                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
                     {promiseItems.map((item) => (
-                      <CheckItem key={item} dark={false}>
+                      <CheckItem key={item} light>
                         {item}
                       </CheckItem>
                     ))}
                   </div>
+
+                  <p className="mt-5 rounded-2xl border border-[#57891d]/25 bg-[#57891d]/10 p-4 text-sm font-bold leading-6 text-white/80">
+                    If you decide not to move forward after receiving your
+                    estimate, you owe us absolutely nothing.
+                  </p>
                 </div>
               </article>
             </div>
 
+            {/* Horizontal Process */}
+            <div className="border-t border-[#242329]/10 bg-[#fafaf8] p-6 sm:p-7">
+              <p className="text-center text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
+                How It Works
+              </p>
+
+              <div className="relative mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="absolute left-[12%] right-[12%] top-6 hidden h-px bg-[#57891d]/25 lg:block" />
+
+                {processSteps.map((step, index) => (
+                  <div
+                    key={step.title}
+                    className="relative z-10 flex items-center gap-3 rounded-2xl border border-[#242329]/10 bg-white p-4 lg:flex-col lg:text-center"
+                  >
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#57891d] text-white shadow-[0_12px_28px_rgba(87,137,29,0.2)]">
+                      <div className="pricing-icon">{step.icon}</div>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.14em] text-[#57891d]">
+                        Step {index + 1}
+                      </p>
+
+                      <p className="mt-1 text-sm font-black text-[#242329]">
+                        {step.title}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Connected CTA */}
             <div className="border-t border-[#242329]/10 bg-[#f4f4f2] p-6 text-center sm:p-8">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
                 Free Estimate
@@ -422,7 +469,7 @@ export default function PricingPage() {
                 <FAQItem
                   key={faq.question}
                   item={faq}
-                  isOpen={openFaq === index}
+                  open={openFaq === index}
                   onToggle={() =>
                     setOpenFaq((current) =>
                       current === index ? null : index
