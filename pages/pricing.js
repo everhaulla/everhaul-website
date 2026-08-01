@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -12,37 +12,47 @@ const TEXT_MESSAGE =
 
 const TEXT_LINK = `sms:+18185381072?&body=${encodeURIComponent(TEXT_MESSAGE)}`;
 
-/*
-  Change only this path if your existing truck PNG uses a different filename.
-
-  Expected location:
-  public/pricing/everhaul-topkick-cutout.png
-*/
 const TRUCK_IMAGE = "/pricing/truck.png";
 
 const pricingFactors = [
   {
-    icon: "📦",
     title: "Space Used",
     description: "The amount of truck space your project requires.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 7h16v10H4V7Zm4-3v3m8-3v3M8 17v3m8-3v3" />
+      </svg>
+    ),
   },
   {
-    icon: "🗑️",
     title: "Material Type",
     description:
       "Different materials require different handling and disposal methods.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m12 3 8 4-8 4-8-4 8-4Zm-8 8 8 4 8-4M4 15l8 4 8-4" />
+      </svg>
+    ),
   },
   {
-    icon: "🚪",
     title: "Accessibility",
     description:
-      "Stairs, elevators, long carry distances, and site conditions may affect labor.",
+      "Stairs, elevators, long carry distances, and other site conditions may affect labor.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 20h4v-4h4v-4h4V8h4M5 6h5M5 6v5" />
+      </svg>
+    ),
   },
   {
-    icon: "👷",
     title: "Labor Required",
     description:
-      "Projects requiring additional time, manpower, or special handling.",
+      "Some projects require additional time, manpower, or special handling.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 6a4 4 0 0 0-5 5L3 17l4 4 6-6a4 4 0 0 0 5-5l-3 3-4-4 3-3Z" />
+      </svg>
+    ),
   },
 ];
 
@@ -55,8 +65,8 @@ const includedItems = [
 
 const processSteps = [
   "Request a Quote",
-  "Free Estimate",
-  "Approve the Quote",
+  "Receive a Free Estimate",
+  "Approve the Price",
   "We Handle Everything",
 ];
 
@@ -70,14 +80,14 @@ const promiseItems = [
 
 const faqs = [
   {
-    question: "Why can't you provide an exact price over the phone?",
+    question: "Why can’t you provide an exact price over the phone?",
     answer:
       "Every project is unique. We can often provide a rough estimate from photos, but an on-site estimate allows us to provide the most accurate quote.",
   },
   {
     question: "Can I text photos?",
     answer:
-      "Yes. In many cases we can provide an estimate from clear photos of the material and access area.",
+      "Yes. In many cases, we can provide an estimate from photos.",
   },
   {
     question: "When do I pay?",
@@ -86,57 +96,18 @@ const faqs = [
   },
 ];
 
-function Reveal({ children, className = "" }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current;
-
-    if (!element) return undefined;
-
-    if (
-      typeof window === "undefined" ||
-      !("IntersectionObserver" in window)
-    ) {
-      setVisible(true);
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -30px 0px",
-      }
-    );
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
-
+function PricingIcon({ children }) {
   return (
-    <div
-      ref={ref}
-      className={`pricing-reveal ${
-        visible ? "pricing-reveal-visible" : ""
-      } ${className}`}
-    >
-      {children}
+    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d]">
+      <div className="pricing-icon">{children}</div>
     </div>
   );
 }
 
-function CheckItem({ children, dark = false }) {
+function CheckItem({ children, dark = true }) {
   return (
     <div className="flex items-start gap-3">
-      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#57891d] text-sm font-black text-white">
+      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#57891d] text-[11px] font-black text-white">
         ✓
       </span>
 
@@ -151,22 +122,22 @@ function CheckItem({ children, dark = false }) {
   );
 }
 
-function FAQItem({ item, open, onToggle }) {
+function FAQItem({ item, isOpen, onToggle }) {
   return (
     <article className="overflow-hidden rounded-2xl border border-[#242329]/10 bg-white shadow-[0_14px_40px_rgba(36,35,41,0.06)]">
       <button
         type="button"
+        aria-expanded={isOpen}
         onClick={onToggle}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left sm:px-6"
+        className="flex w-full items-center justify-between gap-5 px-5 py-4 text-left sm:px-6"
       >
         <span className="font-black text-[#242329]">{item.question}</span>
 
         <span
-          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#57891d]/25 bg-[#57891d]/10 text-xl font-bold text-[#57891d] transition duration-300 ${
-            open ? "rotate-45" : ""
-          }`}
           aria-hidden="true"
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#57891d]/25 bg-[#57891d]/10 text-lg font-black text-[#57891d] transition duration-300 ${
+            isOpen ? "rotate-45" : ""
+          }`}
         >
           +
         </span>
@@ -174,11 +145,11 @@ function FAQItem({ item, open, onToggle }) {
 
       <div
         className={`grid transition-all duration-300 ${
-          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
         <div className="overflow-hidden">
-          <p className="px-5 pb-5 text-sm leading-7 text-[#242329]/65 sm:px-6 sm:pb-6">
+          <p className="px-5 pb-5 text-sm leading-7 text-[#242329]/65 sm:px-6">
             {item.answer}
           </p>
         </div>
@@ -188,7 +159,7 @@ function FAQItem({ item, open, onToggle }) {
 }
 
 export default function PricingPage() {
-  const [openFaq, setOpenFaq] = useState(0);
+  const [openFaq, setOpenFaq] = useState(null);
 
   return (
     <>
@@ -199,7 +170,7 @@ export default function PricingPage() {
 
         <meta
           name="description"
-          content="Learn how Everhaul Solutions determines junk removal and debris hauling pricing. Get a free estimate with upfront pricing and no hidden fees."
+          content="Learn how Everhaul Solutions determines junk removal and debris hauling pricing. Minimum service charge starts at $149. Free estimates, upfront pricing, and no hidden fees."
         />
 
         <link
@@ -210,15 +181,15 @@ export default function PricingPage() {
 
       <Navbar />
 
-      <main className="overflow-hidden bg-white">
-        {/* Compact hero */}
-        <section className="relative bg-[#242329] px-5 pb-14 pt-32 text-white sm:px-6 sm:pb-16 sm:pt-36 lg:px-8">
+      <main className="overflow-hidden bg-[#f4f4f2]">
+        {/* Compact Hero */}
+        <section className="relative bg-[#242329] px-5 pb-12 pt-32 text-white sm:px-6 sm:pb-14 sm:pt-36 lg:px-8">
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-1/2 top-[-250px] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#57891d]/16 blur-[135px]" />
+            <div className="absolute left-1/2 top-[-260px] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#57891d]/15 blur-[135px]" />
             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.025] to-black/15" />
           </div>
 
-          <Reveal className="relative z-10 mx-auto max-w-5xl text-center">
+          <div className="pricing-enter relative z-10 mx-auto max-w-5xl text-center">
             <p className="text-xs font-black uppercase tracking-[0.28em] text-[#8fbd55]">
               Everhaul Pricing
             </p>
@@ -231,49 +202,52 @@ export default function PricingPage() {
               Fair pricing. No hidden fees. No surprises.
             </p>
 
-            <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-white/65 sm:text-lg">
-              At Everhaul Solutions, we believe getting a quote should be
-              simple and stress-free.
+            <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-white/65 sm:text-lg">
+              At Everhaul Solutions, getting a quote should be simple and
+              stress-free.
             </p>
 
-            <div className="mx-auto mt-6 inline-flex rounded-2xl border border-[#57891d]/40 bg-[#57891d]/15 px-6 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
-              <p className="font-black text-white">
-                Minimum Service Charge:{" "}
-                <span className="text-[#a4ca76]">Starting at $149</span>
+            <div className="mx-auto mt-6 max-w-md rounded-[1.5rem] border border-[#57891d]/40 bg-[#57891d]/14 px-6 py-5 shadow-[0_18px_50px_rgba(0,0,0,0.22)]">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a4ca76]">
+                Minimum Service Charge
+              </p>
+
+              <p className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
+                Starting at $149
               </p>
             </div>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <div className="mt-5 flex flex-wrap justify-center gap-2.5">
               {["Free Estimates", "Upfront Pricing", "No Hidden Fees"].map(
                 (item) => (
-                  <div
+                  <span
                     key={item}
                     className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs font-bold text-white/75"
                   >
                     ✓ {item}
-                  </div>
+                  </span>
                 )
               )}
             </div>
 
-            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
               <a href={TEXT_LINK} className="btn-primary">
                 Text Photos
               </a>
 
-              <a href="/#quote" className="btn-secondary">
-                Request a Free Quote
+              <a href={PHONE_LINK} className="btn-secondary">
+                Call Now
               </a>
             </div>
-          </Reveal>
+          </div>
         </section>
 
-        {/* Volume pricing centerpiece */}
-        <section className="bg-[#f4f4f2] px-5 py-14 sm:px-6 sm:py-16 lg:px-8">
-          <Reveal className="mx-auto max-w-7xl">
-            <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        {/* Volume-Based Pricing */}
+        <section className="px-5 py-12 sm:px-6 sm:py-14 lg:px-8">
+          <div className="mx-auto max-w-7xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.09)] sm:p-8 lg:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#57891d]">
+                <p className="text-xs font-black uppercase tracking-[0.24em] text-[#57891d]">
                   Volume-Based Pricing
                 </p>
 
@@ -281,35 +255,29 @@ export default function PricingPage() {
                   Only Pay for the Space You Use
                 </h2>
 
-                <div className="mt-5 space-y-4 text-sm leading-7 text-[#242329]/65 sm:text-base">
+                <div className="mt-4 max-w-2xl space-y-3 text-sm leading-7 text-[#242329]/65 sm:text-base">
                   <p>
-                    At Everhaul Solutions, pricing is based on the size of your
-                    project—not a one-size-fits-all rate.
+                    We believe junk removal pricing should be simple and
+                    transparent. Your quote is based on the amount of truck
+                    space your project occupies, along with material type,
+                    accessibility, and labor required.
                   </p>
 
                   <p>
-                    Rather than charging every customer for a full truck,
-                    you&apos;ll only pay for the amount of truck space your
-                    project occupies, along with material type, accessibility,
-                    and labor required.
-                  </p>
-
-                  <p>
-                    Every estimate is customized, provided upfront, and approved
-                    before any work begins.
+                    Every estimate is customized, provided upfront, and
+                    approved before any work begins, so you will always know
+                    the exact price before making a decision.
                   </p>
                 </div>
 
-                <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {pricingFactors.map((factor) => (
                     <article
                       key={factor.title}
-                      className="rounded-2xl border border-[#242329]/10 bg-white p-4 shadow-[0_14px_38px_rgba(36,35,41,0.07)]"
+                      className="rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-4"
                     >
                       <div className="flex items-start gap-3">
-                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#57891d]/10 text-xl">
-                          {factor.icon}
-                        </span>
+                        <PricingIcon>{factor.icon}</PricingIcon>
 
                         <div>
                           <h3 className="font-black text-[#242329]">
@@ -325,35 +293,29 @@ export default function PricingPage() {
                   ))}
                 </div>
 
-                <p className="mt-6 rounded-2xl border border-[#57891d]/20 bg-[#57891d]/8 p-4 text-sm font-semibold leading-6 text-[#242329]/70">
+                <p className="mt-5 rounded-2xl border border-[#57891d]/20 bg-[#57891d]/[0.07] p-4 text-sm font-semibold leading-6 text-[#242329]/70">
                   Heavy materials such as concrete, dirt, brick, tile, asphalt,
-                  and roofing debris are quoted separately due to increased
-                  weight and disposal requirements.
+                  and roofing debris are quoted separately because weight and
+                  disposal requirements differ.
                 </p>
               </div>
 
-              <div className="relative">
-                <div className="absolute inset-0 rounded-full bg-[#57891d]/10 blur-[80px]" />
-
+              <div className="flex items-center justify-center">
                 <img
                   src={TRUCK_IMAGE}
                   alt="Everhaul Solutions dump truck representing volume-based pricing"
-                  className="relative z-10 mx-auto block h-auto max-h-[560px] w-full object-contain"
+                  className="block h-auto max-h-[500px] w-full object-contain"
                 />
-
-                <p className="relative z-10 mt-4 text-center text-xs font-bold uppercase tracking-[0.16em] text-[#242329]/45">
-                  Visual representation of truck capacity
-                </p>
               </div>
             </div>
-          </Reveal>
+          </div>
         </section>
 
-        {/* Compact trust cards */}
-        <section className="bg-white px-5 py-14 sm:px-6 sm:py-16 lg:px-8">
-          <Reveal className="mx-auto max-w-7xl">
-            <div className="grid gap-5 lg:grid-cols-3">
-              <article className="flex h-full flex-col rounded-[1.75rem] border border-[#242329]/10 bg-white p-6 shadow-[0_20px_55px_rgba(36,35,41,0.08)]">
+        {/* Combined Conversion Section */}
+        <section className="px-5 pb-12 sm:px-6 sm:pb-14 lg:px-8">
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#242329]/10 bg-white shadow-[0_24px_70px_rgba(36,35,41,0.09)]">
+            <div className="grid lg:grid-cols-3">
+              <article className="border-b border-[#242329]/10 p-6 sm:p-7 lg:border-b-0 lg:border-r">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
                   What&apos;s Included
                 </p>
@@ -362,16 +324,14 @@ export default function PricingPage() {
                   Every Project Includes
                 </h2>
 
-                <div className="mt-6 grid gap-4">
+                <div className="mt-5 grid gap-3">
                   {includedItems.map((item) => (
-                    <CheckItem key={item} dark>
-                      {item}
-                    </CheckItem>
+                    <CheckItem key={item}>{item}</CheckItem>
                   ))}
                 </div>
               </article>
 
-              <article className="flex h-full flex-col rounded-[1.75rem] border border-[#242329]/10 bg-[#f4f4f2] p-6 shadow-[0_20px_55px_rgba(36,35,41,0.08)]">
+              <article className="border-b border-[#242329]/10 bg-[#fafaf8] p-6 sm:p-7 lg:border-b-0 lg:border-r">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
                   How It Works
                 </p>
@@ -380,14 +340,14 @@ export default function PricingPage() {
                   Simple From Start to Finish
                 </h2>
 
-                <div className="mt-6 grid gap-4">
+                <div className="mt-5 grid gap-3">
                   {processSteps.map((step, index) => (
                     <div key={step} className="flex items-center gap-3">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#57891d] text-xs font-black text-white">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#57891d] text-xs font-black text-white">
                         {index + 1}
                       </span>
 
-                      <p className="text-sm font-bold text-[#242329]/75">
+                      <p className="text-sm font-bold text-[#242329]/72">
                         {step}
                       </p>
                     </div>
@@ -395,8 +355,8 @@ export default function PricingPage() {
                 </div>
               </article>
 
-              <article className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-[#57891d]/30 bg-[#242329] p-6 text-white shadow-[0_24px_65px_rgba(36,35,41,0.18)]">
-                <div className="pointer-events-none absolute right-[-80px] top-[-100px] h-56 w-56 rounded-full bg-[#57891d]/18 blur-[70px]" />
+              <article className="relative overflow-hidden bg-[#242329] p-6 text-white sm:p-7">
+                <div className="pointer-events-none absolute right-[-90px] top-[-110px] h-60 w-60 rounded-full bg-[#57891d]/17 blur-[75px]" />
 
                 <div className="relative z-10">
                   <p className="text-xs font-black uppercase tracking-[0.22em] text-[#8fbd55]">
@@ -407,59 +367,48 @@ export default function PricingPage() {
                     Honest Pricing Without Pressure
                   </h2>
 
-                  <div className="mt-6 grid gap-4">
+                  <div className="mt-5 grid gap-3">
                     {promiseItems.map((item) => (
-                      <CheckItem key={item}>{item}</CheckItem>
+                      <CheckItem key={item} dark={false}>
+                        {item}
+                      </CheckItem>
                     ))}
                   </div>
                 </div>
               </article>
             </div>
-          </Reveal>
-        </section>
 
-        {/* CTA */}
-        <section className="bg-[#f4f4f2] px-5 py-12 sm:px-6 sm:py-14 lg:px-8">
-          <Reveal className="mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-[2rem] border border-[#57891d]/30 bg-[#242329] p-7 text-center text-white shadow-[0_30px_85px_rgba(36,35,41,0.24)] sm:p-10">
-              <div className="pointer-events-none absolute left-1/2 top-[-210px] h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-[#57891d]/18 blur-[110px]" />
+            <div className="border-t border-[#242329]/10 bg-[#f4f4f2] p-6 text-center sm:p-8">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
+                Free Estimate
+              </p>
 
-              <div className="relative z-10">
-                <p className="text-xs font-black uppercase tracking-[0.24em] text-[#8fbd55]">
-                  Free Estimate
-                </p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
+                Ready to Clear the Clutter?
+              </h2>
 
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-5xl">
-                  Ready to Clear the Clutter?
-                </h2>
+              <p className="mt-3 text-sm leading-7 text-[#242329]/62 sm:text-base">
+                Get your free, no-obligation estimate today.
+              </p>
 
-                <p className="mt-4 text-base text-white/65 sm:text-lg">
-                  Get your free, no-obligation estimate today.
-                </p>
+              <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+                <a href={TEXT_LINK} className="btn-primary">
+                  Text Photos
+                </a>
 
-                <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-                  <a href={TEXT_LINK} className="btn-primary">
-                    Text Photos
-                  </a>
-
-                  <a href="/#quote" className="btn-secondary">
-                    Request a Free Quote
-                  </a>
-
-                  <a href={PHONE_LINK} className="btn-secondary">
-                    Call Now
-                  </a>
-                </div>
+                <a href={PHONE_LINK} className="btn-secondary-dark">
+                  Call Now
+                </a>
               </div>
             </div>
-          </Reveal>
+          </div>
         </section>
 
-        {/* FAQ */}
-        <section className="bg-white px-5 py-14 sm:px-6 sm:py-16 lg:px-8">
-          <Reveal className="mx-auto max-w-4xl">
+        {/* Compact FAQ */}
+        <section className="px-5 pb-16 sm:px-6 sm:pb-20 lg:px-8">
+          <div className="mx-auto max-w-4xl">
             <div className="text-center">
-              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#57891d]">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
                 Frequently Asked Questions
               </p>
 
@@ -468,12 +417,12 @@ export default function PricingPage() {
               </h2>
             </div>
 
-            <div className="mt-8 grid gap-4">
+            <div className="mt-7 grid gap-3">
               {faqs.map((faq, index) => (
                 <FAQItem
                   key={faq.question}
                   item={faq}
-                  open={openFaq === index}
+                  isOpen={openFaq === index}
                   onToggle={() =>
                     setOpenFaq((current) =>
                       current === index ? null : index
@@ -482,29 +431,66 @@ export default function PricingPage() {
                 />
               ))}
             </div>
-          </Reveal>
+          </div>
         </section>
 
         <style jsx>{`
-          .pricing-reveal {
-            opacity: 0;
-            transform: translateY(18px);
-            transition:
-              opacity 550ms ease,
-              transform 550ms ease;
+          .pricing-enter {
+            animation: pricingEnter 550ms ease-out both;
           }
 
-          .pricing-reveal-visible {
-            opacity: 1;
-            transform: translateY(0);
+          .pricing-icon {
+            height: 1.45rem;
+            width: 1.45rem;
+          }
+
+          .pricing-icon :global(svg) {
+            height: 100%;
+            width: 100%;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+          }
+
+          :global(.btn-secondary-dark) {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(36, 35, 41, 0.16);
+            background: rgba(36, 35, 41, 0.06);
+            padding: 1rem 1.75rem;
+            color: #242329;
+            font-weight: 900;
+            transition:
+              transform 250ms ease,
+              background 250ms ease,
+              border-color 250ms ease;
+          }
+
+          :global(.btn-secondary-dark:hover) {
+            transform: translateY(-3px);
+            border-color: rgba(87, 137, 29, 0.5);
+            background: rgba(87, 137, 29, 0.1);
+          }
+
+          @keyframes pricingEnter {
+            from {
+              opacity: 0;
+              transform: translateY(14px);
+            }
+
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
           }
 
           @media (prefers-reduced-motion: reduce) {
-            .pricing-reveal,
-            .pricing-reveal-visible {
-              opacity: 1;
-              transform: none;
-              transition: none;
+            .pricing-enter {
+              animation: none;
             }
           }
         `}</style>
