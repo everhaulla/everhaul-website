@@ -11,14 +11,35 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
     handleScroll();
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -29,67 +50,79 @@ export default function Navbar() {
           : "bg-[#242329]/35 backdrop-blur-sm"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-        <a href="#home" className="flex items-center gap-6 shrink-0">
-  <img
-    src="/logo.png"
-    alt="Everhaul Solutions"
-    className="h-12 w-auto scale-[1.55] origin-left object-contain drop-shadow-lg"
-  />
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 lg:px-8">
+        {/* Logo and company name */}
+        <a href="/" className="flex shrink-0 items-center gap-3.5">
+          <img
+            src="/logo.png"
+            alt="Everhaul Solutions LLC"
+            className="h-16 w-auto object-contain drop-shadow-lg sm:h-20 lg:h-24"
+          />
 
-  <span className="hidden whitespace-nowrap text-sm font-extrabold tracking-wide text-white/90 sm:inline lg:text-base">
-    <span className="text-[#8fbd55]">Everhaul</span>{" "}
-    Solutions LLC
-  </span>
-</a>
+          <span className="hidden whitespace-nowrap text-sm font-extrabold tracking-wide text-white/90 sm:inline lg:text-base">
+            <span className="text-[#8fbd55]">Everhaul</span>{" "}
+            Solutions LLC
+          </span>
+        </a>
 
-        <div className="hidden items-center gap-8 lg:flex">
+        {/* Desktop navigation */}
+        <div className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-sm font-semibold text-white/75 transition hover:text-white"
+              className="text-sm font-semibold text-white/75 transition duration-200 hover:text-white"
             >
               {link.label}
             </a>
           ))}
         </div>
 
+        {/* Desktop CTA */}
         <a
-          href="#quote"
-          className="hidden rounded-full bg-[#57891d] px-6 py-3 text-sm font-black text-white shadow-lg shadow-[#57891d]/20 transition hover:-translate-y-0.5 hover:bg-[#6aa823] lg:block"
+          href="/#quote"
+          className="hidden rounded-full bg-[#57891d] px-6 py-3 text-sm font-black text-white shadow-lg shadow-[#57891d]/20 transition duration-300 hover:-translate-y-0.5 hover:bg-[#6aa823] lg:block"
         >
-          Get Quote
+          Get a Free Estimate
         </a>
 
+        {/* Mobile menu button */}
         <button
-          onClick={() => setOpen(!open)}
-          className="rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white lg:hidden"
+          type="button"
+          onClick={() => setMenuOpen((current) => !current)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          className="rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white transition hover:bg-white/15 lg:hidden"
         >
-          {open ? "Close" : "Menu"}
+          {menuOpen ? "Close" : "Menu"}
         </button>
       </nav>
 
-      {open && (
-        <div className="border-t border-white/10 bg-[#242329]/95 px-5 py-5 backdrop-blur-xl lg:hidden">
-          <div className="flex flex-col gap-3">
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div
+          id="mobile-navigation"
+          className="border-t border-white/10 bg-[#242329]/95 px-5 py-5 shadow-2xl backdrop-blur-xl lg:hidden"
+        >
+          <div className="mx-auto flex max-w-7xl flex-col gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3 text-sm font-bold text-white/80 hover:bg-white/10"
+                onClick={() => setMenuOpen(false)}
+                className="rounded-xl px-4 py-3 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-white"
               >
                 {link.label}
               </a>
             ))}
 
             <a
-              href="#quote"
-              onClick={() => setOpen(false)}
-              className="rounded-xl bg-[#57891d] px-5 py-4 text-center text-sm font-black text-white"
+              href="/#quote"
+              onClick={() => setMenuOpen(false)}
+              className="mt-2 rounded-xl bg-[#57891d] px-5 py-4 text-center text-sm font-black text-white transition hover:bg-[#6aa823]"
             >
-              Get a Free Quote
+              Get a Free Estimate
             </a>
           </div>
         </div>
