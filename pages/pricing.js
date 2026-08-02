@@ -4,7 +4,6 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const PHONE_DISPLAY = "(818) 538-1072";
 const PHONE_LINK = "tel:+18185381072";
 
 const TEXT_MESSAGE =
@@ -19,8 +18,18 @@ const pricingFactors = [
     title: "Space Used",
     description: "The amount of truck space your project requires.",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 7h16v10H4V7Zm4-3v3m8-3v3M8 17v3m8-3v3" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M4 7 12 3l8 4-8 4-8-4Z" />
+        <path d="M4 7v10l8 4 8-4V7" />
+        <path d="M12 11v10" />
       </svg>
     ),
   },
@@ -29,8 +38,20 @@ const pricingFactors = [
     description:
       "Different materials require different handling and disposal methods.",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m12 3 8 4-8 4-8-4 8-4Zm-8 8 8 4 8-4M4 15l8 4 8-4" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 7h8v4H3V7Z" />
+        <path d="M13 7h8v4h-8V7Z" />
+        <path d="M8 13h8v4H8v-4Z" />
+        <path d="M3 19h8v2H3v-2Z" />
+        <path d="M13 19h8v2h-8v-2Z" />
       </svg>
     ),
   },
@@ -39,8 +60,18 @@ const pricingFactors = [
     description:
       "Stairs, elevators, long carry distances, and other site conditions.",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 20h4v-4h4v-4h4V8h4M5 6h5M5 6v5" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M4 20h4v-4h4v-4h4V8h4" />
+        <path d="M5 5h5v5" />
+        <path d="m5 10 5-5" />
       </svg>
     ),
   },
@@ -49,8 +80,19 @@ const pricingFactors = [
     description:
       "Projects requiring additional time, manpower, or special handling.",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M14 6a4 4 0 0 0-5 5L3 17l4 4 6-6a4 4 0 0 0 5-5l-3 3-4-4 3-3Z" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M7 9a5 5 0 0 1 10 0" />
+        <path d="M6 9h12" />
+        <path d="M8 9v2a4 4 0 0 0 8 0V9" />
+        <path d="M5 21v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v2" />
       </svg>
     ),
   },
@@ -78,23 +120,49 @@ const processSteps = [
   {
     title: "Text Photos or Call",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M5 4h14v12H8l-3 3V4Zm4 4h6M9 12h4" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 4h14v12H8l-3 3V4Z" />
+        <path d="M9 8h6M9 12h4" />
       </svg>
     ),
   },
   {
     title: "Free Estimate",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 5h16v14H4V5Zm4 4h8M8 13h5" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M4 5h16v14H4V5Z" />
+        <path d="M8 9h8M8 13h5" />
       </svg>
     ),
   },
   {
     title: "Approve the Price",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
         <path d="m5 12 4 4L19 6" />
       </svg>
     ),
@@ -102,8 +170,19 @@ const processSteps = [
   {
     title: "We Handle Everything",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 7h11v9H3V7Zm11 3h4l3 3v3h-7M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 7h11v9H3V7Z" />
+        <path d="M14 10h4l3 3v3h-7" />
+        <path d="M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+        <path d="M18 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
       </svg>
     ),
   },
@@ -129,8 +208,8 @@ const faqs = [
 
 function PricingIcon({ children }) {
   return (
-    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d]">
-      <div className="pricing-icon">{children}</div>
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d]">
+      <div className="h-6 w-6">{children}</div>
     </div>
   );
 }
@@ -346,7 +425,6 @@ export default function PricingPage() {
         {/* Compact Connected Conversion Dashboard */}
         <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
           <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#242329]/10 bg-white shadow-[0_24px_70px_rgba(36,35,41,0.09)]">
-            {/* Top Row */}
             <div className="grid lg:grid-cols-2">
               <article className="border-b border-[#242329]/10 p-6 sm:p-7 lg:border-b-0 lg:border-r">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
@@ -392,7 +470,6 @@ export default function PricingPage() {
               </article>
             </div>
 
-            {/* Horizontal Process */}
             <div className="border-t border-[#242329]/10 bg-[#fafaf8] p-6 sm:p-7">
               <p className="text-center text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
                 How It Works
@@ -407,7 +484,7 @@ export default function PricingPage() {
                     className="relative z-10 flex items-center gap-3 rounded-2xl border border-[#242329]/10 bg-white p-4 lg:flex-col lg:text-center"
                   >
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#57891d] text-white shadow-[0_12px_28px_rgba(87,137,29,0.2)]">
-                      <div className="pricing-icon">{step.icon}</div>
+                      <div className="h-6 w-6">{step.icon}</div>
                     </div>
 
                     <div>
@@ -424,7 +501,6 @@ export default function PricingPage() {
               </div>
             </div>
 
-            {/* Connected CTA */}
             <div className="border-t border-[#242329]/10 bg-[#f4f4f2] p-6 text-center sm:p-8">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
                 Free Estimate
@@ -484,21 +560,6 @@ export default function PricingPage() {
         <style jsx>{`
           .pricing-enter {
             animation: pricingEnter 550ms ease-out both;
-          }
-
-          .pricing-icon {
-            height: 1.45rem;
-            width: 1.45rem;
-          }
-
-          .pricing-icon :global(svg) {
-            height: 100%;
-            width: 100%;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
           }
 
           :global(.btn-secondary-dark) {
