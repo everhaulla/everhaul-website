@@ -1,5 +1,13 @@
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
+import {
+  BrickWall,
+  Check,
+  CheckCircle2,
+  Clock3,
+  Package,
+  Stairs,
+} from "lucide-react";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -43,55 +51,28 @@ const comparisonRows = [
 
 const pricingFactors = [
   {
-    title: "Truck Space Used",
-    description: "The amount of truck space your project requires.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
-        <path d="m4 7.5 8 4.5 8-4.5" />
-        <path d="M12 12v9" />
-      </svg>
-    ),
+    title: "Truck Space",
+    description:
+      "How much of our truck your project is expected to occupy.",
+    icon: Package,
   },
   {
-    title: "Material Being Removed",
+    title: "Material Type",
     description:
-      "Different materials require different handling and disposal methods.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="3" y="5" width="8" height="5" rx="1" />
-        <rect x="13" y="5" width="8" height="5" rx="1" />
-        <rect x="8" y="12" width="8" height="5" rx="1" />
-        <path d="M3 19h8M13 19h8" />
-      </svg>
-    ),
+      "Different materials may require different handling and disposal.",
+    icon: BrickWall,
   },
   {
     title: "Accessibility",
     description:
-      "Stairs, elevators, long carries, and difficult access may affect labor.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 20h5v-4h4v-4h4V8h5" />
-        <path d="M5 5h5v5" />
-        <path d="m5 10 5-5" />
-      </svg>
-    ),
+      "Stairs, elevators, long carries, and site access may affect labor.",
+    icon: Stairs,
   },
   {
     title: "Time & Labor",
     description:
-      "Some projects require extra time, manpower, or special handling.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M7 9a5 5 0 0 1 10 0" />
-        <path d="M6 9h12" />
-        <path d="M8 9v2a4 4 0 0 0 8 0V9" />
-        <path d="M5 21v-2a5 5 0 0 1 5-5h4" />
-        <circle cx="17" cy="17" r="4" />
-        <path d="M17 15v2l1.4 1" />
-      </svg>
-    ),
+      "Projects requiring additional time or manpower may affect pricing.",
+    icon: Clock3,
   },
 ];
 
@@ -212,16 +193,14 @@ function Reveal({ children, className = "", delay = 0 }) {
   );
 }
 
-function PricingIcon({ children, inverse = false }) {
+function PricingFeatureIcon({ icon: Icon }) {
   return (
-    <div
-      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border ${
-        inverse
-          ? "border-white/10 bg-white/[0.06] text-[#8fbd55]"
-          : "border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d]"
-      }`}
-    >
-      <div className="pricing-icon">{children}</div>
+    <div className="pricing-feature-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d] transition duration-300">
+      <Icon
+        aria-hidden="true"
+        className="h-6 w-6"
+        strokeWidth={1.8}
+      />
     </div>
   );
 }
@@ -633,28 +612,39 @@ export default function PricingPage() {
             </div>
 
             <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {pricingFactors.map((factor, index) => (
-                <Reveal key={factor.title} delay={index * 60}>
-                  <article className="h-full rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-5">
-                    <PricingIcon>{factor.icon}</PricingIcon>
+              {pricingFactors.map((factor, index) => {
+                const Icon = factor.icon;
 
-                    <h3 className="mt-4 font-black text-[#242329]">
-                      {factor.title}
-                    </h3>
+                return (
+                  <Reveal key={factor.title} delay={index * 60}>
+                    <article className="pricing-factor-card group flex h-full flex-col rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-5 shadow-[0_14px_38px_rgba(36,35,41,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/30 hover:shadow-[0_22px_55px_rgba(36,35,41,0.1)]">
+                      <PricingFeatureIcon icon={Icon} />
 
-                    <p className="mt-2 text-sm leading-6 text-[#242329]/62">
-                      {factor.description}
-                    </p>
-                  </article>
-                </Reveal>
-              ))}
+                      <h3 className="mt-4 font-black text-[#242329]">
+                        {factor.title}
+                      </h3>
+
+                      <p className="mt-2 text-sm leading-6 text-[#242329]/62">
+                        {factor.description}
+                      </p>
+                    </article>
+                  </Reveal>
+                );
+              })}
             </div>
 
-            <p className="mt-6 rounded-2xl border border-[#57891d]/20 bg-[#57891d]/[0.07] p-5 text-sm font-semibold leading-7 text-[#242329]/72">
-              Heavy materials such as dirt, concrete, brick, roofing, tile,
-              and asphalt are priced differently because they reach the
-              truck&apos;s weight limit before filling its available space.
-            </p>
+            <div className="mt-6 flex items-center justify-center gap-2.5 text-center text-sm font-semibold leading-6 text-[#242329]/68">
+              <CheckCircle2
+                aria-hidden="true"
+                className="h-5 w-5 shrink-0 text-[#57891d]"
+                strokeWidth={1.9}
+              />
+
+              <p>
+                Your final upfront price is customized for your project and
+                confirmed before any work begins.
+              </p>
+            </div>
           </Reveal>
         </section>
 
@@ -671,43 +661,49 @@ export default function PricingPage() {
               </h2>
             </div>
 
-            <div className="journey-timeline mt-9">
-              <div className="journey-line-track" aria-hidden="true">
-                <span className="journey-line-fill" />
+            <div className="journey-timeline mt-8">
+              <div className="journey-desktop-line" aria-hidden="true">
+                <span className="journey-desktop-line-fill" />
               </div>
 
-              <div className="relative z-10 grid gap-5 lg:grid-cols-5">
+              <div className="journey-mobile-line" aria-hidden="true">
+                <span className="journey-mobile-line-fill" />
+              </div>
+
+              <div className="relative z-10 grid gap-5 lg:grid-cols-5 lg:gap-4">
                 {processSteps.map((step, index) => (
                   <div
                     key={step.title}
-                    className="journey-step"
+                    className="journey-step group relative grid grid-cols-[3.25rem_1fr] items-start gap-4 lg:block"
                     style={{
                       "--journey-delay": `${180 + index * 130}ms`,
                     }}
                   >
-                    <div className="journey-milestone">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-5 w-5"
+                    <div className="relative flex justify-center lg:block">
+                      <div className="journey-milestone">
+                        <Check
+                          aria-hidden="true"
+                          className="h-5 w-5"
+                          strokeWidth={2.6}
+                        />
+                      </div>
+
+                      <span
                         aria-hidden="true"
-                      >
-                        <path d="m5 12 4 4L19 6" />
-                      </svg>
+                        className="journey-connector"
+                      />
                     </div>
 
-                    <article className="mt-4 rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-4 text-center">
-                      <p className="text-xs font-black uppercase tracking-[0.12em] text-[#57891d]">
-                        Step {index + 1}
-                      </p>
+                    <article className="journey-card flex min-h-[92px] items-center rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-4 transition duration-300 group-hover:-translate-y-1 group-hover:border-[#57891d]/25 group-hover:shadow-[0_18px_42px_rgba(36,35,41,0.09)] lg:mt-5 lg:min-h-[116px] lg:justify-center lg:text-center">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.12em] text-[#57891d]">
+                          Step {index + 1}
+                        </p>
 
-                      <p className="mt-1 text-sm font-black leading-5 text-[#242329]">
-                        {step.title}
-                      </p>
+                        <p className="mt-1 text-sm font-black leading-5 text-[#242329]">
+                          {step.title}
+                        </p>
+                      </div>
                     </article>
                   </div>
                 ))}
@@ -857,19 +853,10 @@ export default function PricingPage() {
             transform: translateY(0);
           }
 
-          .pricing-icon {
-            height: 1.55rem;
-            width: 1.55rem;
-          }
-
-          .pricing-icon :global(svg) {
-            height: 100%;
-            width: 100%;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+          .pricing-factor-card:hover .pricing-feature-icon {
+            border-color: rgba(87, 137, 29, 0.45);
+            background: rgba(87, 137, 29, 0.16);
+            box-shadow: 0 10px 28px rgba(87, 137, 29, 0.12);
           }
 
           .truck-image {
@@ -910,27 +897,30 @@ export default function PricingPage() {
             position: relative;
           }
 
-          .journey-line-track {
-            position: absolute;
-            left: 10%;
-            right: 10%;
-            top: 1.5rem;
+          .journey-desktop-line {
             display: none;
-            height: 2px;
-            overflow: hidden;
-            border-radius: 999px;
-            background: rgba(87, 137, 29, 0.16);
           }
 
-          .journey-line-fill {
+          .journey-mobile-line {
+            position: absolute;
+            bottom: 2.25rem;
+            left: 1.625rem;
+            top: 1.625rem;
+            width: 3px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(87, 137, 29, 0.14);
+          }
+
+          .journey-mobile-line-fill {
             display: block;
             height: 100%;
             width: 100%;
             border-radius: inherit;
             background: #57891d;
-            transform: scaleX(0);
-            transform-origin: left;
-            animation: journeyLineDraw 900ms ease-out 180ms forwards;
+            transform: scaleY(0);
+            transform-origin: top;
+            animation: journeyMobileLineDraw 950ms ease-out 150ms forwards;
           }
 
           .journey-step {
@@ -942,20 +932,41 @@ export default function PricingPage() {
 
           .journey-milestone {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             display: flex;
-            height: 3rem;
-            width: 3rem;
-            margin-inline: auto;
+            height: 3.25rem;
+            width: 3.25rem;
             align-items: center;
             justify-content: center;
-            border: 4px solid white;
+            border: 3px solid white;
             border-radius: 999px;
             background: #57891d;
             color: white;
             box-shadow:
-              0 0 0 1px rgba(87, 137, 29, 0.2),
-              0 10px 28px rgba(87, 137, 29, 0.22);
+              0 0 0 1px rgba(87, 137, 29, 0.25),
+              0 9px 24px rgba(87, 137, 29, 0.2);
+            transition:
+              box-shadow 250ms ease,
+              transform 250ms ease;
+          }
+
+          .journey-connector {
+            position: absolute;
+            left: 50%;
+            top: 3.25rem;
+            z-index: 1;
+            height: 1.5rem;
+            width: 2px;
+            transform: translateX(-50%);
+            border-radius: 999px;
+            background: #57891d;
+          }
+
+          .journey-step:hover .journey-milestone {
+            box-shadow:
+              0 0 0 1px rgba(87, 137, 29, 0.35),
+              0 0 24px rgba(87, 137, 29, 0.2),
+              0 12px 28px rgba(87, 137, 29, 0.22);
           }
 
           @keyframes pricingEnter {
@@ -982,13 +993,23 @@ export default function PricingPage() {
             }
           }
 
-          @keyframes journeyLineDraw {
+          @keyframes journeyDesktopLineDraw {
             from {
               transform: scaleX(0);
             }
 
             to {
               transform: scaleX(1);
+            }
+          }
+
+          @keyframes journeyMobileLineDraw {
+            from {
+              transform: scaleY(0);
+            }
+
+            to {
+              transform: scaleY(1);
             }
           }
 
@@ -1005,8 +1026,39 @@ export default function PricingPage() {
           }
 
           @media (min-width: 1024px) {
-            .journey-line-track {
+            .journey-desktop-line {
+              position: absolute;
+              left: 10%;
+              right: 10%;
+              top: 1.625rem;
               display: block;
+              height: 3px;
+              overflow: hidden;
+              border-radius: 999px;
+              background: rgba(87, 137, 29, 0.14);
+            }
+
+            .journey-desktop-line-fill {
+              display: block;
+              height: 100%;
+              width: 100%;
+              border-radius: inherit;
+              background: #57891d;
+              transform: scaleX(0);
+              transform-origin: left;
+              animation: journeyDesktopLineDraw 950ms ease-out 150ms forwards;
+            }
+
+            .journey-mobile-line {
+              display: none;
+            }
+
+            .journey-milestone {
+              margin-inline: auto;
+            }
+
+            .journey-connector {
+              height: 1.65rem;
             }
           }
 
@@ -1027,15 +1079,26 @@ export default function PricingPage() {
               transition: none;
             }
 
-            .journey-line-fill,
+            .journey-desktop-line-fill,
+            .journey-mobile-line-fill,
             .journey-step {
               animation: none;
               opacity: 1;
               transform: none;
             }
 
-            .journey-line-fill {
+            .journey-desktop-line-fill {
               transform: scaleX(1);
+            }
+
+            .journey-mobile-line-fill {
+              transform: scaleY(1);
+            }
+
+            .journey-card,
+            .journey-milestone,
+            .pricing-feature-icon {
+              transition: none;
             }
           }
         `}</style>
