@@ -47,9 +47,9 @@ const pricingFactors = [
     description: "The amount of truck space your project requires.",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 7 12 3l8 4-8 4-8-4Z" />
-        <path d="M4 7v10l8 4 8-4V7" />
-        <path d="M12 11v10" />
+        <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
+        <path d="m4 7.5 8 4.5 8-4.5" />
+        <path d="M12 12v9" />
       </svg>
     ),
   },
@@ -59,9 +59,10 @@ const pricingFactors = [
       "Different materials require different handling and disposal methods.",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 6h8v5H3V6Z" />
-        <path d="M13 6h8v5h-8V6Z" />
-        <path d="M8 13h8v5H8v-5Z" />
+        <rect x="3" y="5" width="8" height="5" rx="1" />
+        <rect x="13" y="5" width="8" height="5" rx="1" />
+        <rect x="8" y="12" width="8" height="5" rx="1" />
+        <path d="M3 19h8M13 19h8" />
       </svg>
     ),
   },
@@ -71,7 +72,7 @@ const pricingFactors = [
       "Stairs, elevators, long carries, and difficult access may affect labor.",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 20h4v-4h4v-4h4V8h4" />
+        <path d="M3 20h5v-4h4v-4h4V8h5" />
         <path d="M5 5h5v5" />
         <path d="m5 10 5-5" />
       </svg>
@@ -86,7 +87,9 @@ const pricingFactors = [
         <path d="M7 9a5 5 0 0 1 10 0" />
         <path d="M6 9h12" />
         <path d="M8 9v2a4 4 0 0 0 8 0V9" />
-        <path d="M5 21v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v2" />
+        <path d="M5 21v-2a5 5 0 0 1 5-5h4" />
+        <circle cx="17" cy="17" r="4" />
+        <path d="M17 15v2l1.4 1" />
       </svg>
     ),
   },
@@ -95,52 +98,18 @@ const pricingFactors = [
 const processSteps = [
   {
     title: "Text Photos or Call",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M5 4h14v12H8l-3 3V4Z" />
-        <path d="M9 8h6M9 12h4" />
-      </svg>
-    ),
   },
   {
     title: "Receive Your Free Estimate",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 5h16v14H4V5Z" />
-        <path d="M8 9h8M8 13h5" />
-      </svg>
-    ),
   },
   {
     title: "Official Price Confirmed On-Site",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 11 12 4l9 7" />
-        <path d="M5 10v10h14V10" />
-        <path d="m9 15 2 2 4-4" />
-      </svg>
-    ),
   },
   {
     title: "We Remove Everything",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 7h11v9H3V7Z" />
-        <path d="M14 10h4l3 3v3h-7" />
-        <path d="M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-        <path d="M18 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-      </svg>
-    ),
   },
   {
     title: "Pay After Completion",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 6h16v12H4V6Z" />
-        <path d="M8 10h5M8 14h3" />
-        <path d="M16 9v6" />
-      </svg>
-    ),
   },
 ];
 
@@ -246,7 +215,7 @@ function Reveal({ children, className = "", delay = 0 }) {
 function PricingIcon({ children, inverse = false }) {
   return (
     <div
-      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border ${
+      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border ${
         inverse
           ? "border-white/10 bg-white/[0.06] text-[#8fbd55]"
           : "border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d]"
@@ -702,15 +671,36 @@ export default function PricingPage() {
               </h2>
             </div>
 
-            <div className="relative mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              <div className="absolute left-[9%] right-[9%] top-6 hidden h-px bg-[#57891d]/35 lg:block" />
+            <div className="journey-timeline mt-9">
+              <div className="journey-line-track" aria-hidden="true">
+                <span className="journey-line-fill" />
+              </div>
 
-              {processSteps.map((step, index) => (
-                <Reveal key={step.title} delay={index * 70}>
-                  <article className="relative z-10 flex h-full items-center gap-3 rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-4 lg:flex-col lg:text-center">
-                    <PricingIcon>{step.icon}</PricingIcon>
+              <div className="relative z-10 grid gap-5 lg:grid-cols-5">
+                {processSteps.map((step, index) => (
+                  <div
+                    key={step.title}
+                    className="journey-step"
+                    style={{
+                      "--journey-delay": `${180 + index * 130}ms`,
+                    }}
+                  >
+                    <div className="journey-milestone">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-5 w-5"
+                        aria-hidden="true"
+                      >
+                        <path d="m5 12 4 4L19 6" />
+                      </svg>
+                    </div>
 
-                    <div>
+                    <article className="mt-4 rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-4 text-center">
                       <p className="text-xs font-black uppercase tracking-[0.12em] text-[#57891d]">
                         Step {index + 1}
                       </p>
@@ -718,10 +708,10 @@ export default function PricingPage() {
                       <p className="mt-1 text-sm font-black leading-5 text-[#242329]">
                         {step.title}
                       </p>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
+                    </article>
+                  </div>
+                ))}
+              </div>
             </div>
           </Reveal>
         </section>
@@ -916,6 +906,58 @@ export default function PricingPage() {
             outline: none;
           }
 
+          .journey-timeline {
+            position: relative;
+          }
+
+          .journey-line-track {
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            top: 1.5rem;
+            display: none;
+            height: 2px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(87, 137, 29, 0.16);
+          }
+
+          .journey-line-fill {
+            display: block;
+            height: 100%;
+            width: 100%;
+            border-radius: inherit;
+            background: #57891d;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: journeyLineDraw 900ms ease-out 180ms forwards;
+          }
+
+          .journey-step {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: journeyStepReveal 480ms ease-out
+              var(--journey-delay) forwards;
+          }
+
+          .journey-milestone {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            height: 3rem;
+            width: 3rem;
+            margin-inline: auto;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid white;
+            border-radius: 999px;
+            background: #57891d;
+            color: white;
+            box-shadow:
+              0 0 0 1px rgba(87, 137, 29, 0.2),
+              0 10px 28px rgba(87, 137, 29, 0.22);
+          }
+
           @keyframes pricingEnter {
             from {
               opacity: 0;
@@ -940,6 +982,34 @@ export default function PricingPage() {
             }
           }
 
+          @keyframes journeyLineDraw {
+            from {
+              transform: scaleX(0);
+            }
+
+            to {
+              transform: scaleX(1);
+            }
+          }
+
+          @keyframes journeyStepReveal {
+            from {
+              opacity: 0;
+              transform: translateY(10px);
+            }
+
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @media (min-width: 1024px) {
+            .journey-line-track {
+              display: block;
+            }
+          }
+
           @media (prefers-reduced-motion: reduce) {
             .pricing-enter,
             .truck-image {
@@ -955,6 +1025,17 @@ export default function PricingPage() {
 
             .truck-bed-section {
               transition: none;
+            }
+
+            .journey-line-fill,
+            .journey-step {
+              animation: none;
+              opacity: 1;
+              transform: none;
+            }
+
+            .journey-line-fill {
+              transform: scaleX(1);
             }
           }
         `}</style>
