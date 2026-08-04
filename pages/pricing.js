@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const PHONE_DISPLAY = "(818) 538-1072";
 const PHONE_LINK = "tel:+18185381072";
 
 const TEXT_MESSAGE =
@@ -17,32 +16,19 @@ const TRUCK_IMAGE = "/pricing/truck.png";
 const loadLevels = [
   {
     label: "¼ Load",
-    examples: ["Sofa", "Mattress", "Recliner", "Small Garage Cleanup"],
+    examples: ["Couch + Mattress", "Small Garage Cleanup"],
   },
   {
     label: "½ Load",
-    examples: [
-      "Bedroom Furniture",
-      "Washer & Dryer",
-      "Patio Furniture",
-      "Medium Garage Cleanup",
-    ],
+    examples: ["Bedroom Furniture", "Medium Garage Cleanup"],
   },
   {
     label: "¾ Load",
-    examples: [
-      "Renovation Debris",
-      "Multiple Rooms of Furniture",
-      "Large Garage Cleanup",
-    ],
+    examples: ["Renovation Debris", "Multiple Rooms of Furniture"],
   },
   {
     label: "Full Load",
-    examples: [
-      "Estate Cleanout",
-      "Whole Property Cleanup",
-      "Large Construction Debris Removal",
-    ],
+    examples: ["Estate Cleanout", "Large Construction Cleanup"],
   },
 ];
 
@@ -117,7 +103,7 @@ const processSteps = [
     ),
   },
   {
-    title: "Receive an Estimate",
+    title: "Receive Your Free Estimate",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 5h16v14H4V5Z" />
@@ -126,21 +112,12 @@ const processSteps = [
     ),
   },
   {
-    title: "Free On-Site Visit",
-    subtitle: "If needed",
+    title: "Official Price Confirmed On-Site",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M3 11 12 4l9 7" />
         <path d="M5 10v10h14V10" />
-        <path d="M9 20v-6h6v6" />
-      </svg>
-    ),
-  },
-  {
-    title: "Approve the Price",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m5 12 4 4L19 6" />
+        <path d="m9 15 2 2 4-4" />
       </svg>
     ),
   },
@@ -152,16 +129,6 @@ const processSteps = [
         <path d="M14 10h4l3 3v3h-7" />
         <path d="M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
         <path d="M18 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Sweep-Up Before We Leave",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m14 4 6 6" />
-        <path d="m17 7-8 8" />
-        <path d="M5 14h7l4 6H5l-2-3 2-3Z" />
       </svg>
     ),
   },
@@ -192,14 +159,14 @@ const guaranteeItems = [
   "Upfront Pricing",
   "No Obligation",
   "Family-Owned",
-  "Licensed & Insured",
+  "Final Price Confirmed Before Work Begins",
 ];
 
 const faqs = [
   {
     question: "Why can't you give an exact price over the phone?",
     answer:
-      "Every project is different. The final price depends on truck space, material type, accessibility, labor, and disposal requirements. We can often provide a rough estimate from photos, but an on-site estimate gives us the clearest way to provide an accurate upfront price.",
+      "Every project is different. The final price depends on truck space, material type, accessibility, labor, and disposal requirements. We can often provide a rough estimate from photos, but an on-site estimate gives us the clearest way to provide an accurate final price.",
   },
   {
     question: "Can I text photos for an estimate?",
@@ -209,7 +176,7 @@ const faqs = [
   {
     question: "When do I pay?",
     answer:
-      "You pay only after you approve the quote and the agreed-upon work is completed.",
+      "You pay only after you approve the price and the agreed-upon work is completed.",
   },
   {
     question: "Do I need to be home?",
@@ -224,7 +191,7 @@ const faqs = [
   {
     question: "What happens if I decide not to move forward?",
     answer:
-      "There is no charge and no obligation. Nothing begins until you approve the upfront price.",
+      "You owe nothing. No work begins until the final on-site price is confirmed and approved by you.",
   },
 ];
 
@@ -308,6 +275,26 @@ function CheckItem({ children, light = false }) {
   );
 }
 
+function ShieldIcon() {
+  return (
+    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-[#8fbd55]">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-7 w-7"
+        aria-hidden="true"
+      >
+        <path d="M12 3 20 6v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6l8-3Z" />
+        <path d="m8.5 12 2.2 2.2 4.8-5" />
+      </svg>
+    </div>
+  );
+}
+
 function FAQItem({ item, open, onToggle }) {
   return (
     <article className="overflow-hidden rounded-2xl border border-[#242329]/10 bg-white shadow-[0_14px_38px_rgba(36,35,41,0.06)]">
@@ -348,7 +335,7 @@ function TruckGuide() {
   const [activeLoad, setActiveLoad] = useState(null);
 
   return (
-    <div className="mt-8">
+    <div className="mt-7">
       <div className="relative mx-auto max-w-6xl">
         <div className="relative">
           <img
@@ -357,7 +344,10 @@ function TruckGuide() {
             className="truck-image mx-auto block h-auto max-h-[590px] w-full object-contain"
           />
 
-          <div className="truck-bed-guide" aria-label="Interactive truck load guide">
+          <div
+            className="truck-bed-guide"
+            aria-label="Interactive truck load guide"
+          >
             {loadLevels.map((load, index) => (
               <button
                 key={load.label}
@@ -426,7 +416,7 @@ export default function PricingPage() {
 
         <meta
           name="description"
-          content="Understand Everhaul Solutions junk removal pricing, estimate your truck space, and request a free upfront quote for hauling and cleanout services across Los Angeles."
+          content="Understand how Everhaul Solutions prices junk removal and debris hauling projects. Estimate your load size and request a free upfront estimate."
         />
 
         <link
@@ -451,7 +441,7 @@ export default function PricingPage() {
             </p>
 
             <h1 className="mt-4 text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl lg:text-6xl">
-              Transparent & Upfront Pricing
+              Understand How Junk Removal Pricing Works
             </h1>
 
             <p className="mt-4 text-xl font-bold text-white/80 sm:text-2xl">
@@ -459,9 +449,10 @@ export default function PricingPage() {
             </p>
 
             <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-white/68 sm:text-lg">
-              At Everhaul Solutions, you&apos;ll always receive an upfront
-              price before any work begins. Every project includes a free
-              estimate, and nothing starts until you approve the price.
+              Every project is unique. You&apos;ll always receive an upfront
+              estimate, and we&apos;ll confirm the final price on-site before
+              any work begins. If you decide not to move forward, you owe
+              nothing.
             </p>
 
             <div className="mx-auto mt-6 inline-flex flex-col rounded-2xl border border-[#57891d]/35 bg-[#57891d]/12 px-6 py-4 shadow-[0_18px_48px_rgba(0,0,0,0.2)]">
@@ -480,6 +471,7 @@ export default function PricingPage() {
                 "Licensed & Insured",
                 "Family-Owned",
                 "No Hidden Fees",
+                "Final Price Confirmed Before We Begin",
               ].map((item) => (
                 <span
                   key={item}
@@ -502,53 +494,51 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* Educational flow */}
-        <section className="px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
+        {/* Load-size education */}
+        <section className="px-5 py-9 sm:px-6 sm:py-11 lg:px-8">
           <Reveal className="mx-auto max-w-6xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 text-center shadow-[0_24px_70px_rgba(36,35,41,0.08)] sm:p-8">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
               How Volume Pricing Works
             </p>
 
             <h2 className="mt-3 text-3xl font-black tracking-tight text-[#242329] sm:text-4xl">
-              Estimate How Much Truck Space You&apos;ll Need
+              Estimate Your Load Size
             </h2>
 
             <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-[#242329]/65 sm:text-base">
-              You only pay for the truck space your items use—not for empty
-              space. Unlike flat-rate pricing, your estimate is based on how
-              much of our truck your project occupies.
+              You only pay for the portion of our truck your project fills—not
+              for unused space.
             </p>
 
-            <div className="mx-auto mt-7 grid max-w-4xl gap-3 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
-              {[
-                ["01", "Your Items"],
-                ["02", "Fill Half the Truck"],
-                ["03", "Pay for Half the Truck"],
-              ].map(([number, label], index) => (
-                <div key={label} className="contents">
-                  <div className="rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-5">
-                    <p className="text-xs font-black text-[#57891d]">
-                      {number}
-                    </p>
-                    <p className="mt-2 font-black text-[#242329]">{label}</p>
-                  </div>
+            <div className="relative mx-auto mt-7 max-w-5xl">
+              <div className="absolute left-[14%] right-[14%] top-1/2 hidden h-px -translate-y-1/2 bg-[#57891d]/35 md:block" />
 
-                  {index < 2 && (
-                    <span
-                      aria-hidden="true"
-                      className="hidden text-xl font-black text-[#57891d]/55 md:block"
-                    >
-                      →
+              <div className="relative z-10 grid gap-4 md:grid-cols-3">
+                {[
+                  ["📦", "Gather Your Items"],
+                  ["🚚", "Estimate How Much of Our Truck They’ll Fill"],
+                  ["💲", "Pay Only For That Portion"],
+                ].map(([icon, label]) => (
+                  <article
+                    key={label}
+                    className="rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-5 shadow-[0_12px_30px_rgba(36,35,41,0.05)]"
+                  >
+                    <span className="text-3xl" aria-hidden="true">
+                      {icon}
                     </span>
-                  )}
-                </div>
-              ))}
+
+                    <p className="mt-3 font-black leading-6 text-[#242329]">
+                      {label}
+                    </p>
+                  </article>
+                ))}
+              </div>
             </div>
           </Reveal>
         </section>
 
-        {/* Truck capacity and interactive guide */}
-        <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
+        {/* Truck capacity */}
+        <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-7xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.09)] sm:p-8 lg:p-10">
             <div className="text-center">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
@@ -560,17 +550,12 @@ export default function PricingPage() {
               </h2>
 
               <p className="mx-auto mt-4 max-w-4xl text-sm leading-7 text-[#242329]/65 sm:text-base">
-                That&apos;s about the same as{" "}
+                Approximately the same as{" "}
                 <strong className="text-[#242329]">
                   8–10 standard pickup truck loads
                 </strong>
                 , making it easy to handle everything from a few furniture
-                items to full-property cleanouts in a single trip.
-              </p>
-
-              <p className="mx-auto mt-2 max-w-3xl text-sm font-semibold leading-7 text-[#242329]/70">
-                Use the truck illustration below to estimate how much truck
-                space your project may require.
+                items to large cleanouts in one trip.
               </p>
             </div>
 
@@ -578,8 +563,8 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* What fits */}
-        <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
+        {/* Load examples */}
+        <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-7xl">
             <div className="text-center">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
@@ -611,8 +596,8 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Comparison and photo CTA */}
-        <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
+        {/* Common project guide */}
+        <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-[#242329]/10 bg-white shadow-[0_24px_70px_rgba(36,35,41,0.08)]">
             <div className="p-6 sm:p-8">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
@@ -624,7 +609,7 @@ export default function PricingPage() {
               </h2>
 
               <div className="mt-6 overflow-hidden rounded-2xl border border-[#242329]/10">
-                <div className="grid grid-cols-[1.3fr_0.7fr] bg-[#242329] px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-white sm:px-6">
+                <div className="grid grid-cols-[1.3fr_0.7fr] bg-[#242329] px-5 py-4 text-xs font-black uppercase tracking-[0.14em] text-white sm:px-7">
                   <span>Common Project</span>
                   <span>Typical Truck Space</span>
                 </div>
@@ -632,13 +617,14 @@ export default function PricingPage() {
                 {comparisonRows.map(([project, space], index) => (
                   <div
                     key={project}
-                    className={`grid grid-cols-[1.3fr_0.7fr] gap-4 px-4 py-4 text-sm sm:px-6 ${
+                    className={`grid grid-cols-[1.3fr_0.7fr] gap-4 px-5 py-5 text-sm sm:px-7 ${
                       index % 2 === 0 ? "bg-white" : "bg-[#f4f4f2]"
                     }`}
                   >
                     <span className="font-semibold text-[#242329]/75">
                       {project}
                     </span>
+
                     <span className="font-black text-[#57891d]">{space}</span>
                   </div>
                 ))}
@@ -665,7 +651,7 @@ export default function PricingPage() {
         </section>
 
         {/* Pricing factors */}
-        <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
+        <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-7xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.08)] sm:p-8">
             <div className="text-center">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
@@ -703,8 +689,8 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Timeline */}
-        <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
+        {/* Customer journey */}
+        <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-7xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.08)] sm:p-8">
             <div className="text-center">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
@@ -716,11 +702,11 @@ export default function PricingPage() {
               </h2>
             </div>
 
-            <div className="relative mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
-              <div className="absolute left-[7%] right-[7%] top-6 hidden h-px bg-[#57891d]/25 lg:block" />
+            <div className="relative mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              <div className="absolute left-[9%] right-[9%] top-6 hidden h-px bg-[#57891d]/35 lg:block" />
 
               {processSteps.map((step, index) => (
-                <Reveal key={step.title} delay={index * 65}>
+                <Reveal key={step.title} delay={index * 70}>
                   <article className="relative z-10 flex h-full items-center gap-3 rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-4 lg:flex-col lg:text-center">
                     <PricingIcon>{step.icon}</PricingIcon>
 
@@ -729,15 +715,9 @@ export default function PricingPage() {
                         Step {index + 1}
                       </p>
 
-                      <p className="mt-1 text-sm font-black text-[#242329]">
+                      <p className="mt-1 text-sm font-black leading-5 text-[#242329]">
                         {step.title}
                       </p>
-
-                      {step.subtitle && (
-                        <p className="mt-1 text-xs font-semibold text-[#242329]/50">
-                          {step.subtitle}
-                        </p>
-                      )}
                     </div>
                   </article>
                 </Reveal>
@@ -746,8 +726,8 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Included and guarantee */}
-        <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
+        {/* Included and pricing guarantee */}
+        <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-2">
             <Reveal>
               <article className="h-full rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.08)] sm:p-8">
@@ -772,13 +752,19 @@ export default function PricingPage() {
                 <div className="pointer-events-none absolute right-[-100px] top-[-120px] h-64 w-64 rounded-full bg-[#57891d]/18 blur-[80px]" />
 
                 <div className="relative z-10">
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#8fbd55]">
-                    Our Pricing Guarantee
-                  </p>
+                  <div className="flex items-center gap-4">
+                    <ShieldIcon />
 
-                  <h2 className="mt-3 text-3xl font-black tracking-tight text-white">
-                    Honest Pricing Without Pressure
-                  </h2>
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-[#8fbd55]">
+                        Our Pricing Promise
+                      </p>
+
+                      <h2 className="mt-2 text-3xl font-black tracking-tight text-white">
+                        Honest Pricing Without Pressure
+                      </h2>
+                    </div>
+                  </div>
 
                   <div className="mt-6 grid gap-4 sm:grid-cols-2">
                     {guaranteeItems.map((item) => (
@@ -799,7 +785,7 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ */}
-        <section className="px-5 pb-10 sm:px-6 sm:pb-12 lg:px-8">
+        <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-5xl">
             <div className="text-center">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
@@ -886,13 +872,9 @@ export default function PricingPage() {
             width: 1.55rem;
           }
 
-          .pricing-icon :global(svg),
-          .truck-image :global(svg) {
+          .pricing-icon :global(svg) {
             height: 100%;
             width: 100%;
-          }
-
-          .pricing-icon :global(svg) {
             fill: none;
             stroke: currentColor;
             stroke-width: 1.8;
@@ -904,10 +886,6 @@ export default function PricingPage() {
             animation: truckFadeIn 700ms ease-out both;
           }
 
-          /*
-            Adjust only these four values if the hover areas do not align
-            exactly with the dump bed in your specific truck PNG.
-          */
           .truck-bed-guide {
             position: absolute;
             left: 8%;
@@ -926,15 +904,15 @@ export default function PricingPage() {
             cursor: pointer;
             pointer-events: auto;
             transition:
-              background-color 240ms ease,
-              box-shadow 240ms ease;
+              background-color 320ms ease,
+              box-shadow 320ms ease;
           }
 
           .truck-bed-section:hover,
           .truck-bed-section:focus-visible,
           .truck-bed-section-active {
             background: rgba(87, 137, 29, 0.44);
-            box-shadow: inset 0 0 28px rgba(87, 137, 29, 0.26);
+            box-shadow: inset 0 0 30px rgba(87, 137, 29, 0.25);
             outline: none;
           }
 
