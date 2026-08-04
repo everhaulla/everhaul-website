@@ -757,10 +757,10 @@ export default function PricingPage() {
             <div className="mt-6 flex items-center justify-center gap-2.5 text-center text-sm font-semibold leading-6 text-[#242329]/68">
               <CheckCircleIcon className="h-5 w-5 shrink-0 text-[#57891d]" />
 
-              <p>
-                Your final upfront price is customized for your
-                project and confirmed before any work begins.
-              </p>
+            <p className="text-gray-700 leading-7">
+  Your final upfront price is customized for your
+  project and confirmed before any work begins.
+</p>
             </div>
           </Reveal>
         </section>
