@@ -745,7 +745,7 @@ export default function PricingPage() {
                         {factor.title}
                       </h3>
 
-                      <p className="mt-2 text-sm leading-6 text-[#242329]/62">
+                      <p className="mt-2 text-sm leading-6 text-gray-700">
                         {factor.description}
                       </p>
                     </article>
