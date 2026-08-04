@@ -1,13 +1,5 @@
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
-import {
-  BrickWall,
-  Check,
-  CheckCircle2,
-  Clock3,
-  Package,
-  Stairs,
-} from "lucide-react";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,6 +12,122 @@ const TEXT_MESSAGE =
 const TEXT_LINK = `sms:+18185381072?&body=${encodeURIComponent(TEXT_MESSAGE)}`;
 
 const TRUCK_IMAGE = "/pricing/truck.png";
+
+function PackageIcon({ className = "h-6 w-6" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
+      <path d="m4 7.5 8 4.5 8-4.5" />
+      <path d="M12 12v9" />
+    </svg>
+  );
+}
+
+function MaterialIcon({ className = "h-6 w-6" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="3" y="5" width="8" height="5" rx="1" />
+      <rect x="13" y="5" width="8" height="5" rx="1" />
+      <rect x="8" y="12" width="8" height="5" rx="1" />
+      <path d="M3 19h8" />
+      <path d="M13 19h8" />
+    </svg>
+  );
+}
+
+function StairsIcon({ className = "h-6 w-6" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M3 20h5v-4h4v-4h4V8h5" />
+      <path d="M5 5h5v5" />
+      <path d="m5 10 5-5" />
+    </svg>
+  );
+}
+
+function LaborClockIcon({ className = "h-6 w-6" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M7 9a5 5 0 0 1 10 0" />
+      <path d="M6 9h12" />
+      <path d="M8 9v2a4 4 0 0 0 8 0V9" />
+      <path d="M5 21v-2a5 5 0 0 1 5-5h4" />
+      <circle cx="17" cy="17" r="4" />
+      <path d="M17 15v2l1.4 1" />
+    </svg>
+  );
+}
+
+function CheckIcon({ className = "h-5 w-5", strokeWidth = 2.6 }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="m5 12 4 4L19 6" />
+    </svg>
+  );
+}
+
+function CheckCircleIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.9"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8 12 2.5 2.5L16 9" />
+    </svg>
+  );
+}
 
 const loadLevels = [
   {
@@ -54,25 +162,25 @@ const pricingFactors = [
     title: "Truck Space",
     description:
       "How much of our truck your project is expected to occupy.",
-    icon: Package,
+    icon: PackageIcon,
   },
   {
     title: "Material Type",
     description:
       "Different materials may require different handling and disposal.",
-    icon: BrickWall,
+    icon: MaterialIcon,
   },
   {
     title: "Accessibility",
     description:
       "Stairs, elevators, long carries, and site access may affect labor.",
-    icon: Stairs,
+    icon: StairsIcon,
   },
   {
     title: "Time & Labor",
     description:
       "Projects requiring additional time or manpower may affect pricing.",
-    icon: Clock3,
+    icon: LaborClockIcon,
   },
 ];
 
@@ -152,7 +260,9 @@ function Reveal({ children, className = "", delay = 0 }) {
   useEffect(() => {
     const element = elementRef.current;
 
-    if (!element) return undefined;
+    if (!element) {
+      return undefined;
+    }
 
     if (
       typeof window === "undefined" ||
@@ -196,11 +306,7 @@ function Reveal({ children, className = "", delay = 0 }) {
 function PricingFeatureIcon({ icon: Icon }) {
   return (
     <div className="pricing-feature-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#57891d]/25 bg-[#57891d]/10 text-[#57891d] transition duration-300">
-      <Icon
-        aria-hidden="true"
-        className="h-6 w-6"
-        strokeWidth={1.8}
-      />
+      <Icon className="h-6 w-6" />
     </div>
   );
 }
@@ -252,7 +358,9 @@ function FAQItem({ item, open, onToggle }) {
         aria-expanded={open}
         className="flex w-full items-center justify-between gap-5 px-5 py-4 text-left sm:px-6"
       >
-        <span className="font-black text-[#242329]">{item.question}</span>
+        <span className="font-black text-[#242329]">
+          {item.question}
+        </span>
 
         <span
           aria-hidden="true"
@@ -312,7 +420,9 @@ function TruckGuide() {
                   )
                 }
                 className={`truck-bed-section ${
-                  activeLoad === index ? "truck-bed-section-active" : ""
+                  activeLoad === index
+                    ? "truck-bed-section-active"
+                    : ""
                 }`}
               />
             ))}
@@ -376,7 +486,6 @@ export default function PricingPage() {
       <Navbar />
 
       <main className="overflow-hidden bg-[#f4f4f2]">
-        {/* Hero */}
         <section className="relative bg-[#242329] px-5 pb-12 pt-32 text-white sm:px-6 sm:pb-14 sm:pt-36 lg:px-8">
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute left-1/2 top-[-280px] h-[540px] w-[540px] -translate-x-1/2 rounded-full bg-[#57891d]/15 blur-[140px]" />
@@ -397,10 +506,10 @@ export default function PricingPage() {
             </p>
 
             <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-white/68 sm:text-lg">
-              Every project is unique. You&apos;ll always receive an upfront
-              estimate, and we&apos;ll confirm the final price on-site before
-              any work begins. If you decide not to move forward, you owe
-              nothing.
+              Every project is unique. You&apos;ll always receive an
+              upfront estimate, and we&apos;ll confirm the final price
+              on-site before any work begins. If you decide not to move
+              forward, you owe nothing.
             </p>
 
             <div className="mx-auto mt-6 inline-flex flex-col rounded-2xl border border-[#57891d]/35 bg-[#57891d]/12 px-6 py-4 shadow-[0_18px_48px_rgba(0,0,0,0.2)]">
@@ -442,7 +551,6 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* Load-size education */}
         <section className="px-5 py-9 sm:px-6 sm:py-11 lg:px-8">
           <Reveal className="mx-auto max-w-6xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 text-center shadow-[0_24px_70px_rgba(36,35,41,0.08)] sm:p-8">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-[#57891d]">
@@ -454,8 +562,8 @@ export default function PricingPage() {
             </h2>
 
             <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-[#242329]/65 sm:text-base">
-              You only pay for the portion of our truck your project fills—not
-              for unused space.
+              You only pay for the portion of our truck your project
+              fills—not for unused space.
             </p>
 
             <div className="relative mx-auto mt-7 max-w-5xl">
@@ -464,14 +572,20 @@ export default function PricingPage() {
               <div className="relative z-10 grid gap-4 md:grid-cols-3">
                 {[
                   ["📦", "Gather Your Items"],
-                  ["🚚", "Estimate How Much of Our Truck They’ll Fill"],
+                  [
+                    "🚚",
+                    "Estimate How Much of Our Truck They’ll Fill",
+                  ],
                   ["💲", "Pay Only For That Portion"],
                 ].map(([icon, label]) => (
                   <article
                     key={label}
                     className="rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-5 shadow-[0_12px_30px_rgba(36,35,41,0.05)]"
                   >
-                    <span className="text-3xl" aria-hidden="true">
+                    <span
+                      className="text-3xl"
+                      aria-hidden="true"
+                    >
                       {icon}
                     </span>
 
@@ -485,7 +599,6 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Truck capacity */}
         <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-7xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.09)] sm:p-8 lg:p-10">
             <div className="text-center">
@@ -511,7 +624,6 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Load examples */}
         <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-7xl">
             <div className="text-center">
@@ -534,7 +646,9 @@ export default function PricingPage() {
 
                     <div className="mt-5 grid gap-3">
                       {load.examples.map((example) => (
-                        <CheckItem key={example}>{example}</CheckItem>
+                        <CheckItem key={example}>
+                          {example}
+                        </CheckItem>
                       ))}
                     </div>
                   </article>
@@ -544,7 +658,6 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Common project guide */}
         <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-[#242329]/10 bg-white shadow-[0_24px_70px_rgba(36,35,41,0.08)]">
             <div className="p-6 sm:p-8">
@@ -562,20 +675,26 @@ export default function PricingPage() {
                   <span>Typical Truck Space</span>
                 </div>
 
-                {comparisonRows.map(([project, space], index) => (
-                  <div
-                    key={project}
-                    className={`grid grid-cols-[1.3fr_0.7fr] gap-4 px-5 py-5 text-sm sm:px-7 ${
-                      index % 2 === 0 ? "bg-white" : "bg-[#f4f4f2]"
-                    }`}
-                  >
-                    <span className="font-semibold text-[#242329]/75">
-                      {project}
-                    </span>
+                {comparisonRows.map(
+                  ([project, space], index) => (
+                    <div
+                      key={project}
+                      className={`grid grid-cols-[1.3fr_0.7fr] gap-4 px-5 py-5 text-sm sm:px-7 ${
+                        index % 2 === 0
+                          ? "bg-white"
+                          : "bg-[#f4f4f2]"
+                      }`}
+                    >
+                      <span className="font-semibold text-[#242329]/75">
+                        {project}
+                      </span>
 
-                    <span className="font-black text-[#57891d]">{space}</span>
-                  </div>
-                ))}
+                      <span className="font-black text-[#57891d]">
+                        {space}
+                      </span>
+                    </div>
+                  )
+                )}
               </div>
             </div>
 
@@ -585,10 +704,10 @@ export default function PricingPage() {
               </h3>
 
               <p className="mx-auto mt-3 max-w-3xl text-sm leading-7 text-[#242329]/65 sm:text-base">
-                Text us <strong>2–3 photos</strong> of your project for the
-                most accurate estimate. We&apos;ll often be able to estimate
-                how much truck space your project will require before
-                scheduling an on-site visit.
+                Text us <strong>2–3 photos</strong> of your project
+                for the most accurate estimate. We&apos;ll often be
+                able to estimate how much truck space your project will
+                require before scheduling an on-site visit.
               </p>
 
               <a href={TEXT_LINK} className="btn-primary mt-6">
@@ -598,7 +717,6 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Pricing factors */}
         <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-7xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.08)] sm:p-8">
             <div className="text-center">
@@ -616,7 +734,10 @@ export default function PricingPage() {
                 const Icon = factor.icon;
 
                 return (
-                  <Reveal key={factor.title} delay={index * 60}>
+                  <Reveal
+                    key={factor.title}
+                    delay={index * 60}
+                  >
                     <article className="pricing-factor-card group flex h-full flex-col rounded-2xl border border-[#242329]/10 bg-[#f4f4f2] p-5 shadow-[0_14px_38px_rgba(36,35,41,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/30 hover:shadow-[0_22px_55px_rgba(36,35,41,0.1)]">
                       <PricingFeatureIcon icon={Icon} />
 
@@ -634,21 +755,16 @@ export default function PricingPage() {
             </div>
 
             <div className="mt-6 flex items-center justify-center gap-2.5 text-center text-sm font-semibold leading-6 text-[#242329]/68">
-              <CheckCircle2
-                aria-hidden="true"
-                className="h-5 w-5 shrink-0 text-[#57891d]"
-                strokeWidth={1.9}
-              />
+              <CheckCircleIcon className="h-5 w-5 shrink-0 text-[#57891d]" />
 
               <p>
-                Your final upfront price is customized for your project and
-                confirmed before any work begins.
+                Your final upfront price is customized for your
+                project and confirmed before any work begins.
               </p>
             </div>
           </Reveal>
         </section>
 
-        {/* Customer journey */}
         <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-7xl rounded-[2rem] border border-[#242329]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,35,41,0.08)] sm:p-8">
             <div className="text-center">
@@ -662,11 +778,17 @@ export default function PricingPage() {
             </div>
 
             <div className="journey-timeline mt-8">
-              <div className="journey-desktop-line" aria-hidden="true">
+              <div
+                className="journey-desktop-line"
+                aria-hidden="true"
+              >
                 <span className="journey-desktop-line-fill" />
               </div>
 
-              <div className="journey-mobile-line" aria-hidden="true">
+              <div
+                className="journey-mobile-line"
+                aria-hidden="true"
+              >
                 <span className="journey-mobile-line-fill" />
               </div>
 
@@ -676,16 +798,14 @@ export default function PricingPage() {
                     key={step.title}
                     className="journey-step group relative grid grid-cols-[3.25rem_1fr] items-start gap-4 lg:block"
                     style={{
-                      "--journey-delay": `${180 + index * 130}ms`,
+                      "--journey-delay": `${
+                        180 + index * 130
+                      }ms`,
                     }}
                   >
                     <div className="relative flex justify-center lg:block">
                       <div className="journey-milestone">
-                        <Check
-                          aria-hidden="true"
-                          className="h-5 w-5"
-                          strokeWidth={2.6}
-                        />
+                        <CheckIcon className="h-5 w-5" />
                       </div>
 
                       <span
@@ -712,7 +832,6 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Included and pricing guarantee */}
         <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-2">
             <Reveal>
@@ -761,8 +880,8 @@ export default function PricingPage() {
                   </div>
 
                   <p className="mt-6 rounded-2xl border border-[#57891d]/25 bg-[#57891d]/10 p-5 text-sm font-bold leading-7 text-white/82">
-                    If you decide not to move forward after receiving your
-                    estimate, you owe us absolutely nothing.
+                    If you decide not to move forward after receiving
+                    your estimate, you owe us absolutely nothing.
                   </p>
                 </div>
               </article>
@@ -770,7 +889,6 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* FAQ */}
         <section className="px-5 pb-9 sm:px-6 sm:pb-11 lg:px-8">
           <Reveal className="mx-auto max-w-5xl">
             <div className="text-center">
@@ -800,7 +918,6 @@ export default function PricingPage() {
           </Reveal>
         </section>
 
-        {/* Final CTA */}
         <section className="px-5 pb-16 sm:px-6 sm:pb-20 lg:px-8">
           <Reveal className="mx-auto max-w-5xl">
             <div className="relative overflow-hidden rounded-[2rem] border border-[#57891d]/30 bg-[#242329] p-7 text-center text-white shadow-[0_30px_90px_rgba(36,35,41,0.24)] sm:p-10">
@@ -816,9 +933,9 @@ export default function PricingPage() {
                 </h2>
 
                 <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-white/68 sm:text-lg">
-                  Text us <strong>2–3 photos</strong> of your project and
-                  we&apos;ll usually be able to estimate how much truck space
-                  you&apos;ll need before we arrive.
+                  Text us <strong>2–3 photos</strong> of your
+                  project and we&apos;ll usually be able to estimate how
+                  much truck space you&apos;ll need before we arrive.
                 </p>
 
                 <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
@@ -920,7 +1037,8 @@ export default function PricingPage() {
             background: #57891d;
             transform: scaleY(0);
             transform-origin: top;
-            animation: journeyMobileLineDraw 950ms ease-out 150ms forwards;
+            animation: journeyMobileLineDraw 950ms ease-out 150ms
+              forwards;
           }
 
           .journey-step {
@@ -1046,7 +1164,8 @@ export default function PricingPage() {
               background: #57891d;
               transform: scaleX(0);
               transform-origin: left;
-              animation: journeyDesktopLineDraw 950ms ease-out 150ms forwards;
+              animation: journeyDesktopLineDraw 950ms ease-out 150ms
+                forwards;
             }
 
             .journey-mobile-line {
