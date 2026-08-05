@@ -2,11 +2,9 @@ import Head from "next/head";
 import {
   ArrowRight,
   CheckCircle,
-  Clock,
   MessageCircle,
   Phone,
   ShieldCheck,
-  Truck,
 } from "lucide-react";
 
 import Navbar from "../components/Navbar";
@@ -281,44 +279,61 @@ function HeroSection() {
                 and job sites throughout Los Angeles.
               </p>
 
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-                <a
-                  id="text-photos-cta-hero"
-                  data-conversion-action="text-photos"
-                  href={textHref}
-                  className="group inline-flex items-center justify-center rounded-2xl bg-[#57891d] px-9 py-5 text-base font-black text-white shadow-[0_20px_50px_rgba(87,137,29,0.28)] transition duration-300 hover:-translate-y-1 hover:bg-[#6aa823]"
-                >
-                  <MessageCircle
-                    aria-hidden="true"
-                    className="mr-2"
-                    size={20}
-                  />
-                  Text Photos For A Faster Estimate
-                </a>
+              <div className="mt-10">
+                <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                  <a
+                    id="text-photos-cta-hero"
+                    data-conversion-action="text-photos"
+                    href={textHref}
+                    className="group inline-flex items-center justify-center rounded-2xl bg-[#57891d] px-9 py-5 text-base font-black text-white shadow-[0_20px_50px_rgba(87,137,29,0.28)] transition duration-300 hover:-translate-y-1 hover:bg-[#6aa823]"
+                  >
+                    <MessageCircle
+                      aria-hidden="true"
+                      className="mr-2"
+                      size={20}
+                    />
+                    Text Photos For A Faster Estimate
+                  </a>
 
-                <a
-                  id="call-now-cta-hero"
-                  data-conversion-action="call-now"
-                  href={phoneHref}
-                  className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] px-8 py-4 text-base font-black text-white backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/40 hover:bg-white/[0.09]"
-                >
-                  <Phone aria-hidden="true" className="mr-2" size={18} />
-                  Call Now
-                </a>
+                  <a
+                    id="call-now-cta-hero"
+                    data-conversion-action="call-now"
+                    href={phoneHref}
+                    className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] px-8 py-4 text-base font-black text-white backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/40 hover:bg-white/[0.09]"
+                  >
+                    <Phone aria-hidden="true" className="mr-2" size={18} />
+                    Call Now
+                  </a>
 
-                <a
-                  id="get-quote-cta-hero"
-                  data-conversion-action="get-quote"
-                  href="#quote"
-                  className="group inline-flex items-center justify-center rounded-2xl border border-[#57891d]/35 bg-[#57891d]/15 px-8 py-4 text-base font-black text-white transition duration-300 hover:-translate-y-1 hover:bg-[#57891d]/25"
-                >
-                  Get Free Quote
-                  <ArrowRight
-                    aria-hidden="true"
-                    className="ml-2 transition group-hover:translate-x-1"
-                    size={18}
-                  />
-                </a>
+                  <a
+                    id="get-quote-cta-hero"
+                    data-conversion-action="get-quote"
+                    href="#quote"
+                    className="group inline-flex items-center justify-center rounded-2xl border border-[#57891d]/35 bg-[#57891d]/15 px-8 py-4 text-base font-black text-white transition duration-300 hover:-translate-y-1 hover:bg-[#57891d]/25"
+                  >
+                    Get Free Quote
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="ml-2 transition group-hover:translate-x-1"
+                      size={18}
+                    />
+                  </a>
+                </div>
+
+                <div className="mt-6 text-center sm:text-left">
+                  <a
+                    id="pricing-link-hero"
+                    data-conversion-action="learn-pricing"
+                    href="/pricing"
+                    className="inline-flex cursor-pointer items-center text-[15px] font-semibold text-[#8fbd55] transition-colors duration-200 hover:text-[#a4ca76] hover:underline sm:text-base"
+                  >
+                    💰 See How Pricing Works →
+                  </a>
+
+                  <p className="mt-2 text-sm font-medium text-white/60">
+                    No hidden fees. Free on-site estimates.
+                  </p>
+                </div>
               </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -536,19 +551,14 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>
-          Los Angeles Junk Removal | Everhaul Solutions
-        </title>
+        <title>Los Angeles Junk Removal | Everhaul Solutions</title>
 
         <meta
           name="description"
           content="Professional junk removal in Los Angeles for homes, businesses, apartments, and job sites. Licensed and insured, family-owned service with free estimates and upfront pricing."
         />
 
-        <link
-          rel="canonical"
-          href="https://everhaulsolutions.com/"
-        />
+        <link rel="canonical" href="https://everhaulsolutions.com/" />
       </Head>
 
       <Navbar />
