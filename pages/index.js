@@ -1,6 +1,3 @@
-This update keeps every existing homepage section and component intact while replacing only the hero content and inserting the two requested compact conversion sections before Services. It preserves the existing background image, CTA behavior, section order, Formspree flow, gallery, reviews, footer, and responsive layout while adding stable tracking IDs and pricing-page visibility.
-
-```jsx
 import Head from "next/head";
 import {
   ArrowRight,
@@ -596,4 +593,3 @@ export default function Home() {
     </>
   );
 }
-```
