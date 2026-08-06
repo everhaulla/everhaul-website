@@ -308,7 +308,7 @@ function HeroSection() {
     e.preventDefault();
     handleTextPhotosClick();
   }}
-  className="group inline-flex items-center justify-center ..."
+  className="group inline-flex items-center justify-center rounded-2xl bg-[#57891d] px-8 py-5 text-base font-black text-white shadow-[0_20px_50px_rgba(87,137,29,0.35)] transition hover:-translate-y-1 hover:bg-[#6aa51f]"
 >
                     <MessageCircle
                       aria-hidden="true"
@@ -322,9 +322,7 @@ function HeroSection() {
                     id="call-now-cta-hero"
                     data-conversion-action="call-now"
                     href={phoneHref}
-className="group inline-flex items-center justify-center rounded-2xl bg-[#57891d] px-8 py-5 text-base font-black text-white shadow-[0_20px_50px_rgba(87,137,29,0.35)] transition duration-300 hover:-translate-y-1 hover:bg-[#669f24]"                    >
-                    <Phone aria-hidden="true" className="mr-2" size={18} />
-                    Call Now
+className="group inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] px-8 py-5 text-base font-black text-white backdrop-blur-md transition hover:-translate-y-1 hover:border-[#57891d]/35 hover:bg-white/[0.08]"                    Call Now
                   </a>
 
                   <a
