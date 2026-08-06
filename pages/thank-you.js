@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Script from "next/script";
 
 const textMessage =
   "Hi Everhaul, I'd like a quote. I've attached photos of my project.";
@@ -16,6 +17,15 @@ const trustItems = [
 export default function ThankYouPage() {
   return (
     <>
+    <Script id="google-ads-request-quote-conversion" strategy="afterInteractive">
+  {`
+    gtag('event', 'conversion', {
+      'send_to': 'AW-18352022232/_gadCJGrld0cENjF9q5E',
+      'value': 1.0,
+      'currency': 'USD'
+    });
+  `}
+</Script>
       <Head>
         <title>Quote Request Received | Everhaul Solutions</title>
 
