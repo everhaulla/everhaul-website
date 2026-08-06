@@ -20,7 +20,26 @@ const textHref =
   "sms:+18185381072?&body=Hi%20Everhaul%2C%20I%27d%20like%20a%20quote.%20I%27ve%20attached%20photos%20of%20my%20project.";
 
 const phoneHref = "tel:+18185381072";
+const handleTextPhotosClick = () => {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", "conversion", {
+      send_to: "AW-18352022232/NUbiCJ_uqN0cENjF9q5E",
+      value: 1.0,
+      currency: "USD",
+      event_callback: () => {
+        window.location.href = textHref;
+      },
+    });
 
+    setTimeout(() => {
+      window.location.href = textHref;
+    }, 1000);
+
+    return;
+  }
+
+  window.location.href = textHref;
+};
 function StarOutlineIcon({ className = "h-5 w-5" }) {
   return (
     <svg
@@ -281,12 +300,16 @@ function HeroSection() {
 
               <div className="mt-10">
                 <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-                  <a
-                    id="text-photos-cta-hero"
-                    data-conversion-action="text-photos"
-                    href={textHref}
-                    className="group inline-flex items-center justify-center rounded-2xl bg-[#57891d] px-9 py-5 text-base font-black text-white shadow-[0_20px_50px_rgba(87,137,29,0.28)] transition duration-300 hover:-translate-y-1 hover:bg-[#6aa823]"
-                  >
+                 <a
+  id="text-photos-cta-hero"
+  data-conversion-action="text-photos"
+  href={textHref}
+  onClick={(e) => {
+    e.preventDefault();
+    handleTextPhotosClick();
+  }}
+  className="group inline-flex items-center justify-center ..."
+>
                     <MessageCircle
                       aria-hidden="true"
                       className="mr-2"
