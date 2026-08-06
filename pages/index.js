@@ -322,8 +322,8 @@ function HeroSection() {
                     id="call-now-cta-hero"
                     data-conversion-action="call-now"
                     href={phoneHref}
-                    className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] px-8 py-4 text-base font-black text-white backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-[#57891d]/40 hover:bg-white/[0.09]"
-                  >
+                     className="group inline-flex items-center justify-center rounded-2xl border border-[#57891d]/35 bg-[#57891d] px-8 py-4 text-base font-black text-white shadow-[0_20px_50px_rgba(87,137,29,0.35)] transition duration-300 hover:-translate-y-1 hover:bg-[#669f24]"
+                    >
                     <Phone aria-hidden="true" className="mr-2" size={18} />
                     Call Now
                   </a>
